@@ -1,0 +1,119 @@
+package com.example.ecommerceguiv2.Models;
+
+
+import com.example.ecommerceguiv2.Exceptions.AlreadyExistsException;
+import com.example.ecommerceguiv2.Exceptions.NotFoundException;
+
+import java.util.ArrayList;
+import java.util.List;
+
+class Category {
+    private String name;
+    private  String description;
+    private List<Product> products;
+
+    //    public Category(){
+//        products = new LinkedList<>();
+//    }
+    public Category(String name,String description)
+    {
+        this.name=name;
+        this.description=description;
+        this.products= new ArrayList<Product>();
+    }
+
+    public Category(String name,String description,List<Product> products)
+    {
+        this.name=name;
+        this.description=description;
+        this.products=products;
+    }
+
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        for(Product product : products){
+            product.setCategory(this);
+        }
+        this.products = products;
+    }
+    public void showProducts(){
+        System.out.println("Products: ");
+        for(Product p: products){
+            System.out.println(p.toString());
+        }
+    }
+    public void addProduct(Product newProduct) throws AlreadyExistsException
+    {
+        if (!products.contains(newProduct)) {
+            newProduct.setCategory(this);
+            products.add(newProduct);
+        }
+        else throw new AlreadyExistsException("product already exists");
+    }
+    public void deleteProduct(Product product) throws NotFoundException
+    {
+        if (products.contains(product)) {
+            products.remove(product);
+            product=null;
+        }
+        else throw new NotFoundException("product not found");
+    }
+    public void removeProduct(Product deletedProduct)
+    {
+        products.remove(deletedProduct);
+    }
+
+    public String toString(){
+        return "Name: " + name +
+                "\nDescription: " + description +"\n";
+    }
+
+    public void save(Database db) {
+        db.addCategory(this);
+        System.out.println("Category added successfully");
+    }
+    public static Category findById(int id, Database db){
+        return db.findById(id, Category.class);
+    }
+    public static List<Category> findAll(Database db){
+        return db.findAll(Category.class);
+    }
+    public void update(Database db){
+
+        db.update(Category.class, this);
+    }
+
+    public void delete(Database db) throws NotFoundException {
+        db.delete(Category.class, this);
+    }
+
+    static void deleteById(int id, Database db){
+        db.deleteById(id, Category.class);
+    }
+
+    @Override
+    public boolean equals(Object c){
+        return this.name.equals(((Category) c).name);
+    }
+}

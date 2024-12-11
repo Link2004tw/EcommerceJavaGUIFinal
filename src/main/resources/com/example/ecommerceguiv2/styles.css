@@ -1,0 +1,15 @@
+/* styles.css */
+.button-link {
+    -fx-background-color: transparent; /* Remove background */
+    -fx-border-color: transparent;     /* Remove border */
+    -fx-text-fill: #007bff;             /* Set text color (blue) */
+    -fx-font-size: 14px;                /* Set font size */
+    -fx-cursor: hand;                   /* Change cursor to pointer */
+    -fx-padding: 0;                     /* Remove padding */
+    -fx-underline: true;                /* Underline the text */
+}
+
+.button-link:hover {
+    -fx-text-fill: #0056b3; /* Darker blue on hover */
+    -fx-underline: false;   /* Remove underline on hover */
+}
