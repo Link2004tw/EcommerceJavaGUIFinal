@@ -122,7 +122,7 @@ public class Database {
         throw new NotFoundException("Account not found!!");
     }
 
-    public Customer register(String username, String password) throws NotFoundException, RegisterFailException,IllegalArgumentException, ParseException  {
+    public Customer register(String username,String dateString, String genderInput, String password) throws NotFoundException, RegisterFailException,IllegalArgumentException, ParseException  {
         Date now = new Date();
         boolean found = false;
         for (Customer customer: customers){
@@ -132,9 +132,7 @@ public class Database {
             }
         }
         if (!found) {
-            Scanner scanner = new Scanner(System.in);
             System.out.print("Enter your date of birth(yyyy-MM-dd): ");
-            String dateString = scanner.nextLine();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
             try {
@@ -148,7 +146,6 @@ public class Database {
                 throw new IllegalArgumentException("Invalid date");
             }
             System.out.print("Enter your gender: ");
-            String genderInput = scanner.nextLine();
             Person.Gender gender = Person.Gender.valueOf(genderInput.toUpperCase());
 
             Customer newCustomer = new Customer(username, password, date, 0,gender);

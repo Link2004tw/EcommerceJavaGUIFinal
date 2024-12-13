@@ -1,6 +1,7 @@
 package com.example.ecommerceguiv2;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -21,9 +22,10 @@ public class LabeledTextField extends HBox {
         // Add the label and text field to the layout
         this.getChildren().addAll(label, textField);
 
-        // Layout spacing and padding
+        // Layout spacing, padding, and centering
         this.setSpacing(10);  // Add space between label and text field
         this.setPadding(new Insets(5));  // Padding around the entire container
+        this.setAlignment(Pos.CENTER); //centering
     }
     public TextField getTextField() {
         return textField;
