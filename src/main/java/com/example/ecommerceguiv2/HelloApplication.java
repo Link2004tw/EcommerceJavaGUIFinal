@@ -7,17 +7,10 @@ import com.example.ecommerceguiv2.Models.Customer;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Models.Person;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class HelloApplication extends Application {
     @Override
