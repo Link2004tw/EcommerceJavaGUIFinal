@@ -1,11 +1,12 @@
-.accordion {
-    -fx-border-color: #A67C52;
-    -fx-border-width: 2px;
-}
 .table-view .column-header {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: #fff;
+    -fx-border-color: transparent;
+}
+.table-view:focused .table-row-cell:focused {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 .table-view {
     -fx-border-color: #A67C52;
@@ -19,6 +20,8 @@
 .table-row-cell:filled:selected {
     -fx-background-color: #A67C52;
     -fx-text-fill: #fff;
+    -fx-border-color: transparent;
+
 }
 
 .table-row-cell:hover {
