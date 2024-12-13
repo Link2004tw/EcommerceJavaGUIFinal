@@ -1,9 +1,8 @@
-package com.example.ecommerceguiv2;
+package com.example.ecommerceguiv2.Scenes;
 
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Models.Product;
 import com.example.ecommerceguiv2.Models.Category;
-import javafx.application.Application;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Accordion;
@@ -16,20 +15,21 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
-public class ProductPage extends Application{
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Database db = new Database();
+public class ProductPage {
+    Scene scene;
+
+    public ProductPage(Database db){
         Category electronics = new Category("Electronics", "Electric devices");
         Category clothing = new Category("Clothing", "Clothes and wearables");
         Category groceries = new Category("Groceries", "Food and stuff like that");
         Category [] categories = {electronics,clothing,groceries};
+
         for (Category c: categories){
             db.addCategory(c);
         }
+
         Product[] products = new Product[]{
                 // Electronics
                 new Product("Laptop", "High-performance laptop", 999.99, 10, electronics),
@@ -90,13 +90,12 @@ public class ProductPage extends Application{
         root.setTop(titleLabel);
         root.setCenter(accordion);
         BorderPane.setAlignment(titleLabel, Pos.CENTER);
-        Scene scene = new Scene(root, 800, 600);
+        scene = new Scene(root, 800, 600);
         scene.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/product-styles.css").toExternalForm());
-        primaryStage.setTitle("Available Products");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+
     }
-    public static void main(String[] args) {
-        launch(args);
+
+    public Scene getScene() {
+        return scene;
     }
 }

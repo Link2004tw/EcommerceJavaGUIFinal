@@ -1,4 +1,4 @@
-package Scenes;
+package com.example.ecommerceguiv2.Scenes;
 
 import com.example.ecommerceguiv2.LabeledTextField;
 import com.example.ecommerceguiv2.Models.Customer;

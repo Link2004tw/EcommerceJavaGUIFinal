@@ -11,4 +11,6 @@ module com.example.ecommerceguiv2 {
     opens com.example.ecommerceguiv2.Models to javafx.fxml;
     exports com.example.ecommerceguiv2.Exceptions;
     opens com.example.ecommerceguiv2.Exceptions to javafx.fxml;
+    exports com.example.ecommerceguiv2.Scenes;
+    opens com.example.ecommerceguiv2.Scenes to javafx.fxml;
 }

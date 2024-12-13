@@ -1,11 +1,13 @@
 package com.example.ecommerceguiv2;
 
-import Scenes.LoginScene;
-import Scenes.RegisterScene;
+import com.example.ecommerceguiv2.Models.Product;
+import com.example.ecommerceguiv2.Scenes.ProductPage;
+import com.example.ecommerceguiv2.Scenes.RegisterScene;
 import com.example.ecommerceguiv2.Exceptions.NotFoundException;
 import com.example.ecommerceguiv2.Models.Customer;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Models.Person;
+import com.example.ecommerceguiv2.Scenes.LoginScene;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -24,14 +26,14 @@ public class HelloApplication extends Application {
         db.addCustomer(customer);
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-
-
         LoginScene loginScene = new LoginScene(db, sc);
         RegisterScene registerScene = new RegisterScene(db, sc);
-
+        ProductPage productPage = new ProductPage(db);
         primaryStage.setTitle("Custom Labeled TextField Example");
-        sc.addScene("login", loginScene.getScene());
-        sc.addScene("register", registerScene.getScene());
+        sc.addScene("login", loginScene.getScene(), "Login Page");
+        sc.addScene("register", registerScene.getScene(), "Registeration Page");
+        sc.addScene("products", productPage.getScene(), "Product Page");
+
         sc.switchToScene("login");
     }
 

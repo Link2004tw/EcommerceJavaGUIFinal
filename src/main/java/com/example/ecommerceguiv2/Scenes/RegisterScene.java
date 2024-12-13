@@ -1,4 +1,4 @@
-package Scenes;
+package com.example.ecommerceguiv2.Scenes;
 
 import com.example.ecommerceguiv2.LabeledTextField;
 import com.example.ecommerceguiv2.Models.Customer;
@@ -29,6 +29,8 @@ public class RegisterScene {
         LabeledTextField passwordField = new LabeledTextField("Password:");
         LabeledTextField dateField = new LabeledTextField("Date Of Birth:");
 
+        //textFieldsContainerRegister.getChildren().addAll();
+
         ToggleGroup group = new ToggleGroup();
         RadioButton male = new RadioButton("Male");
         male.setToggleGroup(group); // Add to ToggleGroup
@@ -43,13 +45,14 @@ public class RegisterScene {
                 selectedOption.setText("Selected: " + selected.getText());
             }
         });
+
         VBox genderBox = new VBox(10, male, female, selectedOption);
 
         submitButtonRegister.setOnAction(e-> {
             try{
                 RadioButton selectedRadio;
                 if (group.getSelectedToggle() != null) {
-                    selectedRadio = (RadioButton) group.getSelectedToggle();
+                     selectedRadio = (RadioButton) group.getSelectedToggle();
 
                 } else {
                     throw new InputMismatchException("Select a gender");
@@ -87,10 +90,9 @@ public class RegisterScene {
             System.out.println("registering....");
         });
 
-
-        textFieldsContainerRegister.getChildren().addAll(l2, submitButtonRegister,genderBox, loginingButton);
+        textFieldsContainerRegister.getChildren().addAll(l2, usernameField, passwordField, submitButtonRegister,genderBox, loginingButton);
         rootregister.setCenter(textFieldsContainerRegister);
-        scene = new Scene(rootregister, 400, 200);
+        scene = new Scene(rootregister, 400, 400);
         try {
             scene.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/styles.css").toExternalForm()); // Add the CSS file
         }catch (Exception ex){
