@@ -1,6 +1,6 @@
 package com.example.ecommerceguiv2.Models;
 
-class Product implements Validatable<Integer> {
+public class Product implements Validatable<Integer> {
     private static int nbOfProducts =0;
     private String name;
     private String description;

@@ -70,7 +70,7 @@ public class HelloApplication extends Application {
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
-        primaryStage.setTitle("Custom Labeled TextField Example");
+        primaryStage.setTitle("Log in");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

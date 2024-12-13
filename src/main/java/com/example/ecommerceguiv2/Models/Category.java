@@ -7,7 +7,7 @@ import com.example.ecommerceguiv2.Exceptions.NotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Category {
+public class Category {
     private String name;
     private  String description;
     private List<Product> products;

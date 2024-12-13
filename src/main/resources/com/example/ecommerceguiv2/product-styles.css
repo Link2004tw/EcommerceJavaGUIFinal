@@ -1,0 +1,47 @@
+.accordion {
+    -fx-border-color: #A67C52;
+    -fx-border-width: 2px;
+}
+.table-view .column-header {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff;
+}
+.table-view {
+    -fx-border-color: #A67C52;
+    -fx-border-width: 1px;
+    -fx-background-color: #F1E4D4;
+}
+
+.table-row-cell {
+    -fx-text-fill: #3E2723;
+}
+.table-row-cell:filled:selected {
+    -fx-background-color: #A67C52;
+    -fx-text-fill: #fff;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #D7CCC8;
+}
+.titled-pane {
+    -fx-font-family: 'Georgia';
+    -fx-font-size: 16px;
+    -fx-text-fill: #2C2C2C;
+}
+.label {
+    -fx-text-align: center;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #6E4B3A; /* Earthy brown color for text */
+}
+
+.button {
+    -fx-background-color: #8FBC8F;
+    -fx-text-fill: #2C2C2C;
+}
+
+.button:hover {
+    -fx-background-color: #DEB887;
+    -fx-text-fill: white;
+}
