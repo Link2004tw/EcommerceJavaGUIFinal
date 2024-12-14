@@ -11,8 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-public class LoginScene {
-    Scene scene;
+public class LoginScene extends ScenePage {
 
     public LoginScene(Database db, SceneController sc) {
         BorderPane rootLogin = new BorderPane();
@@ -50,14 +49,13 @@ public class LoginScene {
         textFieldsContainerLogin.getChildren().addAll(l1, usernameField, passwordField, submitButtonLogin, registerButton);
         rootLogin.setCenter(textFieldsContainerLogin);
 
-        scene = new Scene(rootLogin, 400, 200);
+        Scene s = new Scene(rootLogin, 400, 200);
         try {
-            scene.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/styles.css").toExternalForm()); // Add the CSS file
+            s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/styles.css").toExternalForm()); // Add the CSS file
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
+        setScene(s);
     }
-    public Scene getScene() {
-        return scene;
-    }
+
 }

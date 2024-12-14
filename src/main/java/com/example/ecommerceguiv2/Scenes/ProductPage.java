@@ -17,8 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Label;
 
-public class ProductPage {
-    Scene scene;
+public class ProductPage extends ScenePage{
 
     public ProductPage(Database db){
         Category electronics = new Category("Electronics", "Electric devices");
@@ -86,16 +85,15 @@ public class ProductPage {
             TitledPane categoryPane = new TitledPane(category.getName(), productListBox);
             accordion.getPanes().add(categoryPane);
         }
+
         BorderPane root = new BorderPane();
         root.setTop(titleLabel);
         root.setCenter(accordion);
         BorderPane.setAlignment(titleLabel, Pos.CENTER);
-        scene = new Scene(root, 800, 600);
-        scene.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/product-styles.css").toExternalForm());
-
+        Scene s = new Scene(root, 800, 600);
+        s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/product-styles.css").toExternalForm());
+        setScene(s);
     }
 
-    public Scene getScene() {
-        return scene;
-    }
+
 }

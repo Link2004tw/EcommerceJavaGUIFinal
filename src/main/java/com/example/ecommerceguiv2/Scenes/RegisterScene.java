@@ -12,8 +12,7 @@ import javafx.scene.layout.VBox;
 import java.text.ParseException;
 import java.util.InputMismatchException;
 
-public class RegisterScene {
-    Scene scene;
+public class RegisterScene extends ScenePage {
 
     public RegisterScene(Database db, SceneController sc){
         BorderPane rootregister = new BorderPane();
@@ -92,14 +91,13 @@ public class RegisterScene {
 
         textFieldsContainerRegister.getChildren().addAll(l2, usernameField, passwordField, submitButtonRegister,genderBox, loginingButton);
         rootregister.setCenter(textFieldsContainerRegister);
-        scene = new Scene(rootregister, 400, 400);
+        Scene s = new Scene(rootregister, 400, 400);
         try {
-            scene.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/styles.css").toExternalForm()); // Add the CSS file
+            s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/styles.css").toExternalForm()); // Add the CSS file
+            setScene(s);
         }catch (Exception ex){
             System.out.println(ex.getMessage());
         }
     }
-    public Scene getScene() {
-        return scene;
-    }
+
 }
