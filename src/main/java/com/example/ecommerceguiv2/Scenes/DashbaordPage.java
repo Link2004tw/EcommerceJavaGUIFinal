@@ -13,13 +13,15 @@ public class DashbaordPage extends ScenePage {
             System.out.println("Something is wrong");
         }
         Button b1 = new Button("Go To Cart");
-
+        Button b2 = new Button("Go to Products Page");
         b1.setOnAction(e -> {
-            sc.displayNames();
             sc.switchToScene("cart");
         });
+        b2.setOnAction(e -> {
+            sc.switchToScene("products");
+        });
 
-        Pane p = new Pane(b1);
+        Pane p = new Pane(b1, b2);
         s = new Scene(p, 400, 400);
         setScene(s);
     }
