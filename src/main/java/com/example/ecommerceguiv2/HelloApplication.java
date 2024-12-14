@@ -1,6 +1,7 @@
 package com.example.ecommerceguiv2;
 
 import com.example.ecommerceguiv2.Components.SceneController;
+import com.example.ecommerceguiv2.Scenes.CartPage;
 import com.example.ecommerceguiv2.Scenes.ProductPage;
 import com.example.ecommerceguiv2.Scenes.RegisterScene;
 import com.example.ecommerceguiv2.Exceptions.NotFoundException;
@@ -28,12 +29,9 @@ public class HelloApplication extends Application {
 
         LoginScene loginScene = new LoginScene(db, sc);
         RegisterScene registerScene = new RegisterScene(db, sc);
-        ProductPage productPage = new ProductPage(db);
         primaryStage.setTitle("Custom Labeled TextField Example");
         sc.addScene("login", loginScene.getScene(), "Login Page");
         sc.addScene("register", registerScene.getScene(), "Registeration Page");
-        sc.addScene("products", productPage.getScene(), "Product Page");
-
         sc.switchToScene("login");
     }
 

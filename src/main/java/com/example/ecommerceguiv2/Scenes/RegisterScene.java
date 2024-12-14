@@ -60,6 +60,9 @@ public class RegisterScene extends ScenePage {
                 Customer customer = db.register(usernameField.getText(), passwordField.getText(), dateField.getText(), selectedRadio.getText());
                 if (customer != null) {
                     System.out.println("Logged in");
+                    ProductPage productPage = new ProductPage(db);
+
+                    sc.addScene("products", productPage.getScene(), "Product Page");
                 }
             }catch (ParseException ex){
                 System.out.println("Invalid Date Format");
@@ -77,6 +80,7 @@ public class RegisterScene extends ScenePage {
                 alert.showAndWait();
             }
         });
+
         Button loginingButton = new Button("If you already have an account log in");
 
         loginingButton.getStyleClass().add("button-link");
@@ -85,9 +89,6 @@ public class RegisterScene extends ScenePage {
             sc.switchToScene("login");
         });
 
-        submitButtonRegister.setOnAction(e -> {
-            System.out.println("registering....");
-        });
 
         textFieldsContainerRegister.getChildren().addAll(l2, usernameField, passwordField, submitButtonRegister,genderBox, loginingButton);
         rootregister.setCenter(textFieldsContainerRegister);

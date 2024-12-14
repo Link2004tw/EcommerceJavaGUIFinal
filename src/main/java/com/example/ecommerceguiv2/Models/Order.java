@@ -3,7 +3,7 @@ package com.example.ecommerceguiv2.Models;
 import java.util.Date;
 import java.util.List;
 
-class Order {
+public class Order {
     public enum PaymentMethod {
         CREDIT_CARD,
         PAYPAL,

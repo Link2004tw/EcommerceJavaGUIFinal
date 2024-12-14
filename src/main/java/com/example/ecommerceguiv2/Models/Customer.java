@@ -75,5 +75,12 @@ public class Customer extends Person implements Validatable<String> {
         return this.password.equals(value);
     }
 
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
 }
 

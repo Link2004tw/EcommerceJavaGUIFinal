@@ -1,5 +1,6 @@
-package com.example.ecommerceguiv2.Models;
+package com.example.ecommerceguiv2.Scenes;
 
+import com.example.ecommerceguiv2.Models.*;
 import javafx.application.Application;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -13,15 +14,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.TableCell;
 import javafx.util.Callback;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import java.util.ArrayList;
-import java.util.List;
 
-public class CartPage extends Application {
+public class CartPage extends ScenePage {
 
-    @Override
-    public void start(Stage primaryStage) {
-        Database db = new Database();
+    public CartPage(Database db, Customer customer) {
+        Cart cart = customer.getCart();
 
         Category electronics = new Category("Electronics", "Electric devices");
         Category clothing = new Category("Clothing", "Clothes and wearables");
@@ -36,7 +33,6 @@ public class CartPage extends Application {
         db.addProduct(p2);
         Product p3 = new Product("Bread", "Freshly baked bread", 2.99, 100, groceries);
 
-        Cart cart = new Cart(1);
         cart.addProduct(p1, 3, db);
         cart.addProduct(p2, 5, db);
         TableView<Item> table = new TableView<>();
@@ -107,13 +103,9 @@ public class CartPage extends Application {
         VBox vbox = new VBox(10, titleLabel, table, buttonBox);
         vbox.setStyle("-fx-alignment: center;");
 
-        Scene scene = new Scene(vbox, 600, 400);
-        scene.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/cart-styles.css").toExternalForm());
-        primaryStage.setTitle("Shopping Cart");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        Scene s = new Scene(vbox, 600, 400);
+        s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/cart-styles.css").toExternalForm());
+        setScene(s);
         }
-        public static void main(String[] args) {
-        launch(args);
-        }
+
     }
