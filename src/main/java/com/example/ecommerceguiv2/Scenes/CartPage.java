@@ -17,8 +17,9 @@ import javafx.collections.FXCollections;
 
 public class CartPage extends ScenePage {
 
-    public CartPage(Database db, Customer customer) {
-        Cart cart = customer.getCart();
+    public CartPage(Database db) {
+
+        Cart cart = db.getLoggedCustomer().getCart();
 
         Category electronics = new Category("Electronics", "Electric devices");
         Category clothing = new Category("Clothing", "Clothes and wearables");

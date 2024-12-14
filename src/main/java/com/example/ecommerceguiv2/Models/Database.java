@@ -13,6 +13,7 @@ import java.util.Date;
 
 
 public class Database {
+    private Customer loggedCustomer;
     private List<Customer> customers;
     private List<Admin> admins;
     private List<Category> categories;
@@ -105,6 +106,7 @@ public class Database {
         for (Customer customer: customers){
             if (customer.search(username)){
                 if (customer.validate(password)){
+                    loggedCustomer = customer;
                     return customer;
                 }
                 throw new IncorrectPasswordException("Incorrect password entered");
@@ -151,6 +153,7 @@ public class Database {
             Customer newCustomer = new Customer(username, password, date, 0,gender);
             customers.add(newCustomer);
             System.out.println("Registration successful!");
+            loggedCustomer = newCustomer;
             return newCustomer;
         }
         throw new RegisterFailException("Username Already exists");
@@ -342,5 +345,8 @@ public class Database {
         return customerOrder;
     }
 
+    public Customer getLoggedCustomer() {
+        return loggedCustomer;
+    }
 }
 
