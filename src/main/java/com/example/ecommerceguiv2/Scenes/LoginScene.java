@@ -36,6 +36,7 @@ public class LoginScene extends ScenePage {
                 Customer c1 = (Customer) db.login(username, password);
                 if (c1 != null) {
                     System.out.println("Logged in");
+                    sc.switchToScene("dashboard");
                 }
             } catch (Exception ex) {
                 System.out.println("Incorrect Password");

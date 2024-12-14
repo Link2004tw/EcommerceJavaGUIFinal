@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 public class ProfilePage extends ScenePage {
 
     public ProfilePage(Person p){
-        Scene s;
+        Scene s = null;
         setScene(s);
     }
 

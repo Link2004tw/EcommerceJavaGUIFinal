@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 public class AddProductPage extends ScenePage{
 
     public AddProductPage(Database db){
-        Scene s;
+        Scene s = null;
         setScene(s);
     }
 }

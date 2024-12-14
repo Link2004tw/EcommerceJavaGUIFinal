@@ -30,4 +30,8 @@ public class SceneContainer {
     public String getTitle() {
         return title;
     }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
 }

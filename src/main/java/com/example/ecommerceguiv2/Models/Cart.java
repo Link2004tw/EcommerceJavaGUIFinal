@@ -65,13 +65,6 @@ public class Cart {
         totalAmount -= product.getPrice() *q;
 
     }
-//    public double calculateTotal (){
-//        double total=0;
-//        for (Item item : items) {
-//            total += item.product.getPrice() * item.quantity;
-//        }
-//        return total;
-//    }
 
     public Order placeOrder (Database db) {
         System.out.println("Select payment method (CREDIT_CARD, DEBIT_CARD, PAYPAL, CASH, BALANCE)");
@@ -112,6 +105,9 @@ public class Cart {
         }
         return sb.toString();
 
+    }
+    public boolean isEmpty(){
+        return items.isEmpty();
     }
 }
 

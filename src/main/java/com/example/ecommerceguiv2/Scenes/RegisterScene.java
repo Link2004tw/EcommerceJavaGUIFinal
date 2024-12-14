@@ -14,7 +14,7 @@ import java.util.InputMismatchException;
 
 public class RegisterScene extends ScenePage {
 
-    public RegisterScene(Database db, SceneController sc){
+    public RegisterScene(Database db, SceneController sc) {
         BorderPane rootregister = new BorderPane();
 
         Label l2 = new Label("Register");
@@ -47,32 +47,35 @@ public class RegisterScene extends ScenePage {
 
         VBox genderBox = new VBox(10, male, female, selectedOption);
 
-        submitButtonRegister.setOnAction(e-> {
-            try{
+        submitButtonRegister.setOnAction(e -> {
+            try {
                 RadioButton selectedRadio;
                 if (group.getSelectedToggle() != null) {
-                     selectedRadio = (RadioButton) group.getSelectedToggle();
+                    selectedRadio = (RadioButton) group.getSelectedToggle();
 
                 } else {
                     throw new InputMismatchException("Select a gender");
                 }
                 System.out.println(selectedRadio.getText());
-                Customer customer = db.register(usernameField.getText(), passwordField.getText(), dateField.getText(), selectedRadio.getText());
+                Customer customer = db.register(
+                        usernameField.getText().trim(),
+                        dateField.getText().trim(),
+                        selectedRadio.getText().trim(),
+                        passwordField.getText().trim()
+                );
                 if (customer != null) {
                     System.out.println("Logged in");
-                    ProductPage productPage = new ProductPage(db);
 
-                    sc.addScene("products", productPage.getScene(), "Product Page");
+                    sc.switchToScene("dashboard");
                 }
-            }catch (ParseException ex){
+            } catch (ParseException ex) {
                 System.out.println("Invalid Date Format");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Invalid Date Format");
-                alert.setHeaderText("Please enter the date in the (yyyy-MM-dd) ");
+                alert.setHeaderText("Please enter the date in the (yyyy-MM-dd)");
 
                 alert.showAndWait();
-            }
-            catch (InputMismatchException ex){
+            } catch (InputMismatchException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Invalid Gender");
                 alert.setHeaderText("Please Chose a gender");
@@ -90,13 +93,13 @@ public class RegisterScene extends ScenePage {
         });
 
 
-        textFieldsContainerRegister.getChildren().addAll(l2, usernameField, passwordField, submitButtonRegister,genderBox, loginingButton);
+        textFieldsContainerRegister.getChildren().addAll(l2, usernameField, passwordField, dateField, genderBox, submitButtonRegister, loginingButton);
         rootregister.setCenter(textFieldsContainerRegister);
         Scene s = new Scene(rootregister, 400, 400);
         try {
             s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/styles.css").toExternalForm()); // Add the CSS file
             setScene(s);
-        }catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }

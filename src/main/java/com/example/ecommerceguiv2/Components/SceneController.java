@@ -15,6 +15,7 @@ public class SceneController {
     public SceneController(Stage stage) {
         this.stage = stage;
     }
+
     public void addScene(String name, Pane layout, String title) {
         for (String n: names){
             if(n.equals(name)){
@@ -25,10 +26,11 @@ public class SceneController {
         SceneContainer sceneContainer = new SceneContainer(name, layout,title);
         scenes.add(sceneContainer);
     }
-    public void addScene(String name, Scene s, String t) throws AlreadyExistsException {
-        for (String n: names){
-            if(n.equals(name)){
-                throw new AlreadyExistsException("Scene name already exists");
+
+    public void addScene(String name, Scene s, String t) {
+        for (SceneContainer n: scenes){
+            if(n.getName().equals(name)){
+                n.setScene(s);
             }
         }
         names.add(name);
@@ -51,6 +53,11 @@ public class SceneController {
             stage.show();
         } else {
             System.out.println("Scene " + name + " not found!");
+        }
+    }
+    public void displayNames() {
+        for(String n: names){
+            System.out.println(n);
         }
     }
 }

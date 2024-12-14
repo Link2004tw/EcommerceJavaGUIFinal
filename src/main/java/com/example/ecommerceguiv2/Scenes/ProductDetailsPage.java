@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 public class ProductDetailsPage extends ScenePage{
 
     public ProductDetailsPage(Product product){
-    Scene s;
+    Scene s = null;
         //        if(product.getStockQuantity() < 3){
 //
 //        }

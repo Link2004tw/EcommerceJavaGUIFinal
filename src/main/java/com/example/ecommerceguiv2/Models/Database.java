@@ -1,8 +1,10 @@
 package com.example.ecommerceguiv2.Models;
 
+import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Exceptions.IncorrectPasswordException;
 import com.example.ecommerceguiv2.Exceptions.NotFoundException;
 import com.example.ecommerceguiv2.Exceptions.RegisterFailException;
+import com.example.ecommerceguiv2.Scenes.CartPage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,12 +22,14 @@ public class Database {
     private List<Product> products;
     private List<Order> orders;
     private List<Cart> carts;
-    public Database() {
+    private SceneController sc;
+    public Database(SceneController sc) {
         admins = new ArrayList<>();
         categories = new ArrayList<>();
         products = new ArrayList<>();
         orders = new ArrayList<>();
         customers = new ArrayList<>();
+        this.sc = sc;
     }
     public List<Customer> getCustomers(){
         return customers;
@@ -107,6 +111,10 @@ public class Database {
             if (customer.search(username)){
                 if (customer.validate(password)){
                     loggedCustomer = customer;
+                    CartPage cartPage = new CartPage(this);
+                    sc.addScene("cart", cartPage.getScene(), "Cart");
+                    sc.displayNames();
+
                     return customer;
                 }
                 throw new IncorrectPasswordException("Incorrect password entered");
@@ -134,7 +142,6 @@ public class Database {
             }
         }
         if (!found) {
-            System.out.print("Enter your date of birth(yyyy-MM-dd): ");
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date = new Date();
             try {
@@ -154,6 +161,10 @@ public class Database {
             customers.add(newCustomer);
             System.out.println("Registration successful!");
             loggedCustomer = newCustomer;
+            CartPage cartPage = new CartPage(this);
+            sc.addScene("cart", cartPage.getScene(), "Cart");
+            sc.displayNames();
+
             return newCustomer;
         }
         throw new RegisterFailException("Username Already exists");
