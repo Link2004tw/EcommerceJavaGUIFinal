@@ -1,4 +1,4 @@
-package com.example.ecommerceguiv2;
+package com.example.ecommerceguiv2.Components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

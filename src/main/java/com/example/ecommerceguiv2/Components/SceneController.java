@@ -1,4 +1,4 @@
-package com.example.ecommerceguiv2;
+package com.example.ecommerceguiv2.Components;
 import com.example.ecommerceguiv2.Exceptions.AlreadyExistsException;
 import com.example.ecommerceguiv2.Models.SceneContainer;
 import javafx.scene.Scene;

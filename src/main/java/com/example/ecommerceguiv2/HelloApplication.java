@@ -1,6 +1,6 @@
 package com.example.ecommerceguiv2;
 
-import com.example.ecommerceguiv2.Models.Product;
+import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Scenes.ProductPage;
 import com.example.ecommerceguiv2.Scenes.RegisterScene;
 import com.example.ecommerceguiv2.Exceptions.NotFoundException;

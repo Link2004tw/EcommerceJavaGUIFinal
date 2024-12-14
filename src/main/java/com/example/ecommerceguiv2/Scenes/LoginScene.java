@@ -1,9 +1,9 @@
 package com.example.ecommerceguiv2.Scenes;
 
-import com.example.ecommerceguiv2.LabeledTextField;
+import com.example.ecommerceguiv2.Components.LabeledTextField;
 import com.example.ecommerceguiv2.Models.Customer;
 import com.example.ecommerceguiv2.Models.Database;
-import com.example.ecommerceguiv2.SceneController;
+import com.example.ecommerceguiv2.Components.SceneController;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
