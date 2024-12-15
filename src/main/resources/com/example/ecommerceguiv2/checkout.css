@@ -1,0 +1,85 @@
+.row {
+  -fx-display: -ms-flexbox; /* IE10 */
+  -fx-display: flex;
+  -fx-ms-flex-wrap: wrap; /* IE10 */
+  -fx-flex-wrap: wrap;
+  -fx-margin: 0 -16px;
+}
+
+.col-25 {
+  -fx-ms-flex: 25%; /* IE10 */
+  -fx-flex: 25%;
+}
+
+.col-50 {
+  -fx-ms-flex: 50%; /* IE10 */
+  -fx-flex: 50%;
+}
+
+.col-75 {
+  -fx--ms-flex: 75%; /* IE10 */
+  -fx-flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+  -fx-padding: 0 16px;
+}
+
+.container {
+  -fx-background-color: #f2f2f2;
+  -fx-padding: 5px 20px 15px 20px;
+  -fx-border: 1px solid lightgrey;
+  -fx-border-radius: 3px;
+}
+
+input[type=text] {
+  -fx-width: 100%;
+  -fx-margin-bottom: 20px;
+  -fx-padding: 12px;
+  -fx-border: 1px solid #ccc;
+  -fx-border-radius: 3px;
+}
+
+label {
+  -fx-margin-bottom: 10px;
+  -fx-display: block;
+}
+
+.icon-container {
+  -fx-margin-bottom: 20px;
+  -fx-padding: 7px 0;
+  -fx-font-size: 24px;
+}
+
+.btn {
+  -fx-background-color: #04AA6D;
+  -fx-color: white;
+  -fx-padding: 12px;
+  -fx-margin: 10px 0;
+  -fx-border: none;
+  -fx-width: 100%;
+  -fx-border-radius: 3px;
+  -fx-cursor: pointer;
+  -fx-font-size: 17px;
+}
+
+.btn:hover {
+  -fx-background-color: #45a049;
+}
+
+span.price {
+  -fx-float: right;
+  -fx-color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (and change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    -fx-flex-direction: column-reverse;
+  }
+  .col-25 {
+    -fx-margin-bottom: 20px;
+  }
+}
