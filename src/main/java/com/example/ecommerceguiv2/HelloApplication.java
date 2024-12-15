@@ -37,7 +37,6 @@ public class HelloApplication extends Application {
         sc.addScene("products", productPage.getScene(), "Product Page");
         sc.displayNames();
         sc.switchToScene("login");
-
     }
 
     public static void main(String[] args) {

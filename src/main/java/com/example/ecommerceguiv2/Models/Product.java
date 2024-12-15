@@ -52,7 +52,7 @@ public class Product implements Validatable<Integer> {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
-
+    public void setId(int id){this.id=id;}
     public void updateStock(int updatedQuantity)
     {
         setStockQuantity(updatedQuantity);
