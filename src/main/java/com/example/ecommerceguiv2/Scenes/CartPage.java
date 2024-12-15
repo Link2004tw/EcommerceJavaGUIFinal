@@ -24,21 +24,6 @@ public class CartPage extends ScenePage {
         if (customer != null) {
             Cart cart = customer.getCart();
             if (!cart.isEmpty()) {
-                Category electronics = new Category("Electronics", "Electric devices");
-                Category clothing = new Category("Clothing", "Clothes and wearables");
-                Category groceries = new Category("Groceries", "Food and stuff like that");
-                Category[] categories = {electronics, clothing, groceries};
-                for (Category c : categories) {
-                    db.addCategory(c);
-                }
-                Product p1 = new Product("Laptop", "High-performance laptop", 999.99, 10, electronics);
-                db.addProduct(p1);
-                Product p2 = new Product("Jeans", "Comfortable denim jeans", 39.99, 40, clothing);
-                db.addProduct(p2);
-                Product p3 = new Product("Bread", "Freshly baked bread", 2.99, 100, groceries);
-
-                cart.addProduct(p1, 3, db);
-                cart.addProduct(p2, 5, db);
                 TableView<Item> table = new TableView<>();
 
                 TableColumn<Item, String> productNameColumn = new TableColumn<>("Name");
@@ -101,8 +86,11 @@ public class CartPage extends ScenePage {
                     cart.clearCart();
                     table.setItems(FXCollections.observableArrayList(cart.getProducts()));
                 });
-
-                HBox buttonBox = new HBox(10, placeOrderButton, clearCartButton);
+                Button continueShoppingButton = new Button("Continue Shopping");
+                continueShoppingButton.setOnAction(e -> {
+                    // Code
+                });
+                HBox buttonBox = new HBox(10, placeOrderButton, clearCartButton, continueShoppingButton);
                 buttonBox.setStyle("-fx-alignment: center;");
 
                 VBox vbox = new VBox(10, titleLabel, table, buttonBox);
@@ -116,12 +104,25 @@ public class CartPage extends ScenePage {
                 setScene(s);
 
             } else {
-                //for when the cart is empty
-                //use the vbox variable
-                System.out.println("Else");
-                Label label = new Label("Cart is empty");
-                Pane p = new Pane(label);
-                Scene s = new Scene(p);
+                // When the cart is empty
+                Label titleLabel = new Label("My Cart");
+
+                Label emptyCartLabel = new Label("Your cart is currently empty.");
+
+                Button continueShoppingButton = new Button("Continue Shopping");
+                continueShoppingButton.setOnAction(e -> {
+                    // code
+
+                });
+
+                VBox vbox = new VBox(20, titleLabel, emptyCartLabel, continueShoppingButton);
+                vbox.setStyle("-fx-alignment: center; -fx-padding: 20px;");
+                Scene s = new Scene(vbox, 600, 400);
+                try {
+                    s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/cart-styles.css").toExternalForm());
+                } catch (NullPointerException e) {
+                    System.out.println("Error");
+                }
                 setScene(s);
             }
         }
