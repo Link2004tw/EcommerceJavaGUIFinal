@@ -2,18 +2,19 @@ package com.example.ecommerceguiv2.Scenes;
 
 import com.example.ecommerceguiv2.Models.Category;
 import com.example.ecommerceguiv2.Models.Product;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import java.util.List;
 
-public class ProductDetailsPage extends BorderPane {
+public class ProductDetailsPage extends ScenePage {
 
     public ProductDetailsPage(Stage stage, Product product, List<Category> categoryList) {
-        // Main layout
-        setPadding(new Insets(10));
+        // Create main layout
+        BorderPane mainLayout = new BorderPane();
+        mainLayout.setPadding(new Insets(10));
 
         // Product details form
         GridPane formPane = new GridPane();
@@ -24,30 +25,30 @@ public class ProductDetailsPage extends BorderPane {
         // Product Name
         Label nameLabel = new Label("Product Name:");
         TextField nameField = new TextField(product.getName());
-        nameField.setEditable(false);  // Make the field non-editable
+        nameField.setEditable(false); // Make the field non-editable
 
         // Product ID
         Label idLabel = new Label("Product ID:");
         TextField idField = new TextField(String.valueOf(product.getId()));
-        idField.setEditable(false);  // Make the field non-editable
+        idField.setEditable(false); // Make the field non-editable
 
         // Product Price
         Label priceLabel = new Label("Price:");
         TextField priceField = new TextField(String.valueOf(product.getPrice()));
-        priceField.setEditable(false);  // Make the field non-editable
+        priceField.setEditable(false); // Make the field non-editable
 
         // Category
         Label categoryLabel = new Label("Category:");
         ComboBox<Category> categoryField = new ComboBox<>();
         categoryField.getItems().addAll(categoryList);
-        categoryField.setValue(product.getCategory());  // Set the category of the product
-        categoryField.setDisable(true);  // Disable the ComboBox so it's not editable
+        categoryField.setValue(product.getCategory()); // Set the category of the product
+        categoryField.setDisable(true); // Disable the ComboBox so it's not editable
 
         // Product Description
         Label descriptionLabel = new Label("Description:");
         TextArea descriptionArea = new TextArea(product.getDescription());
         descriptionArea.setPrefRowCount(3);
-        descriptionArea.setEditable(false);  // Make the field non-editable
+        descriptionArea.setEditable(false); // Make the field non-editable
 
         // Add fields to form pane
         formPane.add(nameLabel, 0, 0);
@@ -61,7 +62,7 @@ public class ProductDetailsPage extends BorderPane {
         formPane.add(descriptionLabel, 0, 4);
         formPane.add(descriptionArea, 1, 4);
 
-        setTop(formPane);
+        mainLayout.setTop(formPane);
 
         // Action buttons (only Cancel to close the page)
         HBox buttonBox = new HBox(10);
@@ -70,14 +71,13 @@ public class ProductDetailsPage extends BorderPane {
         buttonBox.setStyle("-fx-alignment: center-right;");
 
         Button cancelButton = new Button("Cancel");
-        cancelButton.setOnAction(e -> stage.close());  // Close the page when Cancel is clicked
+        cancelButton.setOnAction(e -> stage.close()); // Close the page when Cancel is clicked
 
         buttonBox.getChildren().add(cancelButton);
-        setBottom(buttonBox);
+        mainLayout.setBottom(buttonBox);
 
-        // Set the scene
-        Scene scene = new Scene(this, 600, 500);
-        stage.setScene(scene);
+        // Create and set the scene
+        Scene scene = new Scene(mainLayout, 600, 500);
+        setScene(scene); // Use the ScenePage's setScene method
     }
-
 }
