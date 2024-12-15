@@ -9,11 +9,12 @@ import javafx.geometry.Insets;
 import javafx.stage.Stage;
 import java.util.List;
 
-public class ProductDetailsPage extends BorderPane {
+public class ProductDetailsPage extends ScenePage {
 
-    public ProductDetailsPage(Stage stage, Product product, List<Category> categoryList) {
+    public ProductDetailsPage(Product product, List<Category> categoryList) {
         // Main layout
-        setPadding(new Insets(10));
+        BorderPane layout = new BorderPane();
+        layout.setPadding(new Insets(10));
 
         // Product details form
         GridPane formPane = new GridPane();
@@ -61,7 +62,7 @@ public class ProductDetailsPage extends BorderPane {
         formPane.add(descriptionLabel, 0, 4);
         formPane.add(descriptionArea, 1, 4);
 
-        setTop(formPane);
+        layout.setTop(formPane);
 
         // Action buttons (only Cancel to close the page)
         HBox buttonBox = new HBox(10);
@@ -69,15 +70,15 @@ public class ProductDetailsPage extends BorderPane {
         buttonBox.setSpacing(10);
         buttonBox.setStyle("-fx-alignment: center-right;");
 
-        Button cancelButton = new Button("Cancel");
-        cancelButton.setOnAction(e -> stage.close());  // Close the page when Cancel is clicked
+//        Button cancelButton = new Button("Cancel");
+//        cancelButton.setOnAction(e -> stage.close());  // Close the page when Cancel is clicked
 
-        buttonBox.getChildren().add(cancelButton);
-        setBottom(buttonBox);
+        //buttonBox.getChildren().add(cancelButton);
+        layout.setBottom(buttonBox);
 
         // Set the scene
-        Scene scene = new Scene(this, 600, 500);
-        stage.setScene(scene);
+        Scene s = new Scene(layout, 600, 500);
+        setScene(s);
     }
 
 }
