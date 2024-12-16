@@ -6,7 +6,7 @@ import com.example.ecommerceguiv2.Exceptions.NotFoundException;
 import java.util.Date;
 import java.util.List;
 
-class Admin extends Person implements Validatable<String> {
+public class Admin extends Person implements Validatable<String> {
     private String role;
     private int workingHours;
 

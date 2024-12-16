@@ -34,4 +34,5 @@ public class SceneContainer {
     public void setScene(Scene scene) {
         this.scene = scene;
     }
+
 }

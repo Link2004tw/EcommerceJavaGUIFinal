@@ -1,6 +1,7 @@
 package com.example.ecommerceguiv2;
 
 import com.example.ecommerceguiv2.Components.SceneController;
+import com.example.ecommerceguiv2.Models.Admin;
 import com.example.ecommerceguiv2.Scenes.*;
 import com.example.ecommerceguiv2.Exceptions.NotFoundException;
 import com.example.ecommerceguiv2.Models.Customer;
@@ -21,17 +22,17 @@ public class HelloApplication extends Application {
         Date now = new Date();
 
         Customer customer = new Customer("Mark", "12345", now, 4000, Person.Gender.MALE);
+        Admin admin = new Admin("Admin", "12345", now, 4000, Person.Gender.MALE, "Manager", 40);
+
         db.addCustomer(customer);
+        db.addAdmin(admin);
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
         LoginScene loginScene = new LoginScene(db, sc);
         RegisterScene registerScene = new RegisterScene(db, sc);
-        ProductPage productPage = new ProductPage(db, sc);
-
 
         sc.addScene("login", loginScene.getScene(), "Login Page");
         sc.addScene("register", registerScene.getScene(), "Registeration Page");
-        sc.addScene("products", productPage.getScene(), "Product Page");
         sc.displayNames();
         sc.switchToScene("login");
     }

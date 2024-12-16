@@ -46,24 +46,33 @@ public class DashbaordPage extends ScenePage {
         navigationBar.setAlignment(Pos.CENTER_LEFT);
 
         // Create navigation buttons
-        Button shopButton = new Button("Shop");
+        Button shopButton = new Button(db.isAdmin() ? "Products" : "Shop");
         shopButton.setOnAction(e -> {
             sc.switchToScene("products");
         });
         Button cartButton = new Button("Cart");
         Button ordersButton = new Button("Orders");
-
+        Button addButton = new Button("Add Product");
+        addButton.setOnAction(e-> {
+            sc.switchToScene("addProduct");
+        });
         shopButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
         cartButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
         ordersButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
+        addButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
 
         // Username button
-        Button usernameButton = new Button(db.getLoggedCustomer().getUsername());
+        Button usernameButton = new Button(db.isAdmin() ? db.getLoggedAdmin().getUsername() : db.getLoggedCustomer().getUsername());
         usernameButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
         usernameButton.setAlignment(Pos.CENTER_RIGHT);
+        if (db.isAdmin()) {
+            navigationBar.getChildren().addAll(shopButton, addButton, ordersButton, usernameButton);
 
+        } else {
+            navigationBar.getChildren().addAll(shopButton, ordersButton, usernameButton);
+
+        }
         // Add buttons to the navigation bar
-        navigationBar.getChildren().addAll(shopButton, cartButton, ordersButton, usernameButton);
         HBox.setHgrow(usernameButton, Priority.ALWAYS);
 
         // Placeholder content for the center

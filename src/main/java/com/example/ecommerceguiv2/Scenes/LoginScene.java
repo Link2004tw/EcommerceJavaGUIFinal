@@ -4,6 +4,7 @@ import com.example.ecommerceguiv2.Components.LabeledTextField;
 import com.example.ecommerceguiv2.Models.Customer;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Components.SceneController;
+import com.example.ecommerceguiv2.Models.Person;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -33,7 +34,8 @@ public class LoginScene extends ScenePage {
             String password = passwordField.getText().trim();
             try {
 
-                Customer c1 = (Customer) db.login(username, password);
+                Person c1 = db.login(username, password);
+
                 if (c1 != null) {
                     System.out.println("Logged in");
                     sc.switchToScene("dashboard");

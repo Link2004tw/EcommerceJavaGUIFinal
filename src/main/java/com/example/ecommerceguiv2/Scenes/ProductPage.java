@@ -5,26 +5,21 @@ import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Models.Product;
 import com.example.ecommerceguiv2.Models.Category;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-public class ProductPage extends ScenePage{
-
-    public ProductPage(Database db, SceneController sc){
+public class ProductPage extends ScenePage {
+    public ProductPage(Database db, SceneController sc) {
+        // Add sample categories and products
         Category electronics = new Category("Electronics", "Electric devices");
         Category clothing = new Category("Clothing", "Clothes and wearables");
         Category groceries = new Category("Groceries", "Food and stuff like that");
-        Category [] categories = {electronics,clothing,groceries};
+        Category[] categories = {electronics, clothing, groceries};
 
-        for (Category c: categories){
+        for (Category c : categories) {
             db.addCategory(c);
         }
 
@@ -54,60 +49,55 @@ public class ProductPage extends ScenePage{
         for (Product p : products) {
             db.addProduct(p);
         }
+
+        // Title
         Label titleLabel = new Label("Available Products");
-//        Accordion accordion = new Accordion();
-//        for (Category category : db.getCategories()) {
-//            VBox productListBox = new VBox();
-//            productListBox.setSpacing(5);
-//
-//            TableView<Product> tableView = new TableView<>();
-//            tableView.setEditable(false);
-//
-//            TableColumn<Product, String> nameColumn = new TableColumn<>("Name");
-//            nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-//            TableColumn<Product, String> descriptionColumn = new TableColumn<>("Description");
-//            descriptionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescription()));
-//            TableColumn<Product, Double> priceColumn = new TableColumn<>("Price($)");
-//            priceColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
-//
-//            nameColumn.setMinWidth(150);
-//            descriptionColumn.setMinWidth(200);
-//            priceColumn.setMinWidth(100);
-//            tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-//            tableView.getColumns().addAll(nameColumn, descriptionColumn, priceColumn);
-//
-//            ObservableList<Product> productList = FXCollections.observableArrayList(category.getProducts());
-//            tableView.setItems(productList);
-//
-//            productListBox.getChildren().add(tableView);
-//
-//            TitledPane categoryPane = new TitledPane(category.getName(), productListBox);
-//            accordion.getPanes().add(categoryPane);
-//        }
-//
-//        BorderPane root = new BorderPane();
-//        root.setTop(titleLabel);
-//        root.setCenter(accordion);
-//        BorderPane.setAlignment(titleLabel, Pos.CENTER);
+
+        // Product list container
         VBox productList = new VBox(10); // Spacing of 10 pixels
         productList.setPadding(new Insets(10));
 
         // Add ProductItem components to the VBox
-        for (Product product : products) {
+        for (Product product : db.getProducts()) {
             ProductItem productItem = new ProductItem(product, db, sc);
             productList.getChildren().add(productItem);
         }
 
-        // Add VBox to a ScrollPane to handle many items
+        // Wrap VBox in a ScrollPane
         ScrollPane scrollPane = new ScrollPane(productList);
-        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToWidth(true); // Allow the content to fit the width of the ScrollPane
+        scrollPane.setPadding(new Insets(10)); // Add padding to the ScrollPane content
 
-        // Create the scene and display it
-        Scene scene = new Scene(scrollPane, 400, 300);
-        Scene s = new Scene(productList, 800, 600);
-        //s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/product-styles.css").toExternalForm());
-        setScene(s);
+        // Create the scene
+        VBox root = new VBox(10);
+        root.getChildren().addAll(titleLabel, scrollPane);
+
+        Scene scene = new Scene(root, 800, 600); // Set the size of the scene
+        setScene(scene);
     }
-
-
+//    public void refresh(){
+//        Label titleLabel = new Label("Available Products");
+//
+//        // Product list container
+//        VBox productList = new VBox(10); // Spacing of 10 pixels
+//        productList.setPadding(new Insets(10));
+//
+//        // Add ProductItem components to the VBox
+//        for (Product product : db.getProducts()) {
+//            ProductItem productItem = new ProductItem(product, db, sc);
+//            productList.getChildren().add(productItem);
+//        }
+//
+//        // Wrap VBox in a ScrollPane
+//        ScrollPane scrollPane = new ScrollPane(productList);
+//        scrollPane.setFitToWidth(true); // Allow the content to fit the width of the ScrollPane
+//        scrollPane.setPadding(new Insets(10)); // Add padding to the ScrollPane content
+//
+//        // Create the scene
+//        VBox root = new VBox(10);
+//        root.getChildren().addAll(titleLabel, scrollPane);
+//
+//        Scene scene = new Scene(root, 800, 600); // Set the size of the scene
+//        setScene(scene);
+//    }
 }
