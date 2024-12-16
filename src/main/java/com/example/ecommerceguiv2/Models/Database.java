@@ -5,6 +5,7 @@ import com.example.ecommerceguiv2.Exceptions.IncorrectPasswordException;
 import com.example.ecommerceguiv2.Exceptions.NotFoundException;
 import com.example.ecommerceguiv2.Exceptions.RegisterFailException;
 import com.example.ecommerceguiv2.Scenes.CartPage;
+import com.example.ecommerceguiv2.Scenes.DashbaordPage;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -113,7 +114,8 @@ public class Database {
                     loggedCustomer = customer;
                     CartPage cartPage = new CartPage(this);
                     sc.addScene("cart", cartPage.getScene(), "Cart");
-                    sc.displayNames();
+                    DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
+                    sc.addScene("dashboard", dashbaordPage.getScene(), "Dashboard");
 
                     return customer;
                 }
@@ -161,6 +163,9 @@ public class Database {
             customers.add(newCustomer);
             System.out.println("Registration successful!");
             loggedCustomer = newCustomer;
+            DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
+            sc.addScene("dashboard", dashbaordPage.getScene(), "Dashboard");
+
             CartPage cartPage = new CartPage(this);
             sc.addScene("cart", cartPage.getScene(), "Cart");
             sc.displayNames();

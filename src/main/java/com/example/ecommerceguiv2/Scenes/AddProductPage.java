@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 
 public class AddProductPage extends ScenePage{
-
+    //admin to add new products
     public AddProductPage(Database db){
         Scene s = null;
         GridPane gridPane = new GridPane();
