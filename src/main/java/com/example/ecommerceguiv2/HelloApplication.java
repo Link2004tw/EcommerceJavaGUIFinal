@@ -26,14 +26,11 @@ public class HelloApplication extends Application {
 
         LoginScene loginScene = new LoginScene(db, sc);
         RegisterScene registerScene = new RegisterScene(db, sc);
-        DashbaordPage dashbaordPage = new DashbaordPage(sc, db);
         ProductPage productPage = new ProductPage(db);
 
-        primaryStage.setTitle("Custom Labeled TextField Example");
 
         sc.addScene("login", loginScene.getScene(), "Login Page");
         sc.addScene("register", registerScene.getScene(), "Registeration Page");
-        sc.addScene("dashboard", dashbaordPage.getScene(), "Dashboard");
         sc.addScene("products", productPage.getScene(), "Product Page");
         sc.displayNames();
         sc.switchToScene("login");

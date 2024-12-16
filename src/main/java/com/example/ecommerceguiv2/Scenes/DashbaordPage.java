@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -37,63 +37,48 @@ public class DashbaordPage extends ScenePage {
 
     public DashbaordPage(SceneController sc, Database db) {
         Scene s;
-        BorderPane borderPane = new BorderPane();
+        BorderPane mainLayout = new BorderPane();
 
-        // Create a title for the dashboard
-        Label title = new Label("Customer Dashboard");
-        title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-alignment: center;");
+        // Top Navigation Bar
+        HBox navigationBar = new HBox();
+        navigationBar.setSpacing(20);
+        navigationBar.setStyle("-fx-background-color: #2B579A; -fx-padding: 10px;");
+        navigationBar.setAlignment(Pos.CENTER_LEFT);
 
-        // Create a menu bar
-        MenuBar menuBar = new MenuBar();
-        Menu menu = new Menu("Options");
-        MenuItem logout = new MenuItem("Logout");
-        menu.getItems().add(logout);
-        menuBar.getMenus().add(menu);
+        // Create navigation buttons
+        Button shopButton = new Button("Shop");
+        shopButton.setOnAction(e -> {
+            sc.switchToScene("products");
+        });
+        Button cartButton = new Button("Cart");
+        Button ordersButton = new Button("Orders");
 
-        // Create the center section (Product List)
-        VBox productListBox = new VBox();
-        Label productListTitle = new Label("Product List");
-        productListTitle.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        shopButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
+        cartButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
+        ordersButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
 
-        // Add products (in a real-world scenario, this would be dynamic)
-        Button product1 = new Button("Product 1 - $10");
-        Button product2 = new Button("Product 2 - $20");
-        Button product3 = new Button("Product 3 - $30");
+        // Username button
+        Button usernameButton = new Button(db.getLoggedCustomer().getUsername());
+        usernameButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
+        usernameButton.setAlignment(Pos.CENTER_RIGHT);
 
-        productListBox.getChildren().addAll(productListTitle, product1, product2, product3);
+        // Add buttons to the navigation bar
+        navigationBar.getChildren().addAll(shopButton, cartButton, ordersButton, usernameButton);
+        HBox.setHgrow(usernameButton, Priority.ALWAYS);
 
-        // Create the shopping cart section
-        VBox cartBox = new VBox();
-        Label cartTitle = new Label("Shopping Cart");
-        cartTitle.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        // Placeholder content for the center
+        Label placeholder = new Label("Welcome to the Customer Dashboard");
+        placeholder.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        VBox centerContent = new VBox(placeholder);
+        centerContent.setAlignment(Pos.CENTER);
 
-        // Add Cart Items (dummy data for now)
-        ListView<String> cartList = new ListView<>();
-        cartList.getItems().addAll("Product 1 - $10", "Product 2 - $20");
+        // Assign navigation bar and center content
+        mainLayout.setTop(navigationBar);
+        mainLayout.setCenter(centerContent);
 
-        Button checkoutButton = new Button("Checkout");
-        cartBox.getChildren().addAll(cartTitle, cartList, checkoutButton);
-
-        // Create the order history section
-        VBox orderHistoryBox = new VBox();
-        Label orderHistoryTitle = new Label("Order History");
-        orderHistoryTitle.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-
-        // Add some dummy order history data
-        ListView<String> orderHistoryList = new ListView<>();
-        orderHistoryList.getItems().addAll("Order #1 - $30", "Order #2 - $50");
-
-        orderHistoryBox.getChildren().addAll(orderHistoryTitle, orderHistoryList);
-
-        // Set layout positions
-        borderPane.setTop(menuBar);
-        borderPane.setLeft(productListBox);
-        borderPane.setCenter(cartBox);
-        borderPane.setRight(orderHistoryBox);
-        borderPane.setTop(title);
-        // Scene and Stage
-        s = new Scene(borderPane, 800, 600);
-        s.getStylesheets().add("dashboard.css");
+        // Scene setup
+        s = new Scene(mainLayout, 800, 600);
+        //s.getStylesheets().add("dashboard.css");
         try {
 
             s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/dashboard.css").toExternalForm());

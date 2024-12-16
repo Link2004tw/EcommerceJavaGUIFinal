@@ -1,58 +1,29 @@
 /* styles.css */
 
+/* General styles */
 .root {
     -fx-font-family: "Arial";
 }
 
-#title {
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
+.button {
+    -fx-background-color: #FFD700;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #FFC107;
+}
+
+.hbox {
+    -fx-spacing: 20px;
     -fx-padding: 10px;
-    -fx-alignment: center;
-}
-
-.menu-bar {
-    -fx-background-color: #2b2b2b;
-    -fx-text-fill: white;
-}
-
-.menu {
-    -fx-text-fill: white;
-}
-
-.menu-item {
-    -fx-text-fill: white;
-    -fx-padding: 10px;
-}
-
-.menu-item:hover {
-    -fx-background-color: #3c3c3c;
-}
-
-.vbox {
-    -fx-padding: 20px;
-    -fx-spacing: 10px;
 }
 
 .label {
     -fx-font-size: 20px;
     -fx-font-weight: bold;
-}
-
-.button {
-    -fx-background-color: #4CAF50;
-    -fx-text-fill: white;
-    -fx-padding: 10px;
-    -fx-font-size: 16px;
-    -fx-border-radius: 5px;
-}
-
-.button:hover {
-    -fx-background-color: #45a049;
-}
-
-.list-view {
-    -fx-pref-height: 200px;
-    -fx-border-color: #ccc;
-    -fx-border-width: 1px;
 }
