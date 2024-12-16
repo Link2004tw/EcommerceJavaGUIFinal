@@ -73,11 +73,16 @@ public class Category {
     }
     public void deleteProduct(Product product) throws NotFoundException
     {
-        if (products.contains(product)) {
-            products.remove(product);
-            product=null;
+        int i = 0;
+        for(Product p : products){
+            if (p.equals(product)) {
+                products.remove(i);
+                product = null;
+                return;
+            }
+            i++;
         }
-        else throw new NotFoundException("product not found");
+        throw new NotFoundException("product not found");
     }
     public void removeProduct(Product deletedProduct)
     {

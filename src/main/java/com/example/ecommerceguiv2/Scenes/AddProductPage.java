@@ -94,6 +94,9 @@ public class AddProductPage extends ScenePage {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Product Added Successfully!!!");
                 alert.showAndWait();
+                for(Product product: db.getProducts()){
+                    System.out.println(product.toString());
+                }
                 ProductPage productPage = new ProductPage(db, sc);
                 sc.addScene("products", productPage.getScene(), "Products");
                 sc.switchToScene("products");
@@ -207,6 +210,9 @@ public class AddProductPage extends ScenePage {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     AddProductPage productPage = new AddProductPage(db, sc);
                     sc.addScene("addProduct", productPage.getScene(), "Add Product");
+                    ProductPage page = new ProductPage(db, sc);
+                    sc.addScene("products", page.getScene(), "Products");
+
                     alert.setTitle("Product Edited Successfully!!!");
                     alert.showAndWait();
                     sc.switchToScene("products");
@@ -226,7 +232,7 @@ public class AddProductPage extends ScenePage {
         root.getChildren().addAll(gridPane); // Add gridPane to VBox
         root.setPadding(new Insets(10));
 
-        s = new Scene(root, 450, 400); // Adjusted size for category selection
+        s = new Scene(root, 700, 400); // Adjusted size for category selection
         setScene(s);
     }
 }
