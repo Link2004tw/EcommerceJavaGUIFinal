@@ -127,4 +127,9 @@ public class CartPage extends ScenePage {
             }
         }
     }
+
+    @Override
+    public void refresh() {
+
+    }
 }

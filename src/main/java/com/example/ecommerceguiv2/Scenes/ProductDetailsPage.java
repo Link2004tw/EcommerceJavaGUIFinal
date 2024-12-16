@@ -81,4 +81,9 @@ public class ProductDetailsPage extends ScenePage {
         Scene s = new Scene(mainLayout, 600, 500);
         setScene(s); // Use the ScenePage's setScene method
     }
+
+    @Override
+    public void refresh() {
+
+    }
 }

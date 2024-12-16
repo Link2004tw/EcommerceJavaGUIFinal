@@ -124,5 +124,8 @@ public class ProfilePage extends ScenePage {
         setScene(s);
     }
 
+    @Override
+    public void refresh() {
 
+    }
 }
