@@ -26,7 +26,7 @@ public class HelloApplication extends Application {
 
         LoginScene loginScene = new LoginScene(db, sc);
         RegisterScene registerScene = new RegisterScene(db, sc);
-        ProductPage productPage = new ProductPage(db);
+        ProductPage productPage = new ProductPage(db, sc);
 
 
         sc.addScene("login", loginScene.getScene(), "Login Page");
