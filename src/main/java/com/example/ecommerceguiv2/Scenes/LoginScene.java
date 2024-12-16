@@ -61,4 +61,8 @@ public class LoginScene extends ScenePage {
         setScene(s);
     }
 
+    @Override
+    public void refresh() {
+
+    }
 }

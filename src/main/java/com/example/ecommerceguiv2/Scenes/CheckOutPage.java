@@ -10,4 +10,9 @@ public class CheckOutPage extends ScenePage{
         Scene s = null;
         setScene(s);
     }
+
+    @Override
+    public void refresh() {
+
+    }
 }

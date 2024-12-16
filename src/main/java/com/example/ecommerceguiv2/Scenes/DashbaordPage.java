@@ -97,4 +97,9 @@ public class DashbaordPage extends ScenePage {
 
         setScene(s);
     }
+
+    @Override
+    public void refresh() {
+
+    }
 }

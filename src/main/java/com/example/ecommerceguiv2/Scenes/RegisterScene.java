@@ -104,4 +104,8 @@ public class RegisterScene extends ScenePage {
         }
     }
 
+    @Override
+    public void refresh() {
+
+    }
 }
