@@ -1,33 +1,27 @@
 package com.example.ecommerceguiv2.Components;
 import com.example.ecommerceguiv2.Exceptions.AlreadyExistsException;
 import com.example.ecommerceguiv2.Models.SceneContainer;
+import com.example.ecommerceguiv2.Scenes.ScenePage;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class SceneController {
     private final Stage stage;
     private List<SceneContainer> scenes = new ArrayList<>();
     private List<String> names = new ArrayList<>();
+    private Stack<String> screneVisited = new Stack<>();
     public SceneController(Stage stage) {
         this.stage = stage;
     }
 
-    public void addScene(String name, Pane layout, String title) {
-        for (String n: names){
-            if(n.equals(name)){
-                throw new AlreadyExistsException("Scene name already exists");
-            }
-        }
-        names.add(name);
-        SceneContainer sceneContainer = new SceneContainer(name, layout,title);
-        scenes.add(sceneContainer);
-    }
 
-    public void addScene(String name, Scene s, String t) {
+
+    public void addScene(String name, ScenePage s, String t) {
         for (SceneContainer n: scenes){
             if(n.getName().equals(name)){
                 n.setScene(s);
@@ -43,6 +37,7 @@ public class SceneController {
         String t = null;
         for(SceneContainer sceneContainer: scenes){
             if(sceneContainer.getName().equals(name)){
+                refresh(name);
                 s = sceneContainer.getScene();
                 t = sceneContainer.getTitle();
             }
@@ -50,6 +45,7 @@ public class SceneController {
         if (s != null) {
             stage.setScene(s);
             stage.setTitle(t);
+            screneVisited.push(name);
             stage.show();
         } else {
             System.out.println("Scene " + name + " not found!");
@@ -59,5 +55,20 @@ public class SceneController {
         for(String n: names){
             System.out.println(n);
         }
+    }
+    public void goBack(){
+        screneVisited.pop();
+        String name = screneVisited.peek();
+        this.switchToScene(name);
+    }
+    public void refresh(String name){
+        ScenePage s = null;
+        for(SceneContainer sceneContainer: scenes){
+            if(sceneContainer.getName().equals(name)){
+                sceneContainer.refresh();
+
+            }
+        }
+
     }
 }

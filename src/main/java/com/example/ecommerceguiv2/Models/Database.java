@@ -117,12 +117,12 @@ public class Database {
                 if (customer.validate(password)){
                     loggedCustomer = customer;
                     CartPage cartPage = new CartPage(this);
-                    sc.addScene("cart", cartPage.getScene(), "Cart");
+                    sc.addScene("cart", cartPage, "Cart");
                     DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
-                    sc.addScene("dashboard", dashbaordPage.getScene(), "Dashboard");
+                    sc.addScene("dashboard", dashbaordPage, "Dashboard");
                     isAdmin = false;
                     ProductPage productPage = new ProductPage(this, sc);
-                    sc.addScene("products", productPage.getScene(), "Product Page");
+                    sc.addScene("products", productPage, "Product Page");
 
                     return customer;
                 }
@@ -136,11 +136,11 @@ public class Database {
                     isAdmin = true;
                     loggedAdmin = admin;
                     DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
-                    sc.addScene("dashboard", dashbaordPage.getScene(), "Dashboard");
+                    sc.addScene("dashboard", dashbaordPage, "Dashboard");
                     AddProductPage addProductPage = new AddProductPage(this, sc);
-                    sc.addScene("addProduct", addProductPage.getScene(), "Add Product");
+                    sc.addScene("addProduct", addProductPage, "Add Product");
                     ProductPage productPage = new ProductPage(this, sc);
-                    sc.addScene("products", productPage.getScene(), "Product Page");
+                    sc.addScene("products", productPage, "Product Page");
 
 
                     return admin ;
@@ -181,10 +181,10 @@ public class Database {
             System.out.println("Registration successful!");
             loggedCustomer = newCustomer;
             DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
-            sc.addScene("dashboard", dashbaordPage.getScene(), "Dashboard");
+            sc.addScene("dashboard", dashbaordPage, "Dashboard");
 
             CartPage cartPage = new CartPage(this);
-            sc.addScene("cart", cartPage.getScene(), "Cart");
+            sc.addScene("cart", cartPage, "Cart");
             sc.displayNames();
 
             return newCustomer;
@@ -370,13 +370,18 @@ public class Database {
         }
         else if(c == Product.class){
             Product p = products.get(index);
-            int i = getIndex(Category.class, p.getCategory());
-            Category category = categories.get(i);
+            Category category = p.getCategory();
+            System.out.println("Your product");
+            System.out.println(p.toString());
+            System.out.println("The categories product");
+            for (Product product : category.getProducts()){
+                System.out.println(product.toString());
+            }
             category.deleteProduct(p);
             update(Category.class, category);
 
             products.remove(index);
-            this.addProduct(p);
+            this.addProduct((Product) object);
         }
         else if(c == Order.class){
             orders.set(index, (Order) object);

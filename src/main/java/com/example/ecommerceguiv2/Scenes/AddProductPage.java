@@ -1,5 +1,7 @@
 package com.example.ecommerceguiv2.Scenes;
 
+import com.example.ecommerceguiv2.Components.NavigationBar;
+import com.example.ecommerceguiv2.Components.ProductItem;
 import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Category;
 import com.example.ecommerceguiv2.Models.Database;
@@ -14,6 +16,7 @@ import javafx.scene.layout.VBox;
 public class AddProductPage extends ScenePage {
     // Admin page to add new products
     public AddProductPage(Database db, SceneController sc) {
+        NavigationBar navigationBar = new NavigationBar(sc);
         Scene s = null;
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20, 20, 20, 20)); // Padding around grid
@@ -94,18 +97,18 @@ public class AddProductPage extends ScenePage {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Product Added Successfully!!!");
                 alert.showAndWait();
-                for(Product product: db.getProducts()){
+                for (Product product : db.getProducts()) {
                     System.out.println(product.toString());
                 }
                 ProductPage productPage = new ProductPage(db, sc);
-                sc.addScene("products", productPage.getScene(), "Products");
+                sc.addScene("products", productPage, "Products");
                 sc.switchToScene("products");
             }
         });
 
         // --- Scene and Stage ---
         VBox root = new VBox(10); // Root layout
-        root.getChildren().addAll(gridPane); // Add gridPane to VBox
+        root.getChildren().addAll(navigationBar, gridPane); // Add gridPane to VBox
         root.setPadding(new Insets(10));
 
         s = new Scene(root, 700, 400); // Adjusted size for category selection
@@ -113,6 +116,8 @@ public class AddProductPage extends ScenePage {
     }
 
     public AddProductPage(Database db, Product product, SceneController sc) {
+        NavigationBar navigationBar = new NavigationBar(sc);
+
         Scene s = null;
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(20, 20, 20, 20)); // Padding around grid
@@ -200,36 +205,34 @@ public class AddProductPage extends ScenePage {
                     System.out.println("New Product Added:");
                 } else {
                     // Update existing product
-                    product.setName(name);
-                    product.setPrice(Double.parseDouble(price));
-                    product.setStockQuantity(Integer.parseInt(quantity));
-                    product.setDescription(description);
-                    product.setCategory(db.findByName(selectedCategory, Category.class));
+                    Product newProduct = new Product(
+                            name,
+                            description,
+                            Double.parseDouble(price),
+                            Integer.parseInt(quantity),
+                            db.findByName(selectedCategory, Category.class),
+                            product.getId()
+                    );
 
-                    db.update(Product.class, product);
+                    db.update(Product.class, newProduct);
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     AddProductPage productPage = new AddProductPage(db, sc);
-                    sc.addScene("addProduct", productPage.getScene(), "Add Product");
-                    ProductPage page = new ProductPage(db, sc);
-                    sc.addScene("products", page.getScene(), "Products");
-
+                    sc.addScene("addProduct", productPage, "Add Product");
+                    //ProductPage page = new ProductPage(db, sc);
+                    //sc.addScene("products", page, "Products");
+                    sc.refresh("products");
                     alert.setTitle("Product Edited Successfully!!!");
                     alert.showAndWait();
                     sc.switchToScene("products");
 
                 }
 
-//                System.out.println("Name: " + name);
-//                System.out.println("Price: " + price);
-//                System.out.println("Quantity: " + quantity);
-//                System.out.println("Description: " + description);
-//                System.out.println("Category: " + selectedCategory);
             }
         });
 
         // --- Scene and Stage ---
         VBox root = new VBox(10); // Root layout
-        root.getChildren().addAll(gridPane); // Add gridPane to VBox
+        root.getChildren().addAll(navigationBar ,gridPane); // Add gridPane to VBox
         root.setPadding(new Insets(10));
 
         s = new Scene(root, 700, 400); // Adjusted size for category selection

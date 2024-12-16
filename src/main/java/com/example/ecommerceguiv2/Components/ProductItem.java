@@ -22,7 +22,7 @@ public class ProductItem extends HBox {
 
         labelButton.setOnAction(e -> {
             ProductDetailsPage p1 = new ProductDetailsPage(p, db);
-            sc.addScene("details", p1.getScene(), p.getName());
+            sc.addScene("details", p1, p.getName());
             sc.switchToScene("details");
         });
         Button addToCartButton = new Button(db.isAdmin() ? "Edit" : "Add to Cart");
@@ -31,7 +31,7 @@ public class ProductItem extends HBox {
         addToCartButton.setOnAction(e -> {
             if (db.isAdmin()) {
                 AddProductPage productPage = new AddProductPage(db, p, sc);
-                sc.addScene("addProduct", productPage.getScene(), p.getName() + "Edit");
+                sc.addScene("addProduct", productPage, p.getName() + "Edit");
                 sc.switchToScene("addProduct");
             } else {
                 db.getLoggedCustomer().addToCart(p, 1, db);
