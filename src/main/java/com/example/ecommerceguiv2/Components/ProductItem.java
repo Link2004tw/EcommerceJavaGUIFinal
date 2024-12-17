@@ -21,7 +21,7 @@ public class ProductItem extends HBox {
         labelButton.setFocusTraversable(false);
 
         labelButton.setOnAction(e -> {
-            ProductDetailsPage p1 = new ProductDetailsPage(p, db);
+            ProductDetailsPage p1 = new ProductDetailsPage(p, db, sc);
             sc.addScene("details", p1, p.getName());
             sc.switchToScene("details");
         });
