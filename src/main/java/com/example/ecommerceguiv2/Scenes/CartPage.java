@@ -1,5 +1,6 @@
 package com.example.ecommerceguiv2.Scenes;
 
+import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.*;
 import javafx.application.Application;
 import javafx.scene.layout.HBox;
@@ -18,7 +19,7 @@ import javafx.collections.FXCollections;
 
 public class CartPage extends ScenePage {
 
-    public CartPage(Database db) {
+    public CartPage(Database db, SceneController sc) {
         Customer customer = db.getLoggedCustomer();
 
         if (customer != null) {
@@ -111,8 +112,7 @@ public class CartPage extends ScenePage {
 
                 Button continueShoppingButton = new Button("Continue Shopping");
                 continueShoppingButton.setOnAction(e -> {
-                    // code
-
+                    sc.switchToScene("products");
                 });
 
                 VBox vbox = new VBox(20, titleLabel, emptyCartLabel, continueShoppingButton);

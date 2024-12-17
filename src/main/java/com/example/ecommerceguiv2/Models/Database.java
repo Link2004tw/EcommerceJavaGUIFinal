@@ -116,7 +116,7 @@ public class Database {
             if (customer.search(username)){
                 if (customer.validate(password)){
                     loggedCustomer = customer;
-                    CartPage cartPage = new CartPage(this);
+                    CartPage cartPage = new CartPage(this,sc);
                     sc.addScene("cart", cartPage, "Cart");
                     DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
                     sc.addScene("dashboard", dashbaordPage, "Dashboard");
@@ -183,7 +183,7 @@ public class Database {
             DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
             sc.addScene("dashboard", dashbaordPage, "Dashboard");
 
-            CartPage cartPage = new CartPage(this);
+            CartPage cartPage = new CartPage(this,sc);
             sc.addScene("cart", cartPage, "Cart");
             sc.displayNames();
 
