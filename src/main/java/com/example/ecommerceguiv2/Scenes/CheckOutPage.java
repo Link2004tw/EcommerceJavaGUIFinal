@@ -84,11 +84,20 @@ public class CheckOutPage extends ScenePage {
         String selectedMethodText = selectedButton.getText().replace(" ", "_").toUpperCase();
         Order.PaymentMethod selectedPaymentMethod = Order.PaymentMethod.valueOf(selectedMethodText);
 
+        if (selectedPaymentMethod == Order.PaymentMethod.BALANCE) {
+            if (customer.getBalance() < cart.getTotalAmount()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Insufficient balance. Defaulting to CASH.", ButtonType.OK);
+                alert.showAndWait();
+                selectedPaymentMethod = Order.PaymentMethod.CASH;
+            } else {
+                customer.setBalance(customer.getBalance() - cart.getTotalAmount());
+                database.update(Customer.class, customer); // Update balance in the database
+            }
+        }
+        customer.makeOrder(database,selectedPaymentMethod);
 
-        Order order = new Order(customer, customer.getCart().getProducts(), customer.getCart().getTotalAmount(), selectedPaymentMethod);
-        cart.clearCart();
-        database.addOrder(order);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order processed successfully!\n\n" + order, ButtonType.OK);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order processed successfully!", ButtonType.OK);
         alert.showAndWait();
 
         sceneController.switchToScene("ProductPage");

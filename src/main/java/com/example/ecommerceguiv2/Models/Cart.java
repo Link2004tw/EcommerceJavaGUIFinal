@@ -69,25 +69,6 @@ public class Cart {
 
     }
 
-    public Order placeOrder(Database db, String paymentMethodInput) {
-        //System.out.println("Select payment method (CREDIT_CARD, DEBIT_CARD, PAYPAL, CASH, BALANCE)");
-        Order.PaymentMethod paymentMethod;
-        paymentMethod = Order.PaymentMethod.valueOf(paymentMethodInput);
-
-        Customer customer = db.getCustomerById(customerId);
-        if (paymentMethod == Order.PaymentMethod.BALANCE) {
-            if (customer.getBalance() < totalAmount) {
-                System.out.println("Invalid payment method. Defaulting to CASH. Not enough balance");
-                paymentMethod = Order.PaymentMethod.CASH;
-            } else {
-                customer.setBalance(customer.getBalance() - totalAmount);
-                db.update(Customer.class, customer);
-            }
-        }
-        Order o = new Order(customer, items, totalAmount, paymentMethod);
-        items.clear();
-        return o;
-    }
 
     public void clearCart() {
         items.clear();
