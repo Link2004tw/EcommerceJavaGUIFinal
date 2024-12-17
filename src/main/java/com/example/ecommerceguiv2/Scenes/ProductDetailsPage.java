@@ -1,5 +1,7 @@
 package com.example.ecommerceguiv2.Scenes;
 
+import com.example.ecommerceguiv2.Components.NavigationBar;
+import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Cart;
 import com.example.ecommerceguiv2.Models.Category;
 import com.example.ecommerceguiv2.Models.Database;
@@ -12,7 +14,8 @@ import java.util.List;
 
 public class ProductDetailsPage extends ScenePage {
 
-    public ProductDetailsPage(Product product, Database db) {
+    public ProductDetailsPage(Product product, Database db, SceneController sc) {
+        NavigationBar navigationBar = new NavigationBar(sc);
         // Create main layout
         BorderPane mainLayout = new BorderPane();
         mainLayout.setPadding(new Insets(10));
@@ -21,16 +24,12 @@ public class ProductDetailsPage extends ScenePage {
         formPane.setHgap(10);
         formPane.setVgap(10);
         formPane.setPadding(new Insets(10));
-
+        mainLayout.setTop(navigationBar);
         // Product Name
         Label nameLabel = new Label("Product Name:");
         TextField nameField = new TextField(product.getName());
         nameField.setEditable(false); // Make the field non-editable
 
-        // Product ID
-        //Label idLabel = new Label("Product ID:");
-        //TextField idField = new TextField(String.valueOf(product.getId()));
-        //idField.setEditable(false); // Make the field non-editable
 
         // Product Price
         Label priceLabel = new Label("Price:");
@@ -41,11 +40,6 @@ public class ProductDetailsPage extends ScenePage {
         TextField categoryField = new TextField(product.getCategory().getName());
         categoryField.setEditable(false); // Make the field non-editable
 
-//        ComboBox<Category> categoryField = new ComboBox<>();
-//
-//        categoryField.getItems().addAll(categoryList);
-//        categoryField.setValue(product.getCategory()); // Set the category of the product
-//        categoryField.setDisable(true); // Disable the ComboBox so it's not editable
 
         // Product Description
         Label descriptionLabel = new Label("Description:");
@@ -59,8 +53,6 @@ public class ProductDetailsPage extends ScenePage {
         // Add fields to form pane
         formPane.add(nameLabel, 0, 0);
         formPane.add(nameField, 1, 0);
-        //formPane.add(idLabel, 0, 1);
-        //formPane.add(idField, 1, 1);
         formPane.add(priceLabel, 0, 1);
         formPane.add(priceField, 1, 1);
         formPane.add(categoryLabel, 0, 2);
@@ -68,15 +60,25 @@ public class ProductDetailsPage extends ScenePage {
         formPane.add(descriptionLabel, 0, 3);
         formPane.add(descriptionArea, 1, 3);
 
-        mainLayout.setTop(formPane);
+        mainLayout.setCenter(formPane);
 
         // Action buttons (only Cancel to close the page)
         HBox buttonBox = new HBox(10);
         buttonBox.setPadding(new Insets(10));
         buttonBox.setSpacing(10);
         buttonBox.setStyle("-fx-alignment: center-right;");
-
-
+        if(db.isAdmin()){
+            System.out.println("is admin");
+            Button b2 = new Button("Edit");
+                    b2.setOnAction(e -> {
+                        AddProductPage productPage = new AddProductPage(db, product, sc);
+                        sc.addScene("addProduct", productPage, product.getName());
+                        sc.switchToScene("addProduct");
+                    }
+            );
+            buttonBox.getChildren().add(b2);
+        }
+        mainLayout.setBottom(buttonBox);
         // Create and set the scene
         Scene s = new Scene(mainLayout, 600, 500);
         setScene(s); // Use the ScenePage's setScene method
