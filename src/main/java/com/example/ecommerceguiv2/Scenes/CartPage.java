@@ -1,5 +1,6 @@
 package com.example.ecommerceguiv2.Scenes;
 
+import com.example.ecommerceguiv2.Components.NavigationBar;
 import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.*;
 import javafx.application.Application;
@@ -25,7 +26,7 @@ public class CartPage extends ScenePage {
         database = db;
         sceneController = sc;
         Customer customer = db.getLoggedCustomer();
-
+        NavigationBar navigationBar = new NavigationBar(sceneController);
         if (customer != null) {
             Cart cart = customer.getCart();
             if (!cart.isEmpty()) {
@@ -119,7 +120,7 @@ public class CartPage extends ScenePage {
                     sc.switchToScene("products");
                 });
 
-                VBox vbox = new VBox(20, titleLabel, emptyCartLabel, continueShoppingButton);
+                VBox vbox = new VBox(20, navigationBar, titleLabel, emptyCartLabel, continueShoppingButton);
                 vbox.setStyle("-fx-alignment: center; -fx-padding: 20px;");
                 Scene s = new Scene(vbox, 600, 400);
                 try {

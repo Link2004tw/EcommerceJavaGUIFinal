@@ -15,11 +15,14 @@ public class NavigationBar extends VBox {
 
         // Back button
         Button backButton = new Button("Back");
+        Button home = new Button("Home");
         backButton.setPrefWidth(100); // Set preferred width
         backButton.setOnAction(e -> {
             sceneController.goBack();
         }); // Trigger the back action when pressed
-
+        backButton.setOnAction(e -> {
+            sceneController.switchToScene("dashboard");
+        });
         // Add button to VBox
         this.getChildren().add(backButton);
     }

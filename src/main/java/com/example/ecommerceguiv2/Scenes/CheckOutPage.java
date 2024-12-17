@@ -19,12 +19,11 @@ public class CheckOutPage extends ScenePage {
     private Cart cart;
     private ToggleGroup paymentGroup;
     private Label totalLabel;
-    private Customer customer;
 
     public CheckOutPage(Database db, SceneController sc) {
         this.database = db;
         this.sceneController = sc;
-        customer = db.getLoggedCustomer();
+        Customer customer = db.getLoggedCustomer();
         if (customer != null) {
             cart = customer.getCart();
 
@@ -94,17 +93,19 @@ public class CheckOutPage extends ScenePage {
                 database.update(Customer.class, customer); // Update balance in the database
             }
         }
-        customer.makeOrder(database,selectedPaymentMethod);
+        customer.makeOrder(database, selectedPaymentMethod);
 
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order processed successfully!", ButtonType.OK);
         alert.showAndWait();
 
-        sceneController.switchToScene("ProductPage");
+        sceneController.switchToScene("dashboard");
     }
 
     @Override
     public void refresh() {
+        Customer customer = database.getLoggedCustomer();
+        cart = customer.getCart();
         if (cart != null) {
             Label titleLabel = new Label("Checkout Page");
             titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
@@ -148,6 +149,8 @@ public class CheckOutPage extends ScenePage {
 
             Scene scene = new Scene(root, 800, 600);
             setScene(scene);
+        } else {
+            System.out.println("cart empty");
         }
     }
 }
