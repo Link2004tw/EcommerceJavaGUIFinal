@@ -86,6 +86,7 @@ public class CheckOutPage extends ScenePage {
 
 
         Order order = new Order(customer, customer.getCart().getProducts(), customer.getCart().getTotalAmount(), selectedPaymentMethod);
+        cart.clearCart();
         database.addOrder(order);
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order processed successfully!\n\n" + order, ButtonType.OK);
         alert.showAndWait();

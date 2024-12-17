@@ -30,8 +30,10 @@ public class ProductPage extends ScenePage {
 
         // Add ProductItem components to the VBox
         for (Product product : db.getProducts()) {
-            ProductItem productItem = new ProductItem(product, db, sc);
-            productList.getChildren().add(productItem);
+            if (product.getStockQuantity() > 0) {
+                ProductItem productItem = new ProductItem(product, db, sc);
+                productList.getChildren().add(productItem);
+            }
         }
 
         // Wrap VBox in a ScrollPane
