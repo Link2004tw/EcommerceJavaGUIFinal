@@ -91,7 +91,6 @@ public class CheckOutPage extends ScenePage {
                 selectedPaymentMethod = Order.PaymentMethod.CASH;
             } else {
                 customer.setBalance(customer.getBalance() - cart.getTotalAmount());
-                database.update(Customer.class, customer); // Update balance in the database
             }
         }
         customer.makeOrder(database,selectedPaymentMethod);
