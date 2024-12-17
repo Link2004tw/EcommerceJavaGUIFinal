@@ -1,5 +1,6 @@
 package com.example.ecommerceguiv2.Scenes;
 
+import com.example.ecommerceguiv2.Components.NavigationBar;
 import com.example.ecommerceguiv2.Components.ProductItem;
 import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Database;
@@ -12,13 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class ProductPage extends ScenePage {
-    Database database;
-    SceneController sceneController;
+    private Database database;
+    private SceneController sceneController;
     public ProductPage(Database db, SceneController sc) {
+
         database = db;
         sceneController = sc;
         // Add sample categories and products
-
+        NavigationBar navigationBar = new NavigationBar(sc);
         // Title
         Label titleLabel = new Label("Available Products");
 
@@ -39,13 +41,15 @@ public class ProductPage extends ScenePage {
 
         // Create the scene
         VBox root = new VBox(10);
-        root.getChildren().addAll(titleLabel, scrollPane);
+        root.getChildren().addAll(navigationBar, titleLabel, scrollPane);
 
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);
     }
+
     public void refresh(){
         Label titleLabel = new Label("Available Products");
+        NavigationBar navigationBar = new NavigationBar(sceneController);
 
         // Product list container
         VBox productList = new VBox(10); // Spacing of 10 pixels
@@ -64,7 +68,7 @@ public class ProductPage extends ScenePage {
 
         // Create the scene
         VBox root = new VBox(10);
-        root.getChildren().addAll(titleLabel, scrollPane);
+        root.getChildren().addAll(navigationBar ,titleLabel, scrollPane);
 
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);

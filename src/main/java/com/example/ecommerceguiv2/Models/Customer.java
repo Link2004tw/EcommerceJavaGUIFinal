@@ -40,8 +40,8 @@ public class Customer extends Person implements Validatable<String> {
 
 
 
-    public void makeOrder(Database db){
-        Order order = cart.placeOrder(db);
+    public void makeOrder(Database db, String paymentMethod){
+        Order order = cart.placeOrder(db, paymentMethod);
         System.out.println("Order Submitted");
         System.out.println(order.toString());
     }

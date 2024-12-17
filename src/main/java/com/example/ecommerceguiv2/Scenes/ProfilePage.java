@@ -90,9 +90,11 @@ public class ProfilePage extends ScenePage {
 
                 if(db.isAdmin())
                 {
-                    db.update(Admin.class, p);
+                    db.update(Admin.class, (Admin) p);
                 }
-                else{ db.update(Customer.class, p);}
+                else{
+                    db.update(Customer.class,(Customer) p);
+                }
 
                 // Here you can add logic to save the profile information
                 JOptionPane.showMessageDialog(frame, "Profile saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
@@ -110,11 +112,10 @@ public class ProfilePage extends ScenePage {
             }
         });
 
-                @Override
-                public void refresh()
-        {
-            System.out.println("Profile page refreshed!");
-        }
+//                @Override
+//                public void refresh() {
+//            System.out.println("Profile page refreshed!");
+//        }
 
         // Add the panel to the frame
         frame.add(panel);

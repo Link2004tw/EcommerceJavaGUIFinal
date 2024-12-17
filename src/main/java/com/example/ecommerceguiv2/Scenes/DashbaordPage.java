@@ -61,6 +61,18 @@ public class DashbaordPage extends ScenePage {
         ordersButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
         addButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
 
+        cartButton.setOnAction(e -> {
+            sc.switchToScene("cart");
+        });
+
+        ordersButton.setOnAction(e -> {
+            if (db.isAdmin()){
+                sc.switchToScene("adminOrders");
+            }   else {
+                sc.switchToScene("orders");
+            }
+        });
+
         // Username button
         Button usernameButton = new Button(db.isAdmin() ? db.getLoggedAdmin().getUsername() : db.getLoggedCustomer().getUsername());
         usernameButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
@@ -69,7 +81,7 @@ public class DashbaordPage extends ScenePage {
             navigationBar.getChildren().addAll(shopButton, addButton, ordersButton, usernameButton);
 
         } else {
-            navigationBar.getChildren().addAll(shopButton, ordersButton, usernameButton);
+            navigationBar.getChildren().addAll(shopButton, cartButton, ordersButton, usernameButton);
 
         }
         // Add buttons to the navigation bar

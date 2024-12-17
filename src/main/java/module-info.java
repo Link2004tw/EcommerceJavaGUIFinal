@@ -4,6 +4,7 @@ module com.example.ecommerceguiv2 {
 
     requires org.controlsfx.controls;
     requires org.kordamp.bootstrapfx.core;
+    requires java.desktop;
 
     opens com.example.ecommerceguiv2 to javafx.fxml;
     exports com.example.ecommerceguiv2;
