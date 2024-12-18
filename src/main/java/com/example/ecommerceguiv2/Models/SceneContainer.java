@@ -42,4 +42,7 @@ public class SceneContainer {
         scene.refresh();
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

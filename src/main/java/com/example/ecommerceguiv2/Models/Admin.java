@@ -60,6 +60,14 @@ public class Admin extends Person implements Validatable<String> {
 
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setWorkingHours(int workingHours) {
+        this.workingHours = workingHours;
+    }
+
     public void showAllProducts(Database db) {
         List<Product> products = db.getProducts();
         System.out.println("Products");

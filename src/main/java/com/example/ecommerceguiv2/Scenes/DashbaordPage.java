@@ -76,6 +76,9 @@ public class DashbaordPage extends ScenePage {
         // Username button
         Button usernameButton = new Button(db.isAdmin() ? db.getLoggedAdmin().getUsername() : db.getLoggedCustomer().getUsername());
         usernameButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
+        usernameButton.setOnAction(e-> {
+            sc.switchToScene("profile");
+        });
         usernameButton.setAlignment(Pos.CENTER_RIGHT);
         if (db.isAdmin()) {
             navigationBar.getChildren().addAll(shopButton, addButton, ordersButton, usernameButton);

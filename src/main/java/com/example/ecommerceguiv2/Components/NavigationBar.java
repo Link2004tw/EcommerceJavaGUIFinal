@@ -3,9 +3,9 @@ package com.example.ecommerceguiv2.Components;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
-public class NavigationBar extends VBox {
+public class NavigationBar extends HBox {
 
     public NavigationBar(SceneController sceneController) {
         // Styling and layout settings
@@ -24,6 +24,6 @@ public class NavigationBar extends VBox {
             sceneController.switchToScene("dashboard");
         });
         // Add button to VBox
-        this.getChildren().add(backButton);
+        this.getChildren().addAll(backButton,home);
     }
 }

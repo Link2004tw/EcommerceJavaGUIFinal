@@ -173,7 +173,6 @@ public class Database {
             if(date.after(now)){
                 throw new IllegalArgumentException("Invalid date");
             }
-            System.out.print("Enter your gender: ");
             Person.Gender gender = Person.Gender.valueOf(genderInput.toUpperCase());
 
             Customer newCustomer = new Customer(username, password, date, 0,gender);

@@ -69,6 +69,12 @@ public class SceneController {
 
             }
         }
-
+    }
+    public void setTitle(String sceneName, String title){
+        for (SceneContainer sceneContainer: scenes){
+            if(sceneContainer.getName().equals(sceneName)){
+                sceneContainer.setTitle(title);
+            }
+        }
     }
 }
