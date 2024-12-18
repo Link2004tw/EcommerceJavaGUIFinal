@@ -94,7 +94,7 @@ public class CartPage extends ScenePage {
                 });
                 Button continueShoppingButton = new Button("Continue Shopping");
                 continueShoppingButton.setOnAction(e -> {
-                    // Code
+                    sceneController.switchToScene("products");
                 });
                 HBox buttonBox = new HBox(10, placeOrderButton, clearCartButton, continueShoppingButton);
                 buttonBox.setStyle("-fx-alignment: center;");
@@ -206,7 +206,7 @@ public class CartPage extends ScenePage {
                 });
                 Button continueShoppingButton = new Button("Continue Shopping");
                 continueShoppingButton.setOnAction(e -> {
-                    // Code
+                    sceneController.switchToScene("products");
                 });
                 HBox buttonBox = new HBox(10, placeOrderButton, clearCartButton, continueShoppingButton);
                 buttonBox.setStyle("-fx-alignment: center;");

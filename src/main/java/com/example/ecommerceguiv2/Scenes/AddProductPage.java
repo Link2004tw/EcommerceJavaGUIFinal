@@ -63,39 +63,39 @@ public class AddProductPage extends ScenePage {
                 radioButton.setSelected(true);
             }
         }
-// New Category Input
-        TextField newCategoryField = new TextField();
-        newCategoryField.setPromptText("Enter new category name");
-        TextArea newCategoryDescription = createTextArea(gridPane, "Category Description: ", 5, "");
-        Button addCategoryButton = new Button("Add Category");
+        // New Category Input
+        // TextField newCategoryField = new TextField();
+        // newCategoryField.setPromptText("Enter new category name");
+        // TextArea newCategoryDescription = createTextArea(gridPane, "Category Description: ", 5, "");
+        // Button addCategoryButton = new Button("Add Category");
 
-        addCategoryButton.setOnAction(e -> {
-            String newCategoryName = newCategoryField.getText().trim();
-            if (!newCategoryName.isEmpty() && !newCategoryDescription.getText().isEmpty()) {
+        // addCategoryButton.setOnAction(e -> {
+            // String newCategoryName = newCategoryField.getText().trim();
+            // if (!newCategoryName.isEmpty() && !newCategoryDescription.getText().isEmpty()) {
                 // Add new category dynamically
-                Category newCategory = new Category(newCategoryName, newCategoryDescription.getText()); // Assuming Category class constructor takes name
-                database.addCategory(newCategory); // Add to database
-                RadioButton newRadioButton = new RadioButton(newCategory.getName());
-                newRadioButton.setToggleGroup(categoryGroup);
-                categoryBox.getChildren().add(newRadioButton);
-                newCategoryField.clear(); // Clear the input field
-                newCategoryDescription.clear();
-            } else {
+               // Category newCategory = new Category(newCategoryName, newCategoryDescription.getText()); // Assuming Category class constructor takes name
+               // database.addCategory(newCategory); // Add to database
+               // RadioButton newRadioButton = new RadioButton(newCategory.getName());
+               // newRadioButton.setToggleGroup(categoryGroup);
+               // categoryBox.getChildren().add(newRadioButton);
+               // newCategoryField.clear(); // Clear the input field
+                // newCategoryDescription.clear();
+            // } else {
                 // Validation for empty input
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Invalid Category");
-                alert.setContentText("Category name and description cannot be empty.");
-                alert.showAndWait();
-            }
-        });
+            // Alert alert = new Alert(Alert.AlertType.ERROR);
+              //  alert.setTitle("Invalid Category");
+                //alert.setContentText("Category name and description cannot be empty.");
+                //alert.showAndWait();
+            //}
+        // });
 
 // Layout for Category Section
         VBox categorySection = new VBox(5);
-        categorySection.getChildren().addAll(categoryBox, newCategoryField);
+        categorySection.getChildren().addAll(categoryBox);
 
         gridPane.add(categoryLabel, 0, 4);
         gridPane.add(categorySection, 1, 4);
-        gridPane.add(addCategoryButton, 0, 8);
+        //gridPane.add(addCategoryButton, 0, 8);
         // Submit Button
         Button submitButton = new Button(product == null ? "Add Product" : "Update Product");
         submitButton.setOnAction(e -> handleFormSubmission(nameField, priceField, quantityField, descriptionArea, categoryGroup));
