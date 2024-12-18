@@ -72,7 +72,6 @@ public class HelloApplication extends Application {
         sc.addScene("order", checkOutPage, "Check Out");
         sc.addScene("profile", profilePage, "");
         sc.addScene("editProfile", editProfilePage, "");
-        sc.displayNames();
         sc.switchToScene("login");
     }
 

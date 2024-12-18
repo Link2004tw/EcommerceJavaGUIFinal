@@ -32,9 +32,9 @@ public class ProfilePage extends ScenePage {
         if (p != null) {
             sc.setTitle("profile", p.getUsername());
             // Root layout
-            VBox root = new VBox(20);
+            VBox root = new VBox();
             root.setPadding(new Insets(20));
-            root.setAlignment(Pos.CENTER);
+            //root.setAlignment(Pos.CENTER);
 
             // Title Label
             Label titleLabel = new Label("Profile Page");
@@ -72,9 +72,18 @@ public class ProfilePage extends ScenePage {
                 // Leave this empty for now
                 sc.switchToScene("editProfile");
             });
-
+            Button logoutButton = new Button("Log out");
+            logoutButton.setOnAction(event -> {
+                db.signOut();
+            });
+            HBox.setMargin(editProfileButton, new Insets(0, 20, 0, 20)); // Top, Right, Bottom, Left
+            HBox.setMargin(logoutButton, new Insets(0, 20, 0, 20));
+            HBox buttonBox = new HBox(editProfileButton, logoutButton);
             // Add components to the root layout
-            root.getChildren().addAll(navigationBar, titleLabel, grid, editProfileButton);
+            buttonBox.setAlignment(Pos.CENTER);
+            VBox.setMargin(buttonBox, new Insets(20, 0, 0, 0));
+
+            root.getChildren().addAll(navigationBar, titleLabel, grid, buttonBox);
             // Scene and Stage Setup
             Scene s = new Scene(root, 400, 500);
             setScene(s);

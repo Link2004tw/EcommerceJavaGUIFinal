@@ -151,6 +151,14 @@ public class Database {
         throw new NotFoundException("Account not found!!");
     }
 
+    public void signOut(){
+        if (isAdmin){
+            loggedAdmin = null;
+        }else {
+            loggedCustomer = null;
+        }
+        sc.switchToScene("login");
+    }
     public Customer register(String username,String dateString, String genderInput, String password) throws NotFoundException, RegisterFailException,IllegalArgumentException, ParseException  {
         Date now = new Date();
         boolean found = false;
