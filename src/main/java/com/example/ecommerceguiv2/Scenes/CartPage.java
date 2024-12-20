@@ -135,7 +135,7 @@ public class CartPage extends ScenePage {
 
     @Override
     public void refresh() {
-        Customer customer = database           .getLoggedCustomer();
+        Customer customer = database.getLoggedCustomer();
 
         if (customer != null) {
             Cart cart = customer.getCart();
