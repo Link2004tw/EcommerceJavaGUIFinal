@@ -57,7 +57,7 @@ public class CartPage extends ScenePage {
                                 removeButton.setOnAction(event -> {
                                     Item item = getTableView().getItems().get(getIndex());
                                     cart.removeProduct(item.getProduct());
-                                    table.setItems(FXCollections.observableArrayList(cart.getProducts()));
+                                    sceneController.switchToScene("cart");
                                 });
                             }
 
@@ -167,7 +167,7 @@ public class CartPage extends ScenePage {
                                 removeButton.setOnAction(event -> {
                                     Item item = getTableView().getItems().get(getIndex());
                                     cart.removeProduct(item.getProduct());
-                                    table.setItems(FXCollections.observableArrayList(cart.getProducts()));
+                                    sceneController.switchToScene("cart");
                                 });
                             }
 
