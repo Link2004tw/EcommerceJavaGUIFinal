@@ -1,6 +1,7 @@
 package com.example.ecommerceguiv2.Scenes;
 
 import com.example.ecommerceguiv2.Components.SceneController;
+import com.example.ecommerceguiv2.Models.Customer;
 import com.example.ecommerceguiv2.Models.Database;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,9 +13,10 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class DashbaordPage extends ScenePage {
-
+    private Database database;
     private VBox createStatsCard(String title, String value) {
         VBox card = new VBox();
         card.setAlignment(Pos.CENTER);
@@ -38,7 +40,7 @@ public class DashbaordPage extends ScenePage {
     public DashbaordPage(SceneController sc, Database db) {
         Scene s;
         BorderPane mainLayout = new BorderPane();
-
+        database = db;
         // Top Navigation Bar
         HBox navigationBar = new HBox();
         navigationBar.setSpacing(20);
@@ -72,7 +74,8 @@ public class DashbaordPage extends ScenePage {
                 sc.switchToScene("orders");
             }
         });
-
+        Button viewCustomersButton = new Button("View Customers");
+        viewCustomersButton.setOnAction(e -> showCustomersWindow());
         // Username button
         Button usernameButton = new Button(db.isAdmin() ? db.getLoggedAdmin().getUsername() : db.getLoggedCustomer().getUsername());
         usernameButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
@@ -81,7 +84,7 @@ public class DashbaordPage extends ScenePage {
         });
         usernameButton.setAlignment(Pos.CENTER_RIGHT);
         if (db.isAdmin()) {
-            navigationBar.getChildren().addAll(shopButton, addButton, ordersButton, usernameButton);
+            navigationBar.getChildren().addAll(shopButton, addButton, ordersButton, usernameButton,viewCustomersButton);
 
         } else {
             navigationBar.getChildren().addAll(shopButton, cartButton, ordersButton, usernameButton);
@@ -112,7 +115,25 @@ public class DashbaordPage extends ScenePage {
 
         setScene(s);
     }
+    private void showCustomersWindow() {
+        Stage customerStage = new Stage();
+        customerStage.setTitle("List of Customers");
 
+        ListView<String> customerListView = new ListView<>();
+
+        for (Customer customer : database.getCustomers()) {
+            customerListView.getItems().add(
+                    customer.getUsername()
+            );
+        }
+
+        VBox layout = new VBox(10, new Label("Current Customers"), customerListView);
+        layout.setPadding(new Insets(20));
+
+        Scene scene = new Scene(layout, 400, 500);
+        customerStage.setScene(scene);
+        customerStage.show();
+    }
     @Override
     public void refresh() {
 

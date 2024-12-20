@@ -4,7 +4,6 @@ import com.example.ecommerceguiv2.Components.NavigationBar;
 import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Category;
 import com.example.ecommerceguiv2.Models.Database;
-import com.example.ecommerceguiv2.Models.Product;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
