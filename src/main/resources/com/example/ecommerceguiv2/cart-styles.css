@@ -33,28 +33,6 @@
     -fx-text-fill: #2B579A;
     -fx-background-color: #FFD700;
 }
-.label {
-    -fx-text-align: center;
-    -fx-font-size: 24px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #000000;
-}
 
-.button {
-    -fx-background-color: #FFD700;
-    -fx-text-fill: black;
-    -fx-padding: 3px 10px;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-border-radius: 3px;
-    -fx-background-radius: 3px;
-    -fx-border-width: 2px;
-}
-.button:hover {
-    -fx-background-color: #DEB887;
-    -fx-text-fill: white;
-}
-.button:pressed {
-    -fx-background-color: #DAA520;
-    -fx-text-fill: #ffffff;
-}
+
+
