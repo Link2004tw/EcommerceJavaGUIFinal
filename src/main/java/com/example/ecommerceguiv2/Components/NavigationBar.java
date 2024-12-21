@@ -22,7 +22,7 @@ public class NavigationBar extends HBox {
         backButton.setOnAction(e -> {
             sceneController.goBack();
         }); // Trigger the back action when pressed
-        backButton.setOnAction(e -> {
+        home.setOnAction(e -> {
             sceneController.switchToScene("dashboard");
         });
         // Add button to VBox

@@ -1,5 +1,7 @@
 package com.example.ecommerceguiv2.Models;
 
+import com.example.ecommerceguiv2.Exceptions.CantPerformAction;
+
 import java.util.Date;
 import java.util.List;
 
@@ -75,6 +77,10 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     // methods
     public void processOrder() {
         for (Item orderItem : orderItems) {
@@ -84,16 +90,19 @@ public class Order {
         status = "processed";
     }
 
-    public void cancelOrder() {
-        if (status.equals("processed")) {
+    public void cancelOrder(Database database) throws CantPerformAction {
+        if (!status.equals("processed")) {
             for (Item orderItem : orderItems) {
                 orderItem.getProduct().setStockQuantity(orderItem.getProduct().getStockQuantity() + orderItem.getQuantity()
                 );
+                database.update(Product.class, orderItem.getProduct());
 
             }
+            System.out.println("Order canceled");
+            status = "Cancelled";
+        }else {
+            throw new CantPerformAction("Can't cancel order, already processed");
         }
-        System.out.println("Order canceled");
-        status = "Cancelled";
     }
 
     @Override

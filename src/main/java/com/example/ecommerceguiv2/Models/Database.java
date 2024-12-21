@@ -139,8 +139,6 @@ public class Database {
                     sc.addScene("dashboard", dashbaordPage, "Dashboard");
                     AddProductPage addProductPage = new AddProductPage(this, sc);
                     sc.addScene("addProduct", addProductPage, "Add Product");
-                    ProductPage productPage = new ProductPage(this, sc);
-                    sc.addScene("products", productPage, "Product Page");
 
 
                     return admin ;

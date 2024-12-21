@@ -66,13 +66,19 @@ public class HelloApplication extends Application {
         CheckOutPage checkOutPage = new CheckOutPage(db, sc);
         ProfilePage profilePage = new ProfilePage(db, sc);
         EditProfilePage editProfilePage = new EditProfilePage(db, sc);
+        OrdersPage ordersPage = new OrdersPage(db, sc);
+        ProductPage productPage = new ProductPage(db, sc);
 
         sc.addScene("login", loginScene, "Login Page");
         sc.addScene("register", registerScene, "Registration Page");
         sc.addScene("order", checkOutPage, "Check Out");
         sc.addScene("profile", profilePage, "");
         sc.addScene("editProfile", editProfilePage, "");
+        sc.addScene("orders", ordersPage, "Orders");
+        sc.addScene("products", productPage, "Product Page");
+
         sc.switchToScene("login");
+
     }
 
     public static void main(String[] args) {
