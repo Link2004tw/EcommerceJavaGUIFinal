@@ -34,6 +34,7 @@ public class ProductPage extends ScenePage {
         // Product list container
         VBox productList = new VBox(10); // Spacing of 10 pixels
         productList.setPadding(new Insets(10));
+        productList.setStyle("-fx-background-color: #F0F8FF;");
 
         // Add ProductItem components to the VBox
         for (Product product : db.getProducts()) {
@@ -76,6 +77,7 @@ public class ProductPage extends ScenePage {
         // Product list container
         VBox productList = new VBox(10); // Spacing of 10 pixels
         productList.setPadding(new Insets(10));
+        productList.setStyle("-fx-background-color: #F0F8FF;");
 
         // Add ProductItem components to the VBox
         for (Product product : database.getProducts()) {

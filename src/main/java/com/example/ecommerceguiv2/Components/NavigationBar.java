@@ -13,6 +13,8 @@ public class NavigationBar extends HBox {
         this.setPadding(new Insets(10)); // Padding around the VBox
         this.setAlignment(Pos.CENTER_LEFT); // Align content to the left
 
+        this.getStyleClass().add("navigation-bar");
+
         // Back button
         Button backButton = new Button("Back");
         Button home = new Button("Home");

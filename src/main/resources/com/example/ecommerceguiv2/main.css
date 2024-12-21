@@ -21,7 +21,11 @@ HBox {
     -fx-background-color: #2B579A;
     -fx-padding: 10px;
 }
+.navigation-bar {
+    -fx-background-color: #2B579A;
+    -fx-padding: 10px;
 
+}
 .label {
     -fx-text-align: center;
     -fx-font-size: 20px;
