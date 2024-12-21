@@ -3,10 +3,7 @@ package com.example.ecommerceguiv2.Scenes;
 import com.example.ecommerceguiv2.Components.NavigationBar;
 import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.*;
-import javafx.application.Application;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
@@ -90,7 +87,7 @@ public class CartPage extends ScenePage {
                 Button clearCartButton = new Button("Clear Cart");
                 clearCartButton.setOnAction(e -> {
                     cart.clearCart();
-                    table.setItems(FXCollections.observableArrayList(cart.getProducts()));
+                    sceneController.switchToScene("cart");
                 });
                 Button continueShoppingButton = new Button("Continue Shopping");
                 continueShoppingButton.setOnAction(e -> {
@@ -202,7 +199,7 @@ public class CartPage extends ScenePage {
                 Button clearCartButton = new Button("Clear Cart");
                 clearCartButton.setOnAction(e -> {
                     cart.clearCart();
-                    table.setItems(FXCollections.observableArrayList(cart.getProducts()));
+                    sceneController.switchToScene("cart");
                 });
                 Button continueShoppingButton = new Button("Continue Shopping");
                 continueShoppingButton.setOnAction(e -> {

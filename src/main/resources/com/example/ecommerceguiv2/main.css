@@ -17,7 +17,10 @@
     -fx-text-fill: #ffffff;
 }
 
-
+HBox {
+    -fx-background-color: #2B579A;
+    -fx-padding: 10px;
+}
 
 .label {
     -fx-text-align: center;

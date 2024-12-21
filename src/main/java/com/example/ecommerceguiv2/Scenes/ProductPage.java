@@ -5,11 +5,13 @@ import com.example.ecommerceguiv2.Components.ProductItem;
 import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Models.Product;
-import com.example.ecommerceguiv2.Models.Category;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ProductPage extends ScenePage {
@@ -41,9 +43,17 @@ public class ProductPage extends ScenePage {
         scrollPane.setFitToWidth(true); // Allow the content to fit the width of the ScrollPane
         scrollPane.setPadding(new Insets(10)); // Add padding to the ScrollPane content
 
+        Button goToCartButton = new Button("Go to Cart");
+        goToCartButton.setOnAction(e -> {
+            sceneController.switchToScene("cart");
+        });
+        HBox buttonContainer = new HBox(goToCartButton);
+        buttonContainer.setAlignment(Pos.CENTER); // Center align the button
+        buttonContainer.setPadding(new Insets(10));
+
         // Create the scene
         VBox root = new VBox(10);
-        root.getChildren().addAll(navigationBar, titleLabel, scrollPane);
+        root.getChildren().addAll(navigationBar, titleLabel, scrollPane, buttonContainer);
 
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);
@@ -68,9 +78,17 @@ public class ProductPage extends ScenePage {
         scrollPane.setFitToWidth(true); // Allow the content to fit the width of the ScrollPane
         scrollPane.setPadding(new Insets(10)); // Add padding to the ScrollPane content
 
+        Button goToCartButton = new Button("Go to Cart");
+        goToCartButton.setOnAction(e -> {
+            sceneController.switchToScene("cart");
+        });
+        HBox buttonContainer = new HBox(goToCartButton);
+        buttonContainer.setAlignment(Pos.CENTER); // Center align the button
+        buttonContainer.setPadding(new Insets(10));
+
         // Create the scene
         VBox root = new VBox(10);
-        root.getChildren().addAll(navigationBar ,titleLabel, scrollPane);
+        root.getChildren().addAll(navigationBar, titleLabel, scrollPane, buttonContainer);
 
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);
