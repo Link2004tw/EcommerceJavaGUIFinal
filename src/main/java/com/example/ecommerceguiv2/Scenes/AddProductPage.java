@@ -70,23 +70,23 @@ public class AddProductPage extends ScenePage {
         // Button addCategoryButton = new Button("Add Category");
 
         // addCategoryButton.setOnAction(e -> {
-            // String newCategoryName = newCategoryField.getText().trim();
-            // if (!newCategoryName.isEmpty() && !newCategoryDescription.getText().isEmpty()) {
-                // Add new category dynamically
-               // Category newCategory = new Category(newCategoryName, newCategoryDescription.getText()); // Assuming Category class constructor takes name
-               // database.addCategory(newCategory); // Add to database
-               // RadioButton newRadioButton = new RadioButton(newCategory.getName());
-               // newRadioButton.setToggleGroup(categoryGroup);
-               // categoryBox.getChildren().add(newRadioButton);
-               // newCategoryField.clear(); // Clear the input field
-                // newCategoryDescription.clear();
-            // } else {
-                // Validation for empty input
-            // Alert alert = new Alert(Alert.AlertType.ERROR);
-              //  alert.setTitle("Invalid Category");
-                //alert.setContentText("Category name and description cannot be empty.");
-                //alert.showAndWait();
-            //}
+        // String newCategoryName = newCategoryField.getText().trim();
+        // if (!newCategoryName.isEmpty() && !newCategoryDescription.getText().isEmpty()) {
+        // Add new category dynamically
+        // Category newCategory = new Category(newCategoryName, newCategoryDescription.getText()); // Assuming Category class constructor takes name
+        // database.addCategory(newCategory); // Add to database
+        // RadioButton newRadioButton = new RadioButton(newCategory.getName());
+        // newRadioButton.setToggleGroup(categoryGroup);
+        // categoryBox.getChildren().add(newRadioButton);
+        // newCategoryField.clear(); // Clear the input field
+        // newCategoryDescription.clear();
+        // } else {
+        // Validation for empty input
+        // Alert alert = new Alert(Alert.AlertType.ERROR);
+        //  alert.setTitle("Invalid Category");
+        //alert.setContentText("Category name and description cannot be empty.");
+        //alert.showAndWait();
+        //}
         // });
 
 // Layout for Category Section

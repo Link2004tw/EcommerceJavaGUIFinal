@@ -56,6 +56,8 @@ public class DashbaordPage extends ScenePage {
         Button ordersButton = new Button("Orders");
         Button addButton = new Button("Add Product");
         addButton.setOnAction(e-> {
+            AddProductPage addProductPage = new AddProductPage(db, sc);
+            sc.addScene("addProduct", addProductPage, "Add Product");
             sc.switchToScene("addProduct");
         });
         shopButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
