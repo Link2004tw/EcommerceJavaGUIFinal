@@ -14,7 +14,7 @@ public class Order {
         BALANCE
     }
 
-    private static int nbOfOrders=0;
+    private static int nbOfOrders = 0;
     private int orderId;
     private Customer customer;
     private Date orderDate;
@@ -82,10 +82,11 @@ public class Order {
     }
 
     // methods
-    public void processOrder() {
+    public void processOrder(Database db) {
         for (Item orderItem : orderItems) {
             orderItem.getProduct().setStockQuantity(orderItem.getProduct().getStockQuantity() - orderItem.getQuantity()
             );
+            db.update(Product.class, orderItem.getProduct());
         }
         status = "processed";
     }
@@ -98,9 +99,10 @@ public class Order {
                 database.update(Product.class, orderItem.getProduct());
 
             }
+            database.getLoggedCustomer().setBalance(database.getLoggedCustomer().getBalance() + this.total);
             System.out.println("Order canceled");
             status = "Cancelled";
-        }else {
+        } else {
             throw new CantPerformAction("Can't cancel order, already processed");
         }
     }
@@ -112,8 +114,8 @@ public class Order {
                 "\nOrder Date: " + orderDate +
                 "\nFor: " + customer.getUsername() + "\nProducts: \n"
         );
-        for (Item item: orderItems){
-            sb.append(item.getProduct().getName() + "(" + item.getQuantity()  + ")\n");
+        for (Item item : orderItems) {
+            sb.append(item.getProduct().getName() + "(" + item.getQuantity() + ")\n");
         }
         sb.append("total: ").append(String.format("%.2f", total)).append("\npaymentMethod: " + paymentMethod);
         return sb.toString();

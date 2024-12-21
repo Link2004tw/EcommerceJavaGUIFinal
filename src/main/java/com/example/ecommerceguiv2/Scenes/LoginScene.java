@@ -38,6 +38,7 @@ public class LoginScene extends ScenePage {
 
                 if (c1 != null) {
                     System.out.println("Logged in");
+                    passwordField.getTextField().clear();
                     sc.switchToScene("dashboard");
                 }
             } catch (Exception ex) {

@@ -27,7 +27,7 @@ public class OrderDetailsPage extends ScenePage {
         this.sc = sceneController;
         this.db = database;
         createPage();
-    }
+}
 
     private void createPage() {
         VBox container = new VBox(10);
@@ -69,36 +69,47 @@ public class OrderDetailsPage extends ScenePage {
         detailsGrid.add(itemsList, 1, 3);
 
         // Cancel Order Button
-        Button cancelOrderButton = new Button("Cancel Order");
+        Button cancelOrderButton = new Button(db.isAdmin() ? "Process Order": "Cancel Order");
+
         cancelOrderButton.setOnAction(e -> {
-            try {
-                if (!o.getStatus().equalsIgnoreCase("Cancelled")) {
+            if(!db.isAdmin()) {
+                try {
+                    if (!o.getStatus().equalsIgnoreCase("Cancelled")) {
 
-                    o.cancelOrder(db);
+                        o.cancelOrder(db);
 
-                    statusLabel.setText("Cancelled");
+                        statusLabel.setText("Cancelled");
 
-                    // Show confirmation
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Order Cancelled");
-                    alert.setHeaderText(null);
-                    alert.setContentText("The order has been successfully cancelled.");
-                    alert.showAndWait();
-                    sc.goBack();
-                } else {
-                    // Show alert if already cancelled
+                        // Show confirmation
+                        Alert alert = new Alert(AlertType.INFORMATION);
+                        alert.setTitle("Order Cancelled");
+                        alert.setHeaderText(null);
+                        alert.setContentText("The order has been successfully cancelled.");
+                        alert.showAndWait();
+                        sc.goBack();
+                    } else {
+                        // Show alert if already cancelled
+                        Alert alert = new Alert(AlertType.WARNING);
+                        alert.setTitle("Already Cancelled");
+                        alert.setHeaderText(null);
+                        alert.setContentText("This order is already cancelled.");
+                        alert.showAndWait();
+                    }
+                } catch (CantPerformAction ex) {
                     Alert alert = new Alert(AlertType.WARNING);
-                    alert.setTitle("Already Cancelled");
+                    alert.setTitle("Already Process");
                     alert.setHeaderText(null);
-                    alert.setContentText("This order is already cancelled.");
+                    alert.setContentText("This order is already process and can't be cancelled.");
                     alert.showAndWait();
                 }
-            } catch (CantPerformAction ex) {
-                Alert alert = new Alert(AlertType.WARNING);
-                alert.setTitle("Already Process");
+            }else {
+                o.processOrder(db);
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Order Processed");
                 alert.setHeaderText(null);
-                alert.setContentText("This order is already process and can't be cancelled.");
+                alert.setContentText("The order has been successfully processed.");
                 alert.showAndWait();
+                sc.goBack();
             }
         });
 

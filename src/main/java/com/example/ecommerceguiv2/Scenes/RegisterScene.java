@@ -65,7 +65,9 @@ public class RegisterScene extends ScenePage {
                 );
                 if (customer != null) {
                     System.out.println("Logged in");
-
+                    usernameField.getTextField().clear();
+                    passwordField.getTextField().clear();
+                    dateField.getTextField().clear();
                     sc.switchToScene("dashboard");
                 }
             } catch (ParseException ex) {
