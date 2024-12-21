@@ -28,6 +28,11 @@ public class SceneController {
             }
         }
         names.add(name);
+        try {
+            s.getScene().getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/main.css").toExternalForm());
+        } catch (NullPointerException e) {
+            System.out.println("Error");
+        }
         SceneContainer sceneContainer = new SceneContainer(name, s,t);
         scenes.add(sceneContainer);
     }
@@ -40,6 +45,13 @@ public class SceneController {
                 refresh(name);
                 s = sceneContainer.getScene();
                 t = sceneContainer.getTitle();
+                if (s != null) {
+                    try {
+                        s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/main.css").toExternalForm());
+                    } catch (NullPointerException e) {
+                        System.out.println("Error applying stylesheet to scene: " + name);
+                    }
+                }
             }
         }
         if (s != null) {

@@ -11,9 +11,7 @@
     -fx-border-color: transparent;
 }
 .table-view {
-    -fx-border-color: #1C6E8C;
-    -fx-border-width: 2px;
-    -fx-background-color: #F1F1F1;
+    -fx-background-color: #F0F8FF;
 }
 
 .table-row-cell {

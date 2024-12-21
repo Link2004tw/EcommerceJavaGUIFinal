@@ -38,7 +38,6 @@ public class ProfilePage extends ScenePage {
 
             // Title Label
             Label titleLabel = new Label("Profile Page");
-            titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 
             // GridPane for profile details
             GridPane grid = new GridPane();
@@ -46,24 +45,51 @@ public class ProfilePage extends ScenePage {
             grid.setHgap(10);
             grid.setVgap(10);
 
+            String smallerLabelStyle = "-fx-font-size: 14px; -fx-font-weight: normal;";
+
             // Add customer details to the grid
-            grid.add(new Label("Username:"), 0, 0);
-            grid.add(new Label(p.getUsername()), 1, 0);
+            grid.add(new Label("Username:") {{
+                setStyle("-fx-font-size: 14px;");
+            }}, 0, 0);
+            grid.add(new Label(p.getUsername()) {{
+                setStyle(smallerLabelStyle);
+            }}, 1, 0);
 
-            grid.add(new Label("Date of Birth:"), 0, 1);
-            grid.add(new Label(p.getDateOfBirth()), 1, 1);
+            grid.add(new Label("Date of Birth:") {{
+                setStyle("-fx-font-size: 14px;");
+            }}, 0, 1);
+            grid.add(new Label(p.getDateOfBirth()) {{
+                setStyle(smallerLabelStyle);
+            }}, 1, 1);
 
-            grid.add(new Label("Gender:"), 0, 2);
-            grid.add(new Label(String.valueOf(p.getGender()).toLowerCase()), 1, 2);
+            grid.add(new Label("Gender:") {{
+                setStyle("-fx-font-size: 14px;");
+            }}, 0, 2);
+            grid.add(new Label(String.valueOf(p.getGender()).toLowerCase()) {{
+                setStyle(smallerLabelStyle);
+            }}, 1, 2);
 
-            grid.add(new Label("Balance:"), 0, 3);
-            grid.add(new Label("$" + String.format("%.2f", p.getBalance())), 1, 3);
+            grid.add(new Label("Balance:") {{
+                setStyle("-fx-font-size: 14px;");
+            }}, 0, 3);
+            grid.add(new Label("$" + String.format("%.2f", p.getBalance())) {{
+                setStyle(smallerLabelStyle);
+            }}, 1, 3);
 
             if(db.isAdmin()){
-                grid.add(new Label("Role:"), 0, 4);
-                grid.add(new Label(((Admin)p).getRole()), 1, 4);
-                grid.add(new Label("Working hours:"), 0, 5);
-                grid.add(new Label(String.valueOf(((Admin)p).getWorkingHours()) + " hours"), 1, 5);
+                grid.add(new Label("Role:") {{
+                    setStyle("-fx-font-size: 14px;");
+                }}, 0, 4);
+                grid.add(new Label(((Admin) p).getRole()) {{
+                    setStyle(smallerLabelStyle);
+                }}, 1, 4);
+
+                grid.add(new Label("Working hours:") {{
+                    setStyle("-fx-font-size: 14px;");
+                }}, 0, 5);
+                grid.add(new Label(String.valueOf(((Admin) p).getWorkingHours()) + " hours") {{
+                    setStyle(smallerLabelStyle);
+                }}, 1, 5);
 
             }
             // Edit Profile button

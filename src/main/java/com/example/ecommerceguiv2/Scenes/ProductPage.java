@@ -25,6 +25,11 @@ public class ProductPage extends ScenePage {
         NavigationBar navigationBar = new NavigationBar(sc);
         // Title
         Label titleLabel = new Label("Available Products");
+        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000000;"); // Style for the title label
+
+        HBox titleContainer = new HBox(titleLabel);
+        titleContainer.setAlignment(Pos.CENTER); // Center align the label
+        titleContainer.setStyle("-fx-background-color: #F0F8FF;");
 
         // Product list container
         VBox productList = new VBox(10); // Spacing of 10 pixels
@@ -53,7 +58,7 @@ public class ProductPage extends ScenePage {
 
         // Create the scene
         VBox root = new VBox(10);
-        root.getChildren().addAll(navigationBar, titleLabel, scrollPane, buttonContainer);
+        root.getChildren().addAll(navigationBar, titleContainer, scrollPane, buttonContainer);
 
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);
@@ -61,6 +66,11 @@ public class ProductPage extends ScenePage {
 
     public void refresh(){
         Label titleLabel = new Label("Available Products");
+        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000000;"); // Style for the title label
+
+        HBox titleContainer = new HBox(titleLabel);
+        titleContainer.setAlignment(Pos.CENTER); // Center align the label
+        titleContainer.setStyle("-fx-background-color: #F0F8FF;");
         NavigationBar navigationBar = new NavigationBar(sceneController);
 
         // Product list container
@@ -88,7 +98,7 @@ public class ProductPage extends ScenePage {
 
         // Create the scene
         VBox root = new VBox(10);
-        root.getChildren().addAll(navigationBar, titleLabel, scrollPane, buttonContainer);
+        root.getChildren().addAll(navigationBar, titleContainer, scrollPane, buttonContainer);
 
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);

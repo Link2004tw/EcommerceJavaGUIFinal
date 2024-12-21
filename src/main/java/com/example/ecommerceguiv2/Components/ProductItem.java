@@ -26,8 +26,8 @@ public class ProductItem extends HBox {
             sc.switchToScene("details");
         });
         Button addToCartButton = new Button(db.isAdmin() ? "Edit" : "Add to Cart");
-        addToCartButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; "
-                + "-fx-padding: 5px 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;");
+        // addToCartButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; "
+        //        + "-fx-padding: 5px 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;");
         addToCartButton.setOnAction(e -> {
             if (db.isAdmin()) {
                 AddProductPage productPage = new AddProductPage(db, p, sc);
