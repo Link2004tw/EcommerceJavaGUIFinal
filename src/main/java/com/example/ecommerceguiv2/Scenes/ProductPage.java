@@ -76,8 +76,10 @@ public class ProductPage extends ScenePage {
 
         // Create the scene
         VBox root = new VBox(10);
-        root.getChildren().addAll(navigationBar ,titleContainer, searchAndSortContainer, scrollPane, buttonContainer);
-
+        root.getChildren().addAll(navigationBar ,titleContainer, searchAndSortContainer, scrollPane);
+        if(!db.isAdmin()){
+         root.getChildren().add(buttonContainer);
+        }
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);
     }

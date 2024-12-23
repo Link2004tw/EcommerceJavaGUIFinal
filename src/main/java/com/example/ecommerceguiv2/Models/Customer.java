@@ -23,13 +23,6 @@ public class Customer extends Person implements Validatable<String> {
         return super.getBalance();
     }
 
-//    public void showProducts(Database db){
-//        for(Product p: db.getProducts()){
-//            System.out.println(p.showMinDetails());
-//
-//        }
-//
-//    }
     public void addToCart(int id,int q, Database db){
         Product p = db.findById(id, Product.class);
         cart.addProduct(p, q, db);
@@ -49,12 +42,6 @@ public class Customer extends Person implements Validatable<String> {
         db.addOrder(order);
         cart.clearCart();
     }
-
-//    public void newOrder(Customer customer, List<Item> products, double total, Order.PaymentMethod paymentMethod)
-//    {
-//        Order order = new Order(customer, products, total, paymentMethod);
-//        cart.clearCart();
-//    }
 
 
     @Override

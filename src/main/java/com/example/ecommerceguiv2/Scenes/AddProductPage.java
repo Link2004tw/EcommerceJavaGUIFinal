@@ -2,6 +2,7 @@ package com.example.ecommerceguiv2.Scenes;
 
 import com.example.ecommerceguiv2.Components.NavigationBar;
 import com.example.ecommerceguiv2.Components.SceneController;
+import com.example.ecommerceguiv2.Exceptions.AlreadyExistsException;
 import com.example.ecommerceguiv2.Models.Category;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Models.Product;
@@ -136,8 +137,13 @@ public class AddProductPage extends ScenePage {
             Category category = database.findByName(selectedCategory, Category.class);
             if (product == null) {
                 // Add New Product
-                database.addProduct(new Product(name, description, Double.parseDouble(price), Integer.parseInt(quantity), category));
-                showAlert(Alert.AlertType.CONFIRMATION, "Success", "Product Added Successfully!");
+                try {
+                    database.addProduct(new Product(name, description, Double.parseDouble(price), Integer.parseInt(quantity), category));
+                    showAlert(Alert.AlertType.CONFIRMATION, "Success", "Product Added Successfully!");
+                } catch (AlreadyExistsException ex) {
+                    showAlert(Alert.AlertType.ERROR, "Product Already Exists", "Product already exists try to update it");
+                }
+
 
             } else {
                 // Update Existing Product
@@ -158,7 +164,7 @@ public class AddProductPage extends ScenePage {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
-        if(type == Alert.AlertType.CONFIRMATION){
+        if (type == Alert.AlertType.CONFIRMATION) {
             alert.getButtonTypes().setAll(ButtonType.OK);
         }
     }

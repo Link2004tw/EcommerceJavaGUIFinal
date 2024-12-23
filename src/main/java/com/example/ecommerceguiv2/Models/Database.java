@@ -1,6 +1,7 @@
 package com.example.ecommerceguiv2.Models;
 
 import com.example.ecommerceguiv2.Components.SceneController;
+import com.example.ecommerceguiv2.Exceptions.AlreadyExistsException;
 import com.example.ecommerceguiv2.Exceptions.IncorrectPasswordException;
 import com.example.ecommerceguiv2.Exceptions.NotFoundException;
 import com.example.ecommerceguiv2.Exceptions.RegisterFailException;
@@ -63,7 +64,12 @@ public class Database {
         admins.add(a);
         System.out.println("Added Successfully");
     }
-    public void addProduct(Product p){
+    public void addProduct(Product p) throws AlreadyExistsException {
+        for(Product p1 : products){
+           if( p1.getName().equals(p.getName())){
+               throw new AlreadyExistsException("product already exists");
+           }
+        }
         products.add(p);
         boolean found=false;
         for(Category c:categories)
@@ -294,6 +300,7 @@ public class Database {
 
         return result;
     }
+
     private <T> int getIndex(Class<T> c, T object) throws NotFoundException{
         int index = -1;
         int i =0;
