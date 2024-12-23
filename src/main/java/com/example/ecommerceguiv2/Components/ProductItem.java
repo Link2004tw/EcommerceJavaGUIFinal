@@ -7,6 +7,7 @@ import com.example.ecommerceguiv2.Scenes.ProductDetailsPage;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -15,6 +16,7 @@ public class ProductItem extends HBox {
 
     public ProductItem(Product p, Database db, SceneController sc) {
 
+        // Button for product name
         Button labelButton = new Button(p.getName());
         labelButton.setStyle("-fx-background-color: transparent; -fx-text-fill: black; -fx-font-size: 14px; "
                 + "-fx-padding: 0; -fx-border-color: transparent; -fx-cursor: default;");
@@ -25,9 +27,9 @@ public class ProductItem extends HBox {
             sc.addScene("details", p1, p.getName());
             sc.switchToScene("details");
         });
+
+        // Button for Add to Cart or Edit
         Button addToCartButton = new Button(db.isAdmin() ? "Edit" : "Add to Cart");
-        // addToCartButton.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; "
-        //        + "-fx-padding: 5px 10px; -fx-border-radius: 5px; -fx-background-radius: 5px;");
         addToCartButton.setOnAction(e -> {
             if (db.isAdmin()) {
                 AddProductPage productPage = new AddProductPage(db, p, sc);
@@ -39,16 +41,19 @@ public class ProductItem extends HBox {
                 alert.setTitle(p.getName() + " added to cart!");
                 alert.showAndWait();
             }
-
         });
 
+        // Label for product price
+        Label priceLabel = new Label(String.format("$%.2f", p.getPrice()));
+        priceLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #333; -fx-padding: 0 10px;");
+
+        // Spacer for layout
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         // Add components to HBox
         this.setPadding(new Insets(10));
         this.setSpacing(10);
-        this.getChildren().addAll(labelButton, spacer, addToCartButton);
-
+        this.getChildren().addAll(labelButton, spacer, priceLabel, addToCartButton);
     }
 }

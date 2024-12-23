@@ -22,6 +22,9 @@ public class ProductPage extends ScenePage {
         database = db;
         sceneController = sc;
         // Add sample categories and products
+
+    }
+    private void createPage(SceneController sc, Database db){
         NavigationBar navigationBar = new NavigationBar(sc);
         // Title
         Label titleLabel = new Label("Available Products");
@@ -49,11 +52,6 @@ public class ProductPage extends ScenePage {
         searchAndSortContainer.setAlignment(Pos.CENTER);
         searchAndSortContainer.setPadding(new Insets(10));
 
-        // Product list container
-
-//        ScrollPane scrollPane = new ScrollPane(productList);
-//        scrollPane.setFitToWidth(true);
-//        scrollPane.setPadding(new Insets(10));
 
         // Add ProductItem components to the VBox
         for (Product product : db.getProducts()) {
@@ -61,48 +59,6 @@ public class ProductPage extends ScenePage {
                 ProductItem productItem = new ProductItem(product, db, sc);
                 productList.getChildren().add(productItem);
             }
-        }
-
-        // Wrap VBox in a ScrollPane
-        ScrollPane scrollPane1 = new ScrollPane(productList);
-        scrollPane1.setFitToWidth(true); // Allow the content to fit the width of the ScrollPane
-        scrollPane1.setPadding(new Insets(10)); // Add padding to the ScrollPane content
-
-        Button goToCartButton = new Button("Go to Cart");
-        goToCartButton.setOnAction(e -> {
-            sceneController.switchToScene("cart");
-        });
-        HBox buttonContainer = new HBox(goToCartButton);
-        buttonContainer.setAlignment(Pos.CENTER); // Center align the button
-        buttonContainer.setPadding(new Insets(10));
-
-        // Create the scene
-        VBox root = new VBox(10);
-        root.getChildren().addAll(navigationBar, titleContainer, scrollPane1, buttonContainer);
-
-        Scene scene = new Scene(root, 800, 600); // Set the size of the scene
-        setScene(scene);
-    }
-
-    @Override
-    public void refresh(){
-        Label titleLabel = new Label("Available Products");
-        titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000000;"); // Style for the title label
-
-        HBox titleContainer = new HBox(titleLabel);
-        titleContainer.setAlignment(Pos.CENTER); // Center align the label
-        titleContainer.setStyle("-fx-background-color: #F0F8FF;");
-        NavigationBar navigationBar = new NavigationBar(sceneController);
-
-        // Product list container
-        VBox productList = new VBox(10); // Spacing of 10 pixels
-        productList.setPadding(new Insets(10));
-        productList.setStyle("-fx-background-color: #F0F8FF;");
-
-        // Add ProductItem components to the VBox
-        for (Product product : database.getProducts()) {
-            ProductItem productItem = new ProductItem(product, database, sceneController);
-            productList.getChildren().add(productItem);
         }
 
         // Wrap VBox in a ScrollPane
@@ -120,10 +76,14 @@ public class ProductPage extends ScenePage {
 
         // Create the scene
         VBox root = new VBox(10);
-        root.getChildren().addAll(navigationBar, titleContainer, scrollPane, buttonContainer);
+        root.getChildren().addAll(navigationBar ,titleContainer, searchAndSortContainer, scrollPane, buttonContainer);
 
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);
+    }
+    @Override
+    public void refresh(){
+        createPage(sceneController, database);
     }
     private void refreshProductList(String searchQuery, String sortOption, VBox productList) {
         productList.getChildren().clear();
