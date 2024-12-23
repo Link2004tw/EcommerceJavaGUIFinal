@@ -40,7 +40,9 @@ public class Customer extends Person implements Validatable<String> {
         System.out.println(cart.toString());
     }
 
-
+    public List<Card> getCards() {
+        return cards;
+    }
 
     public void makeOrder(Database db, Order.PaymentMethod paymentMethod){
         Order order = new Order(this, cart.getProducts(), cart.getTotalAmount(), paymentMethod);
