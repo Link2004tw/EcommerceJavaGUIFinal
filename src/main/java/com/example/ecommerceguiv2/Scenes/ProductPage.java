@@ -31,10 +31,26 @@ public class ProductPage extends ScenePage {
         titleContainer.setAlignment(Pos.CENTER); // Center align the label
         titleContainer.setStyle("-fx-background-color: #F0F8FF;");
 
+        TextField searchBar = new TextField();
+        searchBar.setPromptText("Search products...");
+        searchBar.setOnKeyReleased(e -> refreshProductList(searchBar.getText(), null));
+
+        ComboBox<String> sortOptions = new ComboBox<>();
+        sortOptions.getItems().addAll("Sort by Name", "Sort by Price");
+        sortOptions.setOnAction(e -> refreshProductList(searchBar.getText(), sortOptions.getValue()));
+
+        HBox searchAndSortContainer = new HBox(10, searchBar, sortOptions);
+        searchAndSortContainer.setAlignment(Pos.CENTER);
+        searchAndSortContainer.setPadding(new Insets(10));
+
         // Product list container
         VBox productList = new VBox(10); // Spacing of 10 pixels
         productList.setPadding(new Insets(10));
         productList.setStyle("-fx-background-color: #F0F8FF;");
+
+        ScrollPane scrollPane = new ScrollPane(productList);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setPadding(new Insets(10));
 
         // Add ProductItem components to the VBox
         for (Product product : db.getProducts()) {
@@ -104,5 +120,29 @@ public class ProductPage extends ScenePage {
 
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);
+    }
+    private void refreshProductList(String searchQuery, String sortOption) {
+        productList.getChildren().clear();
+
+        // Fetch and filter products
+        var filteredProducts = database.getProducts().stream()
+                .filter(product -> searchQuery == null || product.getName().toLowerCase().contains(searchQuery.toLowerCase()))
+                .sorted((p1, p2) -> {
+                    if ("Sort by Name".equals(sortOption)) {
+                        return p1.getName().compareToIgnoreCase(p2.getName());
+                    } else if ("Sort by Price".equals(sortOption)) {
+                        return Double.compare(p1.getPrice(), p2.getPrice());
+                    }
+                    return 0;
+                })
+                .toList();
+
+        // Add ProductItems to productList
+        for (Product product : filteredProducts) {
+            if (product.getStockQuantity() > 0) {
+                ProductItem productItem = new ProductItem(product, database, sceneController);
+                productList.getChildren().add(productItem);
+            }
+        }
     }
 }
