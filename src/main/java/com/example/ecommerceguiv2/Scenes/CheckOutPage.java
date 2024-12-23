@@ -42,10 +42,11 @@ public class CheckOutPage extends ScenePage {
                 radioButton.setToggleGroup(paymentGroup);
                 paymentOptions.getChildren().add(radioButton);
                 if (method == Order.PaymentMethod.CREDIT_CARD) {
-                    radioButton.setOnAction(e -> showCreditCardOptions(customer));
+                    radioButton.setOnAction(e -> showCreditCardOptions());
+                    //paymentGroup.selectToggle(radioButton);
+                    ((RadioButton) paymentOptions.getChildren().getFirst()).setSelected(true);
                 }
             }
-            ((RadioButton) paymentOptions.getChildren().getFirst()).setSelected(true);
 
             Label orderSummaryLabel = new Label("Your Order:");
 
@@ -76,26 +77,27 @@ public class CheckOutPage extends ScenePage {
             setScene(scene);
         }
     }
-        private void showCreditCardOptions(Customer customer) {
-            Alert cardOptionAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            cardOptionAlert.setTitle("Credit Card Options");
-            cardOptionAlert.setHeaderText("Choose an Option");
-            cardOptionAlert.setContentText("Do you want to use an existing card or add a new one?");
-            cardOptionAlert.getButtonTypes().setAll(ButtonType.OK);
-            ButtonType existingCardButton = new ButtonType("Existing Card");
-            ButtonType newCardButton = new ButtonType("Add New Card");
-            ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-            cardOptionAlert.getButtonTypes().setAll(existingCardButton, newCardButton, cancelButton);
+    private void showCreditCardOptions() {
+        Alert cardOptionAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        cardOptionAlert.setTitle("Credit Card Options");
+        cardOptionAlert.setHeaderText("Choose an Option");
+        cardOptionAlert.setContentText("Do you want to use an existing card or add a new one?");
+        cardOptionAlert.getButtonTypes().setAll(ButtonType.OK);
+        ButtonType existingCardButton = new ButtonType("Existing Card");
+        ButtonType newCardButton = new ButtonType("Add New Card");
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-            cardOptionAlert.showAndWait().ifPresent(response -> {
-                if (response == existingCardButton) {
-                    showExistingCardOptions(customer);
-                } else if (response == newCardButton) {
-                    sceneController.switchToScene("addCard");
-                }
-            });
-        }
+        cardOptionAlert.getButtonTypes().setAll(existingCardButton, newCardButton, cancelButton);
+
+        cardOptionAlert.showAndWait().ifPresent(response -> {
+            if (response == existingCardButton) {
+                showExistingCardOptions();
+            } else if (response == newCardButton) {
+                sceneController.switchToScene("addCard");
+            }
+        });
+    }
 
 
     private void processTheOrder(Customer customer) {
@@ -120,57 +122,12 @@ public class CheckOutPage extends ScenePage {
         }
         customer.makeOrder(database, selectedPaymentMethod);
 
-
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order processed successfully!", ButtonType.OK);
         alert.showAndWait();
 
         sceneController.switchToScene("dashboard");
     }
-    private void showExistingCardOptions(Customer customer) {
-        VBox existingCardBox = new VBox(10);
-        existingCardBox.setPadding(new Insets(10));
 
-        Label cardListLabel = new Label("Select a Credit Card:");
-        existingCardBox.getChildren().add(cardListLabel);
-
-        if (customer.getCards().isEmpty()) {
-            Label noCardsLabel = new Label("No cards available. Please add a new card.");
-            existingCardBox.getChildren().add(noCardsLabel);
-            Button addCardButton = new Button("Add New Card");
-            addCardButton.setOnAction(e -> sceneController.switchToScene("addCard"));
-            existingCardBox.getChildren().add(addCardButton);
-        } else {
-            ListView<String> cardListView = new ListView<>(
-                    FXCollections.observableArrayList(
-                            customer.getCards().stream()
-                                    .map(Card::toString) // Replace with your preferred method of string conversion
-                                    .toList()
-                    )
-            );
-            existingCardBox.getChildren().add(cardListView);
-            Button selectCardButton = new Button("Select Card");
-            selectCardButton.setOnAction(e -> {
-                String selectedCard = cardListView.getSelectionModel().getSelectedItem();
-                if (selectedCard != null) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION, "Selected Card: " + selectedCard, ButtonType.OK);
-                    alert.showAndWait();
-                } else {
-                    Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a card.", ButtonType.OK);
-                    alert.showAndWait();
-                }
-            });
-            existingCardBox.getChildren().add(selectCardButton);
-        }
-
-        BorderPane cardRoot = new BorderPane();
-        cardRoot.setCenter(existingCardBox);
-
-        Scene cardScene = new Scene(cardRoot, 400, 300);
-        Stage cardStage = new Stage();
-        cardStage.setScene(cardScene);
-        cardStage.setTitle("Existing Credit Cards");
-        cardStage.show();
-    }
     @Override
     public void refresh() {
         Customer customer = database.getLoggedCustomer();
@@ -189,7 +146,7 @@ public class CheckOutPage extends ScenePage {
                 radioButton.setToggleGroup(paymentGroup);
                 paymentOptions.getChildren().add(radioButton);
                 if (method == Order.PaymentMethod.CREDIT_CARD) {
-                    radioButton.setOnAction(e -> showCreditCardOptions(customer));
+                    radioButton.setOnAction(e -> showCreditCardOptions());
                 }
                 if (method == Order.PaymentMethod.BALANCE) {
                     radioButton.setSelected(true);
@@ -227,5 +184,70 @@ public class CheckOutPage extends ScenePage {
             System.out.println("cart empty");
         }
     }
-}
 
+    private void showExistingCardOptions() {
+        VBox existingCardBox = new VBox(10);
+        existingCardBox.setPadding(new Insets(10));
+
+        Label cardListLabel = new Label("Select a Credit Card:");
+        existingCardBox.getChildren().add(cardListLabel);
+
+        // Label to display the selected card
+        Label selectedCardLabel = new Label("Selected Card: None");
+        existingCardBox.getChildren().add(selectedCardLabel);
+
+        if (database.getLoggedCustomer().getCards().isEmpty()) {
+            Label noCardsLabel = new Label("No cards available. Please add a new card.");
+            existingCardBox.getChildren().add(noCardsLabel);
+            Button addCardButton = new Button("Add New Card");
+            addCardButton.setOnAction(e -> {
+                sceneController.switchToScene("addCard");
+
+                System.out.println("Card");
+                for (Card card : database.getLoggedCustomer().getCards()) {
+                    System.out.println(card.toString());
+                }
+                // After adding the card, show the credit card options again
+                //showExistingCardOptions();
+                Stage cardStage = (Stage) addCardButton.getScene().getWindow();
+
+                cardStage.close();
+
+            });
+
+            existingCardBox.getChildren().add(addCardButton);
+        } else {
+            ListView<String> cardListView = new ListView<>(FXCollections.observableArrayList(
+                    database.getLoggedCustomer().getCards().stream().map(Card::toString).toList()
+            ));
+            existingCardBox.getChildren().add(cardListView);
+
+            Button selectCardButton = new Button("Select Card");
+            selectCardButton.setOnAction(e -> {
+                String selectedCard = cardListView.getSelectionModel().getSelectedItem();
+                if (selectedCard != null) {
+                    // Update the selected card label with the selected card's details
+                    selectedCardLabel.setText("Selected Card: " + selectedCard);
+                    // Close the window after selecting the card
+                    Stage cardStage = (Stage) selectCardButton.getScene().getWindow();
+                    cardStage.close();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Please select a card.", ButtonType.OK);
+                    alert.showAndWait();
+                }
+            });
+            existingCardBox.getChildren().add(selectCardButton);
+        }
+
+        BorderPane cardRoot = new BorderPane();
+        cardRoot.setCenter(existingCardBox);
+
+        Scene cardScene = new Scene(cardRoot, 400, 300);
+        Stage cardStage = new Stage();
+        cardStage.setScene(cardScene);
+        cardStage.setTitle("Existing Credit Cards");
+        cardStage.show();
+    }
+
+
+}
