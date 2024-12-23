@@ -1,0 +1,29 @@
+/* styles.css */
+
+/* General styles */
+.root {
+    -fx-font-family: "Arial";
+}
+
+.button {
+    -fx-background-color: #FFD700;
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-padding: 5px 15px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #FFC107;
+}
+
+.hbox {
+    -fx-spacing: 20px;
+    -fx-padding: 10px;
+}
+
+.label {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}

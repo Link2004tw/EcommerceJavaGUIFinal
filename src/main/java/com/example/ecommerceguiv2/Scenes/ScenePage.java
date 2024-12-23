@@ -13,4 +13,5 @@ public abstract class ScenePage {
     public Scene getScene() {
         return scene;
     }
+    public abstract void refresh();
 }

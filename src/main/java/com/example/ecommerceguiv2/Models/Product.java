@@ -16,8 +16,16 @@ public class Product implements Validatable<Integer> {
         this.stockQuantity=stockQuantity;
         this.id = nbOfProducts;
         category = c;
-        //category.addProduct(this);
         nbOfProducts++;
+    }
+    public Product(String name,String description,double price,int stockQuantity, Category c, int id){
+        this.name=name;
+        this.description=description;
+        this.price=price;
+        this.stockQuantity=stockQuantity;
+        this.id = id;
+        category = c;
+
     }
     public String getName() {
         return name;
@@ -52,7 +60,7 @@ public class Product implements Validatable<Integer> {
     public void setStockQuantity(int stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
-
+    public void setId(int id){this.id=id;}
     public void updateStock(int updatedQuantity)
     {
         setStockQuantity(updatedQuantity);

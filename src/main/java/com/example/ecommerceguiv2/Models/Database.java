@@ -4,7 +4,7 @@ import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Exceptions.IncorrectPasswordException;
 import com.example.ecommerceguiv2.Exceptions.NotFoundException;
 import com.example.ecommerceguiv2.Exceptions.RegisterFailException;
-import com.example.ecommerceguiv2.Scenes.CartPage;
+import com.example.ecommerceguiv2.Scenes.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,6 +16,8 @@ import java.util.Date;
 
 public class Database {
     private Customer loggedCustomer;
+    boolean isAdmin;
+    private Admin loggedAdmin;
     private List<Customer> customers;
     private List<Admin> admins;
     private List<Category> categories;
@@ -111,9 +113,13 @@ public class Database {
             if (customer.search(username)){
                 if (customer.validate(password)){
                     loggedCustomer = customer;
-                    CartPage cartPage = new CartPage(this);
-                    sc.addScene("cart", cartPage.getScene(), "Cart");
-                    sc.displayNames();
+                    CartPage cartPage = new CartPage(this,sc);
+                    sc.addScene("cart", cartPage, "Cart");
+                    DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
+                    sc.addScene("dashboard", dashbaordPage, "Dashboard");
+                    isAdmin = false;
+                    ProductPage productPage = new ProductPage(this, sc);
+                    sc.addScene("products", productPage, "Product Page");
 
                     return customer;
                 }
@@ -124,6 +130,14 @@ public class Database {
         for (Admin admin: admins){
             if (admin.search(username)) {
                 if (admin.validate(password)){
+                    isAdmin = true;
+                    loggedAdmin = admin;
+                    DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
+                    sc.addScene("dashboard", dashbaordPage, "Dashboard");
+                    AddProductPage addProductPage = new AddProductPage(this, sc);
+                    sc.addScene("addProduct", addProductPage, "Add Product");
+                    AddCategoryPage addCategoryPage = new AddCategoryPage(this, sc);
+                    sc.addScene("addCategory", addCategoryPage, "Add Category");
                     return admin ;
                 }
                 throw new IncorrectPasswordException("Incorrect password entered");
@@ -132,6 +146,14 @@ public class Database {
         throw new NotFoundException("Account not found!!");
     }
 
+    public void signOut(){
+        if (isAdmin){
+            loggedAdmin = null;
+        }else {
+            loggedCustomer = null;
+        }
+        sc.switchToScene("login");
+    }
     public Customer register(String username,String dateString, String genderInput, String password) throws NotFoundException, RegisterFailException,IllegalArgumentException, ParseException  {
         Date now = new Date();
         boolean found = false;
@@ -154,15 +176,17 @@ public class Database {
             if(date.after(now)){
                 throw new IllegalArgumentException("Invalid date");
             }
-            System.out.print("Enter your gender: ");
             Person.Gender gender = Person.Gender.valueOf(genderInput.toUpperCase());
 
             Customer newCustomer = new Customer(username, password, date, 0,gender);
             customers.add(newCustomer);
             System.out.println("Registration successful!");
             loggedCustomer = newCustomer;
-            CartPage cartPage = new CartPage(this);
-            sc.addScene("cart", cartPage.getScene(), "Cart");
+            DashbaordPage dashbaordPage = new DashbaordPage(sc, this);
+            sc.addScene("dashboard", dashbaordPage, "Dashboard");
+
+            CartPage cartPage = new CartPage(this,sc);
+            sc.addScene("cart", cartPage, "Cart");
             sc.displayNames();
 
             return newCustomer;
@@ -213,6 +237,41 @@ public class Database {
         }
         throw new NotFoundException("Class Doesn't exist");
     }
+    public <T> T findByName(String name, Class<T> c) throws NotFoundException {
+        if(c == Product.class){
+            for(Product p : products){
+                if(p.getName().equals(name)){
+                    return c.cast(p);
+                }
+            }
+            throw new NotFoundException("Product not found");
+        }
+        else if(c == Customer.class){
+            for(Customer customer : customers){
+                if(customer.getUsername().equals(name)){
+                    return c.cast(customer);
+                }
+            }
+            throw new NotFoundException("Customer not found");
+        }
+        else if(c == Admin.class){
+            for(Admin admin : admins){
+                if(admin.getUsername().equals(name)){
+                    return c.cast(admin);
+                }
+            }
+            throw new NotFoundException("Admin not found");
+        }
+        else if(c == Category.class){
+            for(Category category : categories){
+                if(category.getName().equals(name)){
+                    return c.cast(category);
+                }
+            }
+            throw new NotFoundException("Cart not found");
+        }
+        throw new NotFoundException("Class Doesn't exist");
+    }
 
     public <T> List<T> findAll(Class<T> clazz) {
         List<T> result = new ArrayList<>();
@@ -239,7 +298,7 @@ public class Database {
         int i =0;
         if(c == Cart.class){
             for(Cart cart: carts){
-                if(cart.equals(object)){
+                if(cart.getId() == ((Cart) object).getId()){
                     index = i;
                     break;
                 }
@@ -248,7 +307,7 @@ public class Database {
         }
         else if(c == Admin.class){
             for(Admin admin: admins){
-                if(admin.equals(object)){
+                if(admin.getId() == ((Admin) object).getId()){
                     index = i;
                     break;
                 }
@@ -257,7 +316,7 @@ public class Database {
         }
         else if(c == Customer.class){
             for(Customer customer: customers){
-                if(customer.equals(object)){
+                if(customer.getId() == ((Customer) object).getId()){
                     index = i;
                     break;
                 }
@@ -312,8 +371,19 @@ public class Database {
             categories.set(index, (Category) object);
         }
         else if(c == Product.class){
+            Product p = products.get(index);
+            Category category = p.getCategory();
+            System.out.println("Your product");
+            System.out.println(p.toString());
+            System.out.println("The categories product");
+            for (Product product : category.getProducts()){
+                System.out.println(product.toString());
+            }
+            category.deleteProduct(p);
+            update(Category.class, category);
 
-            products.set(index, (Product)object);
+            products.remove(index);
+            this.addProduct((Product) object);
         }
         else if(c == Order.class){
             orders.set(index, (Order) object);
@@ -354,6 +424,14 @@ public class Database {
             }
         }
         return customerOrder;
+    }
+
+    public Admin getLoggedAdmin() {
+        return loggedAdmin;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
     }
 
     public Customer getLoggedCustomer() {

@@ -4,6 +4,7 @@ import com.example.ecommerceguiv2.Components.LabeledTextField;
 import com.example.ecommerceguiv2.Models.Customer;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Components.SceneController;
+import com.example.ecommerceguiv2.Models.Person;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -33,9 +34,11 @@ public class LoginScene extends ScenePage {
             String password = passwordField.getText().trim();
             try {
 
-                Customer c1 = (Customer) db.login(username, password);
+                Person c1 = db.login(username, password);
+
                 if (c1 != null) {
                     System.out.println("Logged in");
+                    passwordField.getTextField().clear();
                     sc.switchToScene("dashboard");
                 }
             } catch (Exception ex) {
@@ -50,7 +53,7 @@ public class LoginScene extends ScenePage {
         textFieldsContainerLogin.getChildren().addAll(l1, usernameField, passwordField, submitButtonLogin, registerButton);
         rootLogin.setCenter(textFieldsContainerLogin);
 
-        Scene s = new Scene(rootLogin, 400, 200);
+        Scene s = new Scene(rootLogin, 400, 250);
         try {
             s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/styles.css").toExternalForm()); // Add the CSS file
         }catch (Exception ex){
@@ -59,4 +62,8 @@ public class LoginScene extends ScenePage {
         setScene(s);
     }
 
+    @Override
+    public void refresh() {
+
+    }
 }

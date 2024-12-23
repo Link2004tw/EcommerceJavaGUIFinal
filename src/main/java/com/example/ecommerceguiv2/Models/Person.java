@@ -37,6 +37,9 @@ public abstract class Person {
     public String getDateOfBirth() {
         return dateOfBirth.toString();
     }
+    public  Date getBirthday() {
+        return dateOfBirth;
+    }
 
     public Gender getGender() {
         return gender;

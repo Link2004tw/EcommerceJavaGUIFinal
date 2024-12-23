@@ -1,5 +1,7 @@
 package com.example.ecommerceguiv2.Models;
 
+import com.example.ecommerceguiv2.Exceptions.CantPerformAction;
+
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class Order {
         BALANCE
     }
 
-    private static int nbOfOrders=0;
+    private static int nbOfOrders = 0;
     private int orderId;
     private Customer customer;
     private Date orderDate;
@@ -75,25 +77,34 @@ public class Order {
         this.paymentMethod = paymentMethod;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     // methods
-    public void processOrder() {
+    public void processOrder(Database db) {
         for (Item orderItem : orderItems) {
             orderItem.getProduct().setStockQuantity(orderItem.getProduct().getStockQuantity() - orderItem.getQuantity()
             );
+            db.update(Product.class, orderItem.getProduct());
         }
         status = "processed";
     }
 
-    public void cancelOrder() {
-        if (status.equals("processed")) {
+    public void cancelOrder(Database database) throws CantPerformAction {
+        if (!status.equals("processed")) {
             for (Item orderItem : orderItems) {
                 orderItem.getProduct().setStockQuantity(orderItem.getProduct().getStockQuantity() + orderItem.getQuantity()
                 );
+                database.update(Product.class, orderItem.getProduct());
 
             }
+            database.getLoggedCustomer().setBalance(database.getLoggedCustomer().getBalance() + this.total);
+            System.out.println("Order canceled");
+            status = "Cancelled";
+        } else {
+            throw new CantPerformAction("Can't cancel order, already processed");
         }
-        System.out.println("Order canceled");
-        status = "Cancelled";
     }
 
     @Override
@@ -103,8 +114,8 @@ public class Order {
                 "\nOrder Date: " + orderDate +
                 "\nFor: " + customer.getUsername() + "\nProducts: \n"
         );
-        for (Item item: orderItems){
-            sb.append(item.getProduct().getName() + "(" + item.getQuantity()  + ")\n");
+        for (Item item : orderItems) {
+            sb.append(item.getProduct().getName() + "(" + item.getQuantity() + ")\n");
         }
         sb.append("total: ").append(String.format("%.2f", total)).append("\npaymentMethod: " + paymentMethod);
         return sb.toString();
