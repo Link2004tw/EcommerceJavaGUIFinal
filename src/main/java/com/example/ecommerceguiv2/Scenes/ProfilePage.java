@@ -69,7 +69,7 @@ public class ProfilePage extends ScenePage {
                 setStyle(smallerLabelStyle);
             }}, 1, 2);
 
-            grid.add(new Label("Balance:") {{
+            grid.add(new Label("Wallet:") {{
                 setStyle("-fx-font-size: 14px;");
             }}, 0, 3);
             grid.add(new Label("$" + String.format("%.2f", p.getBalance())) {{
