@@ -1,57 +1,58 @@
 package com.example.ecommerceguiv2.Scenes;
 
+import com.example.ecommerceguiv2.Components.SceneController;
+import com.example.ecommerceguiv2.Models.Category;
+import com.example.ecommerceguiv2.Models.Database;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class CategoriesPage extends ScenePage {
 
-    private VBox layout;
 
-    public CategoriesPage(Stage stage) {
-        // Initialize the layout
-        layout = new VBox(10); // 10px spacing between elements
-        layout.setPadding(new Insets(20));
+    public CategoriesPage(Database db, SceneController sc) {
 
-        // Add category buttons (example categories)
-        Button electronicsButton = new Button("Electronics");
-        Button clothingButton = new Button("Clothing");
-        Button groceriesButton = new Button("Groceries");
-        Button homeAppliancesButton = new Button("Home Appliances");
+    }
+    private void createPage(Database db, SceneController sc){
+        VBox mainLayout; // Main layout for the scene
 
-        // Add button actions
-        electronicsButton.setOnAction(e -> openCategory("Electronics"));
-        clothingButton.setOnAction(e -> openCategory("Clothing"));
-        groceriesButton.setOnAction(e -> openCategory("Groceries"));
-        homeAppliancesButton.setOnAction(e -> openCategory("Home Appliances"));
+        mainLayout = new VBox(10); // Create a VBox layout with spacing
+        ListView<HBox> categoryList = new ListView<>(); // Create a ListView for categories
+        for (Category category : db.getCategories()) {
+            HBox categoryRow = createCategoryRow(category,sc, db); // Create a row for each category
+            categoryList.getItems().add(categoryRow); // Add it to the ListView
+        }
+        mainLayout.getChildren().add(categoryList); // Add the ListView to the layout
+        Scene s = new Scene(mainLayout, 600, 400); // Create a scene with the layout
 
-        // Add buttons to the layout
-        layout.getChildren().addAll(electronicsButton, clothingButton, groceriesButton, homeAppliancesButton);
+        // Call setScene and pass the created scene
+        setScene(s);
+    }
+    private HBox createCategoryRow(Category category, SceneController sc,Database db) {
+        HBox row = new HBox(10); // Create a horizontal row with spacing
 
-        // Create the scene and set it on the stage
-        Scene scene = new Scene(layout, 400, 300); // 400x300 window size
-        stage.setScene(scene);
-        stage.setTitle("Categories Page");
+        Label nameLabel = new Label(category.getName()); // Display category name
+        Button detailsButton = new Button("View Details"); // Button to view details
+        Button editButton = new Button("Edit"); // Button to edit category
+
+        detailsButton.setOnAction(event -> {
+            CategoryDetails categoryDetails = new CategoryDetails(category);
+            sc.addScene("categoryDetails", categoryDetails, category.getName());
+            sc.switchToScene("categoryDetails");
+        });
+
+        // Add the components to the row
+        row.getChildren().addAll(nameLabel, detailsButton, editButton);
+        return row;
     }
 
     @Override
     public void refresh() {
-        // Example: Update the page layout dynamically
-        System.out.println("Refreshing Categories Page...");
-        layout.getChildren().clear();
-
-        // Dynamically load or update categories (static for now)
-        Button booksButton = new Button("Books");
-        booksButton.setOnAction(e -> openCategory("Books"));
-
-        layout.getChildren().add(booksButton);
     }
 
-    private void openCategory(String categoryName) {
-        // Navigate to the selected category
-        System.out.println("Opening category: " + categoryName);
-        // Logic to load the category-specific page can go here
-    }
+
 }

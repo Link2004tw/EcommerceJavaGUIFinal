@@ -29,7 +29,7 @@ public class AddCategoryPage extends ScenePage{
         root.getChildren().addAll(navigationBar, createCategoryForm());
         root.setPadding(new Insets(10));
 
-        setScene(new Scene(root, 700, 400));
+        setScene(new Scene(root, 750, 400));
 
     }
 
@@ -64,7 +64,7 @@ public class AddCategoryPage extends ScenePage{
                 alert.setTitle("Category Successfully");
                 alert.setContentText("Category added successfully.");
                 alert.showAndWait();
-                sceneController.switchToScene("Dashboard");
+                sceneController.switchToScene("dashboard");
             }
 
 
@@ -89,25 +89,25 @@ public class AddCategoryPage extends ScenePage{
         grid.add(textArea, 1, row);
         return textArea;
     }
-    private void handleFormSubmission(TextField nameField, TextArea descriptionArea) {
-        String name = nameField.getText();
-        String description = descriptionArea.getText();
-
-        if (name.isEmpty()  || description.isEmpty()) {
-            showAlert(Alert.AlertType.ERROR, "Invalid Input!", "Please fill in all the fields.");
-        } else {
-            if (category == null) {
-                database.addCategory(new Category(name,description));
-                showAlert(Alert.AlertType.CONFIRMATION, "Success", "Category Added Successfully!");
-            } else {
-                category.setName(name);
-                category.setDescription(description);
-                database.update(Category.class, category);
-                showAlert(Alert.AlertType.CONFIRMATION, "Success", "Category Updated Successfully!");
-            }
-            sceneController.switchToScene("products");
-        }
-    }
+//    private void handleFormSubmission(TextField nameField, TextArea descriptionArea) {
+//        String name = nameField.getText();
+//        String description = descriptionArea.getText();
+//
+//        if (name.isEmpty()  || description.isEmpty()) {
+//            showAlert(Alert.AlertType.ERROR, "Invalid Input!", "Please fill in all the fields.");
+//        } else {
+//            if (category == null) {
+//                database.addCategory(new Category(name,description));
+//                showAlert(Alert.AlertType.CONFIRMATION, "Success", "Category Added Successfully!");
+//            } else {
+//                category.setName(name);
+//                category.setDescription(description);
+//                database.update(Category.class, category);
+//                showAlert(Alert.AlertType.CONFIRMATION, "Success", "Category Updated Successfully!");
+//            }
+//            sceneController.switchToScene("products");
+//        }
+//    }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
