@@ -72,12 +72,8 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" +
-                "cardNumber='" + cardNumber + '\'' +
-                ", cardHolderName='" + cardHolderName + '\'' +
-                ", expiryDate=" + expiryDate +
-                ", cvv='***'" + // Masking CVV for security
-                '}';
+        return cardNumber.length() >= 4 ? cardNumber.substring(cardNumber.length() - 4) : cardNumber;
+
     }
 
     @Override

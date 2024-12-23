@@ -94,7 +94,7 @@ public class AddCardPage extends ScenePage {
             }
 
             // Save the card
-            Card card = new Card(name, cardNumber, expiryDate, cvv);
+            Card card = new Card(cardNumber, name, expiryDate, cvv);
             System.out.println("Card saved successfully: " + card);
             database.getLoggedCustomer().addCard(card);
             showAlert("Success", "Card added successfully!");
