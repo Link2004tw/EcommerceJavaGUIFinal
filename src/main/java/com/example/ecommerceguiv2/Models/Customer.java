@@ -1,11 +1,12 @@
 package com.example.ecommerceguiv2.Models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 public class Customer extends Person implements Validatable<String> {
-    private List<String> interests;
+    private List<Card> cards;
+
     private Cart cart;
     public Customer(
             String username,
@@ -16,18 +17,19 @@ public class Customer extends Person implements Validatable<String> {
     {
         super(username, password, dateOfBirth, balance, gender);
         cart = new Cart(id);
+        cards = new ArrayList<>();
     }
     public double viewBalance(){
         return super.getBalance();
     }
 
-    public void showProducts(Database db){
-        for(Product p: db.getProducts()){
-            System.out.println(p.showMinDetails());
-
-        }
-
-    }
+//    public void showProducts(Database db){
+//        for(Product p: db.getProducts()){
+//            System.out.println(p.showMinDetails());
+//
+//        }
+//
+//    }
     public void addToCart(int id,int q, Database db){
         Product p = db.findById(id, Product.class);
         cart.addProduct(p, q, db);
@@ -81,6 +83,10 @@ public class Customer extends Person implements Validatable<String> {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public void addCard(Card c){
+        cards.add(c);
     }
 }
 
