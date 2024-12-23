@@ -7,16 +7,16 @@ import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Models.Product;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class ProductPage extends ScenePage {
     private Database database;
     private SceneController sceneController;
+    //private VBox productList;
+
     public ProductPage(Database db, SceneController sc) {
 
         database = db;
@@ -31,26 +31,29 @@ public class ProductPage extends ScenePage {
         titleContainer.setAlignment(Pos.CENTER); // Center align the label
         titleContainer.setStyle("-fx-background-color: #F0F8FF;");
 
+        VBox productList = new VBox(10); // Spacing of 10 pixels
+        productList.setPadding(new Insets(10));
+        productList.setStyle("-fx-background-color: #F0F8FF;");
+
         TextField searchBar = new TextField();
         searchBar.setPromptText("Search products...");
-        searchBar.setOnKeyReleased(e -> refreshProductList(searchBar.getText(), null));
+        searchBar.setStyle("-fx-font-size: 14px; -fx-padding: 5px; -fx-border-color: #0078d7; -fx-border-radius: 5px; -fx-background-radius: 5px; -fx-background-color: #ffffff;");
+
+        searchBar.setOnKeyReleased(e -> refreshProductList(searchBar.getText(), null, productList));
 
         ComboBox<String> sortOptions = new ComboBox<>();
         sortOptions.getItems().addAll("Sort by Name", "Sort by Price");
-        sortOptions.setOnAction(e -> refreshProductList(searchBar.getText(), sortOptions.getValue()));
+        sortOptions.setOnAction(e -> refreshProductList(searchBar.getText(), sortOptions.getValue(), productList));
 
         HBox searchAndSortContainer = new HBox(10, searchBar, sortOptions);
         searchAndSortContainer.setAlignment(Pos.CENTER);
         searchAndSortContainer.setPadding(new Insets(10));
 
         // Product list container
-        VBox productList = new VBox(10); // Spacing of 10 pixels
-        productList.setPadding(new Insets(10));
-        productList.setStyle("-fx-background-color: #F0F8FF;");
 
-        ScrollPane scrollPane = new ScrollPane(productList);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPadding(new Insets(10));
+//        ScrollPane scrollPane = new ScrollPane(productList);
+//        scrollPane.setFitToWidth(true);
+//        scrollPane.setPadding(new Insets(10));
 
         // Add ProductItem components to the VBox
         for (Product product : db.getProducts()) {
@@ -61,9 +64,9 @@ public class ProductPage extends ScenePage {
         }
 
         // Wrap VBox in a ScrollPane
-        ScrollPane scrollPane = new ScrollPane(productList);
-        scrollPane.setFitToWidth(true); // Allow the content to fit the width of the ScrollPane
-        scrollPane.setPadding(new Insets(10)); // Add padding to the ScrollPane content
+        ScrollPane scrollPane1 = new ScrollPane(productList);
+        scrollPane1.setFitToWidth(true); // Allow the content to fit the width of the ScrollPane
+        scrollPane1.setPadding(new Insets(10)); // Add padding to the ScrollPane content
 
         Button goToCartButton = new Button("Go to Cart");
         goToCartButton.setOnAction(e -> {
@@ -75,12 +78,13 @@ public class ProductPage extends ScenePage {
 
         // Create the scene
         VBox root = new VBox(10);
-        root.getChildren().addAll(navigationBar, titleContainer, scrollPane, buttonContainer);
+        root.getChildren().addAll(navigationBar, titleContainer, scrollPane1, buttonContainer);
 
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);
     }
 
+    @Override
     public void refresh(){
         Label titleLabel = new Label("Available Products");
         titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #000000;"); // Style for the title label
@@ -121,7 +125,7 @@ public class ProductPage extends ScenePage {
         Scene scene = new Scene(root, 800, 600); // Set the size of the scene
         setScene(scene);
     }
-    private void refreshProductList(String searchQuery, String sortOption) {
+    private void refreshProductList(String searchQuery, String sortOption, VBox productList) {
         productList.getChildren().clear();
 
         // Fetch and filter products

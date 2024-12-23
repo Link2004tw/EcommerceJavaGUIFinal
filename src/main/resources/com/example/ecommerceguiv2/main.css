@@ -35,3 +35,30 @@ HBox {
 .root {
     -fx-background-color: #F0F8FF;
 }
+.search-bar {
+    -fx-background-color: #f1f1f1;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+    -fx-font-size: 14px;
+}
+
+.search-bar:focused {
+    -fx-border-color: #4CAF50;
+    -fx-background-color: #ffffff;
+}
+
+.search-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 5 10;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.search-button:hover {
+    -fx-background-color: #45a049;
+}

@@ -23,6 +23,7 @@ public class ProfilePage extends ScenePage {
         database = db;
         sceneController = sc;
         createProfilePage(db, sc);
+
     }
 
     private void createProfilePage(Database db, SceneController sc) {
@@ -30,18 +31,13 @@ public class ProfilePage extends ScenePage {
         NavigationBar navigationBar = new NavigationBar(sc);
         if (p != null) {
             sc.setTitle("profile", p.getUsername());
-
             // Root layout
-            BorderPane root = new BorderPane();
+            VBox root = new VBox();
             root.setPadding(new Insets(20));
+            //root.setAlignment(Pos.CENTER);
 
-            // Header with NavigationBar and "Profile Page" title
-            VBox headerBox = new VBox();
-            Label profilePageLabel = new Label("Profile Page");
-            profilePageLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
-            headerBox.getChildren().addAll(navigationBar, profilePageLabel);
-            headerBox.setSpacing(10);
-            headerBox.setAlignment(Pos.CENTER);
+            // Title Label
+            Label titleLabel = new Label("Profile Page");
 
             // GridPane for profile details
             GridPane grid = new GridPane();
@@ -51,7 +47,7 @@ public class ProfilePage extends ScenePage {
 
             String smallerLabelStyle = "-fx-font-size: 14px; -fx-font-weight: normal;";
 
-            // Add profile details to the grid
+            // Add customer details to the grid
             grid.add(new Label("Username:") {{
                 setStyle("-fx-font-size: 14px;");
             }}, 0, 0);
@@ -80,7 +76,7 @@ public class ProfilePage extends ScenePage {
                 setStyle(smallerLabelStyle);
             }}, 1, 3);
 
-            if (db.isAdmin()) {
+            if(db.isAdmin()){
                 grid.add(new Label("Role:") {{
                     setStyle("-fx-font-size: 14px;");
                 }}, 0, 4);
@@ -94,59 +90,31 @@ public class ProfilePage extends ScenePage {
                 grid.add(new Label(String.valueOf(((Admin) p).getWorkingHours()) + " hours") {{
                     setStyle(smallerLabelStyle);
                 }}, 1, 5);
+
             }
-
-            // Footer Buttons
+            // Edit Profile button
             Button editProfileButton = new Button("Edit Profile");
-            editProfileButton.setOnAction(event -> sc.switchToScene("editProfile"));
-
+            editProfileButton.setOnAction(event -> {
+                // Leave this empty for now
+                sc.switchToScene("editProfile");
+            });
             Button logoutButton = new Button("Log out");
-            logoutButton.setOnAction(event -> db.signOut());
-
+            logoutButton.setOnAction(event -> {
+                db.signOut();
+            });
+            HBox.setMargin(editProfileButton, new Insets(0, 20, 0, 20)); // Top, Right, Bottom, Left
+            HBox.setMargin(logoutButton, new Insets(0, 20, 0, 20));
             HBox buttonBox = new HBox(editProfileButton, logoutButton);
-            buttonBox.setSpacing(20);
+            // Add components to the root layout
             buttonBox.setAlignment(Pos.CENTER);
-            buttonBox.setPadding(new Insets(10, 0, 10, 0));
+            VBox.setMargin(buttonBox, new Insets(20, 0, 0, 0));
 
-            // Assemble Root Layout
-            root.setTop(headerBox);    // Header with NavigationBar and "Profile Page" title
-            root.setCenter(grid);      // Profile details in the center
-            root.setBottom(buttonBox); // Footer with buttons
-
-            // Scene Setup
+            root.getChildren().addAll(navigationBar, titleLabel, grid, buttonBox);
+            // Scene and Stage Setup
             Scene s = new Scene(root, 400, 500);
-
-            // Add dynamic font resizing
-            s.widthProperty().addListener((observable, oldValue, newValue) -> {
-                double scaleFactor = newValue.doubleValue() / 400.0;
-                double fontSize = Math.max(12, Math.min(24, 14 * scaleFactor));
-                profilePageLabel.setStyle("-fx-font-size: " + Math.max(18, Math.min(30, 20 * scaleFactor)) + ";");
-                grid.getChildren().forEach(node -> {
-                    if (node instanceof Label) {
-                        ((Label) node).setStyle("-fx-font-size: " + fontSize + "; -fx-font-weight: normal;");
-                    }
-                });
-                editProfileButton.setStyle("-fx-font-size: " + Math.max(14, Math.min(20, 16 * scaleFactor)) + ";");
-                logoutButton.setStyle("-fx-font-size: " + Math.max(14, Math.min(20, 16 * scaleFactor)) + ";");
-            });
-
-            s.heightProperty().addListener((observable, oldValue, newValue) -> {
-                double scaleFactor = newValue.doubleValue() / 500.0;
-                double fontSize = Math.max(12, Math.min(24, 14 * scaleFactor));
-                profilePageLabel.setStyle("-fx-font-size: " + Math.max(18, Math.min(30, 20 * scaleFactor)) + ";");
-                grid.getChildren().forEach(node -> {
-                    if (node instanceof Label) {
-                        ((Label) node).setStyle("-fx-font-size: " + fontSize + "; -fx-font-weight: normal;");
-                    }
-                });
-                editProfileButton.setStyle("-fx-font-size: " + Math.max(14, Math.min(20, 16 * scaleFactor)) + ";");
-                logoutButton.setStyle("-fx-font-size: " + Math.max(14, Math.min(20, 16 * scaleFactor)) + ";");
-            });
-
             setScene(s);
         }
     }
-
 
 
     @Override
