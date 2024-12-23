@@ -52,7 +52,19 @@ public class AddCategoryPage extends ScenePage{
                 alert.setContentText("Category name and description cannot be empty.");
                 alert.showAndWait();
             } else {
-
+                if(category == null){
+                    Category category1 = new Category(categoryName, categoryDescription);
+                    database.addCategory(category1);
+                }else {
+                    category.setName(categoryName);
+                    category.setDescription(categoryDescription);
+                    database.update(Category.class, category);
+                }
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Category Successfully");
+                alert.setContentText("Category added successfully.");
+                alert.showAndWait();
+                sceneController.switchToScene("Dashboard");
             }
 
 
@@ -105,9 +117,9 @@ public class AddCategoryPage extends ScenePage{
     }
     @Override
     public void refresh() {
-        NavigationBar navigationBar = new NavigationBar(sceneController);
+
         VBox root = new VBox(10);
-        root.getChildren().addAll(navigationBar, createCategoryForm());
+        root.getChildren().addAll(new NavigationBar(sceneController), createCategoryForm());
         root.setPadding(new Insets(10));
 
         setScene(new Scene(root, 700, 400));

@@ -53,7 +53,7 @@ public class LoginScene extends ScenePage {
         textFieldsContainerLogin.getChildren().addAll(l1, usernameField, passwordField, submitButtonLogin, registerButton);
         rootLogin.setCenter(textFieldsContainerLogin);
 
-        Scene s = new Scene(rootLogin, 400, 200);
+        Scene s = new Scene(rootLogin, 400, 250);
         try {
             s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/styles.css").toExternalForm()); // Add the CSS file
         }catch (Exception ex){

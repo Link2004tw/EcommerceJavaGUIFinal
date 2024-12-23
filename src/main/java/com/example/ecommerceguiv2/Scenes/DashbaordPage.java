@@ -49,8 +49,15 @@ public class DashbaordPage extends ScenePage {
 
         // Create navigation buttons
         Button shopButton = new Button(db.isAdmin() ? "Products" : "Shop");
+        Button addCategoryButton = new Button("Add Category");
+
         shopButton.setOnAction(e -> {
             sc.switchToScene("products");
+        });
+        addCategoryButton.setOnAction(e-> {
+            AddCategoryPage addCategoryPage = new AddCategoryPage(db, sc);
+            sc.addScene("addCategory", addCategoryPage, "Add Category");
+            sc.switchToScene("addCategory");
         });
         Button cartButton = new Button("Cart");
         Button ordersButton = new Button("Orders");
@@ -64,7 +71,7 @@ public class DashbaordPage extends ScenePage {
         cartButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
         ordersButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
         addButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
-
+        addCategoryButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
         cartButton.setOnAction(e -> {
             sc.switchToScene("cart");
         });
@@ -86,7 +93,7 @@ public class DashbaordPage extends ScenePage {
         });
         usernameButton.setAlignment(Pos.CENTER_RIGHT);
         if (db.isAdmin()) {
-            navigationBar.getChildren().addAll(shopButton, addButton, ordersButton, usernameButton,viewCustomersButton);
+            navigationBar.getChildren().addAll(shopButton, addButton, ordersButton, viewCustomersButton, addCategoryButton ,usernameButton);
 
         } else {
             navigationBar.getChildren().addAll(shopButton, cartButton, ordersButton, usernameButton);

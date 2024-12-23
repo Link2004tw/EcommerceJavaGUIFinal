@@ -54,10 +54,38 @@ public class SceneController {
                 }
             }
         }
+
         if (s != null) {
             stage.setScene(s);
             stage.setTitle(t);
             screneVisited.push(name);
+            stage.show();
+        } else {
+            System.out.println("Scene " + name + " not found!");
+        }
+    }
+    private void switchToSceneNoStack(String name) {
+        Scene s = null;
+        String t = null;
+        for(SceneContainer sceneContainer: scenes){
+            if(sceneContainer.getName().equals(name)){
+                refresh(name);
+                s = sceneContainer.getScene();
+                t = sceneContainer.getTitle();
+                if (s != null) {
+                    try {
+                        s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/main.css").toExternalForm());
+                    } catch (NullPointerException e) {
+                        System.out.println("Error applying stylesheet to scene: " + name);
+                    }
+                }
+            }
+        }
+
+        if (s != null) {
+            stage.setScene(s);
+            stage.setTitle(t);
+            //screneVisited.push(name);
             stage.show();
         } else {
             System.out.println("Scene " + name + " not found!");
@@ -69,9 +97,13 @@ public class SceneController {
         }
     }
     public void goBack(){
+        for(String screne : screneVisited){
+            System.out.println(screne);
+        }
+        System.out.println("-----------------------------------------");
         screneVisited.pop();
         String name = screneVisited.peek();
-        this.switchToScene(name);
+        this.switchToSceneNoStack(name);
     }
     public void refresh(String name){
         ScenePage s = null;

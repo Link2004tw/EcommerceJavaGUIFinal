@@ -166,6 +166,6 @@ public class AddProductPage extends ScenePage {
         root.getChildren().addAll(navigationBar, createProductForm());
         root.setPadding(new Insets(10));
 
-        setScene(new Scene(root, 700, 400));
+        setScene(new Scene(root, 700, 500));
     }
 }

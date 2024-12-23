@@ -4,10 +4,7 @@ import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Exceptions.IncorrectPasswordException;
 import com.example.ecommerceguiv2.Exceptions.NotFoundException;
 import com.example.ecommerceguiv2.Exceptions.RegisterFailException;
-import com.example.ecommerceguiv2.Scenes.AddProductPage;
-import com.example.ecommerceguiv2.Scenes.CartPage;
-import com.example.ecommerceguiv2.Scenes.DashbaordPage;
-import com.example.ecommerceguiv2.Scenes.ProductPage;
+import com.example.ecommerceguiv2.Scenes.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -139,8 +136,8 @@ public class Database {
                     sc.addScene("dashboard", dashbaordPage, "Dashboard");
                     AddProductPage addProductPage = new AddProductPage(this, sc);
                     sc.addScene("addProduct", addProductPage, "Add Product");
-
-
+                    AddCategoryPage addCategoryPage = new AddCategoryPage(this, sc);
+                    sc.addScene("addCategory", addCategoryPage, "Add Category");
                     return admin ;
                 }
                 throw new IncorrectPasswordException("Incorrect password entered");

@@ -10,12 +10,14 @@ public class Category {
     private String name;
     private String description;
     private List<Product> products;
-
-
+    private int id;
+    private static int nbOfCategories;
     public Category(String name, String description) {
         this.name = name;
         this.description = description;
         this.products = new ArrayList<Product>();
+        id = nbOfCategories;
+        nbOfCategories++;
     }
 
     public Category(String name, String description, List<Product> products) {
@@ -122,8 +124,12 @@ public class Category {
         db.deleteById(id, Category.class);
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public boolean equals(Object c) {
-        return this.name.equals(((Category) c).name);
+        return this.id == ((Category) c).getId();
     }
 }
