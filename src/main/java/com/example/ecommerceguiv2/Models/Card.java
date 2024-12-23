@@ -79,5 +79,10 @@ public class Card {
                 ", cvv='***'" + // Masking CVV for security
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return ((Card) obj).cardNumber.equals(cardNumber);
+    }
 }
 
