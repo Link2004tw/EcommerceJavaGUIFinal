@@ -39,6 +39,7 @@ public class LoginScene extends ScenePage {
         submitButtonLogin.setOnAction(e -> {
             String username = usernameField.getText().trim();
             String password = passwordField.getText().trim();
+            System.out.println(username + " " + password);
             try {
                 Person c1 = db.login(username, password);
                 if (c1 != null) {

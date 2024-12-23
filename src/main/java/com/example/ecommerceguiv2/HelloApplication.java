@@ -56,9 +56,12 @@ public class HelloApplication extends Application {
 
         Customer customer = new Customer("Mark", "12345", now, 4000, Person.Gender.MALE);
         Admin admin = new Admin("Admin", "12345", now, 4000, Person.Gender.MALE, "Manager", 40);
+        Admin superAdmin = new Admin("Bashmohandes Sohail", "12345", now, 4000, Person.Gender.MALE, "Manager", 40);
 
         db.addCustomer(customer);
         db.addAdmin(admin);
+        db.addAdmin(superAdmin);
+
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
         LoginScene loginScene = new LoginScene(db, sc);
@@ -68,7 +71,7 @@ public class HelloApplication extends Application {
         EditProfilePage editProfilePage = new EditProfilePage(db, sc);
         OrdersPage ordersPage = new OrdersPage(db, sc);
         ProductPage productPage = new ProductPage(db, sc);
-
+        AddCardPage addCardPage = new AddCardPage(db, sc);
         sc.addScene("login", loginScene, "Login Page");
         sc.addScene("register", registerScene, "Registration Page");
         sc.addScene("order", checkOutPage, "Check Out");
@@ -76,7 +79,7 @@ public class HelloApplication extends Application {
         sc.addScene("editProfile", editProfilePage, "");
         sc.addScene("orders", ordersPage, "Orders");
         sc.addScene("products", productPage, "Product Page");
-
+        sc.addScene("addCard", addCardPage, "Add Card");
         sc.switchToScene("login");
 
     }

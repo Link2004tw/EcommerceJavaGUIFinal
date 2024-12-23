@@ -149,6 +149,7 @@ public class Database {
     public void signOut(){
         if (isAdmin){
             loggedAdmin = null;
+            isAdmin = false;
         }else {
             loggedCustomer = null;
         }

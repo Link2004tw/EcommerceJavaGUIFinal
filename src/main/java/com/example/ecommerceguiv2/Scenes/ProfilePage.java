@@ -108,7 +108,7 @@ public class ProfilePage extends ScenePage {
             if(!db.isAdmin()){
                 Button addCardButton = new Button("Add Card");
                 addCardButton.setOnAction(e-> {
-                    sceneController.addScene("addCard", new AddCardPage(), "Add Card");
+                    sceneController.addScene("addCard", new AddCardPage(db, sc), "Add Card");
                     sceneController.switchToScene("addCard");
                 });
                 buttonBox.getChildren().add(addCardButton);

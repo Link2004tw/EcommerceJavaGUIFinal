@@ -1,16 +1,25 @@
 package com.example.ecommerceguiv2.Scenes;
 
+import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Card;
+import com.example.ecommerceguiv2.Models.Database;
+import com.example.ecommerceguiv2.Scenes.ScenePage;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.time.YearMonth;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 public class AddCardPage extends ScenePage {
+
+    Database database;
+    SceneController sceneController;
+
+    public AddCardPage(Database db, SceneController sc){
+        database = db;
+        sceneController = sc;
+    }
 
     @Override
     public void refresh() {
@@ -50,6 +59,10 @@ public class AddCardPage extends ScenePage {
         Button submitButton = new Button("Submit");
         grid.add(submitButton, 1, 4);
 
+        // Add a cancel button
+        Button cancelButton = new Button("Cancel");
+        grid.add(cancelButton, 0, 4); // Position it next to the submit button
+
         // Validation and event handling
         submitButton.setOnAction(e -> {
             String name = nameField.getText().trim();
@@ -81,10 +94,13 @@ public class AddCardPage extends ScenePage {
             // Save the card
             Card card = new Card(name, cardNumber, expiryDate, cvv);
             System.out.println("Card saved successfully: " + card);
-
+            database.getLoggedCustomer().addCard(card);
             showAlert("Success", "Card added successfully!");
-
+            sceneController.goBack();
         });
+
+        // Handle the cancel button
+        cancelButton.setOnAction(e -> sceneController.goBack());
 
         // Set the scene and show the stage
         Scene scene = new Scene(grid, 400, 300);

@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 public class DashbaordPage extends ScenePage {
     private Database database;
+
     private VBox createStatsCard(String title, String value) {
         VBox card = new VBox();
         card.setAlignment(Pos.CENTER);
@@ -54,7 +55,7 @@ public class DashbaordPage extends ScenePage {
         shopButton.setOnAction(e -> {
             sc.switchToScene("products");
         });
-        addCategoryButton.setOnAction(e-> {
+        addCategoryButton.setOnAction(e -> {
             AddCategoryPage addCategoryPage = new AddCategoryPage(db, sc);
             sc.addScene("addCategory", addCategoryPage, "Add Category");
             sc.switchToScene("addCategory");
@@ -62,7 +63,7 @@ public class DashbaordPage extends ScenePage {
         Button cartButton = new Button("Cart");
         Button ordersButton = new Button("Orders");
         Button addButton = new Button("Add Product");
-        addButton.setOnAction(e-> {
+        addButton.setOnAction(e -> {
             AddProductPage addProductPage = new AddProductPage(db, sc);
             sc.addScene("addProduct", addProductPage, "Add Product");
             sc.switchToScene("addProduct");
@@ -77,23 +78,20 @@ public class DashbaordPage extends ScenePage {
         });
 
         ordersButton.setOnAction(e -> {
-            if (db.isAdmin()){
-                sc.switchToScene("adminOrders");
-            }   else {
-                sc.switchToScene("orders");
-            }
+            sc.switchToScene("orders");
+
         });
         Button viewCustomersButton = new Button("View Customers");
         viewCustomersButton.setOnAction(e -> showCustomersWindow());
         // Username button
         Button usernameButton = new Button(db.isAdmin() ? db.getLoggedAdmin().getUsername() : db.getLoggedCustomer().getUsername());
         usernameButton.setStyle("-fx-background-color: #FFD700; -fx-text-fill: black; -fx-padding: 5px 15px;");
-        usernameButton.setOnAction(e-> {
+        usernameButton.setOnAction(e -> {
             sc.switchToScene("profile");
         });
         usernameButton.setAlignment(Pos.CENTER_RIGHT);
         if (db.isAdmin()) {
-            navigationBar.getChildren().addAll(shopButton, addButton, ordersButton, viewCustomersButton, addCategoryButton ,usernameButton);
+            navigationBar.getChildren().addAll(shopButton, addButton, ordersButton, viewCustomersButton, addCategoryButton, usernameButton);
 
         } else {
             navigationBar.getChildren().addAll(shopButton, cartButton, ordersButton, usernameButton);
@@ -124,6 +122,7 @@ public class DashbaordPage extends ScenePage {
 
         setScene(s);
     }
+
     private void showCustomersWindow() {
         Stage customerStage = new Stage();
         customerStage.setTitle("List of Customers");
@@ -143,6 +142,7 @@ public class DashbaordPage extends ScenePage {
         customerStage.setScene(scene);
         customerStage.show();
     }
+
     @Override
     public void refresh() {
 
