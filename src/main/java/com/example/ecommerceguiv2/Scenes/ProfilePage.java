@@ -3,7 +3,6 @@ package com.example.ecommerceguiv2.Scenes;
 import com.example.ecommerceguiv2.Components.NavigationBar;
 import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Admin;
-import com.example.ecommerceguiv2.Models.Customer;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Models.Person;
 import javafx.geometry.Insets;
@@ -11,9 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.Stage;
-
-import java.util.Locale;
 
 public class ProfilePage extends ScenePage {
     Database database;
@@ -105,10 +101,18 @@ public class ProfilePage extends ScenePage {
             logoutButton.setOnAction(event -> db.signOut());
 
             HBox buttonBox = new HBox(editProfileButton, logoutButton);
+
             buttonBox.setSpacing(20);
             buttonBox.setAlignment(Pos.CENTER);
             buttonBox.setPadding(new Insets(10, 0, 10, 0));
-
+            if(!db.isAdmin()){
+                Button addCardButton = new Button("Add Card");
+                addCardButton.setOnAction(e-> {
+                    sceneController.addScene("addCard", new AddCardPage(), "Add Card");
+                    sceneController.switchToScene("addCard");
+                });
+                buttonBox.getChildren().add(addCardButton);
+            }
             // Assemble Root Layout
             root.setTop(headerBox);    // Header with NavigationBar and "Profile Page" title
             root.setCenter(grid);      // Profile details in the center
