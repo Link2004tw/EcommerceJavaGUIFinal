@@ -7,6 +7,7 @@ import com.example.ecommerceguiv2.Scenes.ProductDetailsPage;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -39,6 +40,8 @@ public class ProductItem extends HBox {
                 db.getLoggedCustomer().addToCart(p, 1, db);
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle(p.getName() + " added to cart!");
+                alert.getButtonTypes().setAll(ButtonType.OK);
+
                 alert.showAndWait();
             }
         });

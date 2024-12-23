@@ -138,6 +138,7 @@ public class AddProductPage extends ScenePage {
                 // Add New Product
                 database.addProduct(new Product(name, description, Double.parseDouble(price), Integer.parseInt(quantity), category));
                 showAlert(Alert.AlertType.CONFIRMATION, "Success", "Product Added Successfully!");
+
             } else {
                 // Update Existing Product
                 product.setName(name);
@@ -157,6 +158,9 @@ public class AddProductPage extends ScenePage {
         alert.setTitle(title);
         alert.setContentText(message);
         alert.showAndWait();
+        if(type == Alert.AlertType.CONFIRMATION){
+            alert.getButtonTypes().setAll(ButtonType.OK);
+        }
     }
 
     @Override

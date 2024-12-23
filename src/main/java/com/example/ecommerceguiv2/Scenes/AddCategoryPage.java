@@ -63,6 +63,7 @@ public class AddCategoryPage extends ScenePage{
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Category Successfully");
                 alert.setContentText("Category added successfully.");
+                alert.getButtonTypes().setAll(ButtonType.OK);
                 alert.showAndWait();
                 sceneController.switchToScene("dashboard");
             }

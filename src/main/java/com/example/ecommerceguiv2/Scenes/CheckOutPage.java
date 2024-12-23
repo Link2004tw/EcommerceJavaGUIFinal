@@ -81,7 +81,7 @@ public class CheckOutPage extends ScenePage {
             cardOptionAlert.setTitle("Credit Card Options");
             cardOptionAlert.setHeaderText("Choose an Option");
             cardOptionAlert.setContentText("Do you want to use an existing card or add a new one?");
-
+            cardOptionAlert.getButtonTypes().setAll(ButtonType.OK);
             ButtonType existingCardButton = new ButtonType("Existing Card");
             ButtonType newCardButton = new ButtonType("Add New Card");
             ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
