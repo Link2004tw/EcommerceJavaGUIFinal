@@ -100,7 +100,7 @@ public class Category {
 
     public void save(Database db) {
         db.addCategory(this);
-        System.out.println("Category added successfully");
+        //System.out.println("Category added successfully");
     }
 
     public static Category findById(int id, Database db) {

@@ -58,11 +58,11 @@ public class Database {
 
     public void addCustomer(Customer c){
         customers.add(c);
-        System.out.println("Added Successfully");
+        //System.out.println("Added Successfully");
     }
     public void addAdmin(Admin a){
         admins.add(a);
-        System.out.println("Added Successfully");
+        //System.out.println("Added Successfully");
     }
     public void addProduct(Product p) throws AlreadyExistsException {
         for(Product p1 : products){

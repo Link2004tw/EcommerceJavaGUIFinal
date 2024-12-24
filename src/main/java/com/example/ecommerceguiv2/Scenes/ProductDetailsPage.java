@@ -69,7 +69,7 @@ public class ProductDetailsPage extends ScenePage {
         buttonBox.setSpacing(10);
         buttonBox.setStyle("-fx-alignment: center-right;");
         if (db.isAdmin()) {
-            System.out.println("is admin");
+            //System.out.println("is admin");
             Button b2 = new Button("Edit");
             b2.setOnAction(e -> {
                         AddProductPage productPage = new AddProductPage(db, product, sc);

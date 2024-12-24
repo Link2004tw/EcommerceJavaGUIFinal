@@ -28,11 +28,12 @@ public class SceneController {
         try {
             s.getScene().getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/main.css").toExternalForm());
         } catch (NullPointerException e) {
-            System.out.println("Error");
+            //System.out.println("Error");
         }
         ProductItem.SceneContainer sceneContainer = new ProductItem.SceneContainer(name, s,t);
         scenes.add(sceneContainer);
     }
+
     // Switch to a specific scene by name
     public void switchToScene(String name) {
         Scene s = null;

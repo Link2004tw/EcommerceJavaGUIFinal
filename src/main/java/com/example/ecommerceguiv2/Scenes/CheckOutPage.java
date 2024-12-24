@@ -28,7 +28,6 @@ public class CheckOutPage extends ScenePage {
         Customer customer = db.getLoggedCustomer();
         if (customer != null) {
             cart = customer.getCart();
-
             Label titleLabel = new Label("Checkout Page");
             titleLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
 

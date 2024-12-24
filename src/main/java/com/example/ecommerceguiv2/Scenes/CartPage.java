@@ -112,7 +112,7 @@ public class CartPage extends ScenePage {
                 try {
                     s.getStylesheets().add(getClass().getResource("/com/example/ecommerceguiv2/cart-styles.css").toExternalForm());
                 } catch (NullPointerException e) {
-                    System.out.println("Error");
+                    //System.out.println("Error");
                 }
                 setScene(s);
 

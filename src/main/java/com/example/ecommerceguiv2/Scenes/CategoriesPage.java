@@ -3,7 +3,6 @@ package com.example.ecommerceguiv2.Scenes;
 import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Category;
 import com.example.ecommerceguiv2.Models.Database;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
