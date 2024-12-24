@@ -1,9 +1,6 @@
 package com.example.ecommerceguiv2.Components;
-import com.example.ecommerceguiv2.Exceptions.AlreadyExistsException;
-import com.example.ecommerceguiv2.Models.SceneContainer;
 import com.example.ecommerceguiv2.Scenes.ScenePage;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -12,7 +9,7 @@ import java.util.Stack;
 
 public class SceneController {
     private final Stage stage;
-    private List<SceneContainer> scenes = new ArrayList<>();
+    private List<ProductItem.SceneContainer> scenes = new ArrayList<>();
     private List<String> names = new ArrayList<>();
     private Stack<String> screneVisited = new Stack<>();
     public SceneController(Stage stage) {
@@ -22,7 +19,7 @@ public class SceneController {
 
 
     public void addScene(String name, ScenePage s, String t) {
-        for (SceneContainer n: scenes){
+        for (ProductItem.SceneContainer n: scenes){
             if(n.getName().equals(name)){
                 n.setScene(s);
             }
@@ -33,14 +30,14 @@ public class SceneController {
         } catch (NullPointerException e) {
             System.out.println("Error");
         }
-        SceneContainer sceneContainer = new SceneContainer(name, s,t);
+        ProductItem.SceneContainer sceneContainer = new ProductItem.SceneContainer(name, s,t);
         scenes.add(sceneContainer);
     }
     // Switch to a specific scene by name
     public void switchToScene(String name) {
         Scene s = null;
         String t = null;
-        for(SceneContainer sceneContainer: scenes){
+        for(ProductItem.SceneContainer sceneContainer: scenes){
             if(sceneContainer.getName().equals(name)){
                 refresh(name);
                 s = sceneContainer.getScene();
@@ -67,7 +64,7 @@ public class SceneController {
     private void switchToSceneNoStack(String name) {
         Scene s = null;
         String t = null;
-        for(SceneContainer sceneContainer: scenes){
+        for(ProductItem.SceneContainer sceneContainer: scenes){
             if(sceneContainer.getName().equals(name)){
                 refresh(name);
                 s = sceneContainer.getScene();
@@ -107,7 +104,7 @@ public class SceneController {
     }
     public void refresh(String name){
         ScenePage s = null;
-        for(SceneContainer sceneContainer: scenes){
+        for(ProductItem.SceneContainer sceneContainer: scenes){
             if(sceneContainer.getName().equals(name)){
                 sceneContainer.refresh();
 
@@ -115,10 +112,13 @@ public class SceneController {
         }
     }
     public void setTitle(String sceneName, String title){
-        for (SceneContainer sceneContainer: scenes){
+        for (ProductItem.SceneContainer sceneContainer: scenes){
             if(sceneContainer.getName().equals(sceneName)){
                 sceneContainer.setTitle(title);
             }
         }
+    }
+
+    public static class RegistrationPage {
     }
 }

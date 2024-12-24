@@ -5,6 +5,7 @@ import com.example.ecommerceguiv2.Models.Customer;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Components.SceneController;
 import com.example.ecommerceguiv2.Models.Person;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -22,12 +23,13 @@ public class LoginScene extends ScenePage {
         l1.setStyle("-fx-font-family: Arial, sans-serif; -fx-font-weight: bold;");
 
         // VBox for text fields
-        VBox textFieldsContainerLogin = new VBox(10);
+        VBox textFieldsContainerLogin = new VBox(15); // Increased spacing for better visual separation
         textFieldsContainerLogin.setStyle("-fx-alignment: center;");
+        textFieldsContainerLogin.setPadding(new Insets(20, 40, 20, 40)); // Add padding for better spacing
 
         // Username and Password fields
         LabeledTextField usernameField = new LabeledTextField("Username:");
-        LabeledTextField passwordField = new LabeledTextField("Password:");
+        LabeledTextField passwordField = new LabeledTextField("Password:", true);
 
         // Buttons
         Button submitButtonLogin = new Button("Log in");

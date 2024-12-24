@@ -124,6 +124,7 @@ public class CheckOutPage extends ScenePage {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Order processed successfully!", ButtonType.OK);
         alert.showAndWait();
+        customer.getCart().clearCart();
 
         sceneController.switchToScene("dashboard");
     }

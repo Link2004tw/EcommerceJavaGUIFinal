@@ -1,45 +1,43 @@
 package com.example.ecommerceguiv2.Components;
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class LabeledTextField extends HBox {
-    private Label label;
-    private TextField textField;
+    private final Label label;
+    private final TextField textField;
+
 
     public LabeledTextField(String labelText) {
-        // Create the label and text field
+        this(labelText, false);
+    }
+
+    public LabeledTextField(String labelText, boolean isPasswordField) {
         label = new Label(labelText);
-        textField = new TextField();
-
-        // Customize the label and text field (you can also use CSS styling)
-        label.setStyle("-fx-font-size: 14px; -fx-font-weight: bold;");
-        textField.setStyle("-fx-padding: 5px;");
-
-        // Add the label and text field to the layout
+        if (isPasswordField) {
+            textField = new PasswordField();
+        } else {
+            textField = new TextField();
+        }
         this.getChildren().addAll(label, textField);
+    }
 
-        // Layout spacing, padding, and centering
-        this.setSpacing(10);  // Add space between label and text field
-        this.setPadding(new Insets(5));  // Padding around the entire container
-        this.setAlignment(Pos.CENTER); //centering
-    }
-    public TextField getTextField() {
-        return textField;
-    }
     public String getText() {
         return textField.getText();
     }
-    public void setText(String text) {
-        textField.setText(text);
+
+    public void clear() {
+        textField.clear();
     }
+
+    public TextField getTextField() {
+        return textField;
+    }
+
     public Label getLabel() {
         return label;
-    }
-    public void setLabelText(String labelText) {
-        label.setText(labelText);
     }
 }

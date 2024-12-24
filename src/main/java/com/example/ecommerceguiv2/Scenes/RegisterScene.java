@@ -4,6 +4,7 @@ import com.example.ecommerceguiv2.Components.LabeledTextField;
 import com.example.ecommerceguiv2.Models.Customer;
 import com.example.ecommerceguiv2.Models.Database;
 import com.example.ecommerceguiv2.Components.SceneController;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -31,6 +32,9 @@ public class RegisterScene extends ScenePage {
         LabeledTextField usernameField = new LabeledTextField("Username:");
         LabeledTextField passwordField = new LabeledTextField("Password:");
         LabeledTextField dateField = new LabeledTextField("Date Of Birth:");
+
+        textFieldsContainerRegister.setStyle("-fx-alignment: center;");
+        textFieldsContainerRegister.setPadding(new Insets(20, 40, 20, 40)); // Add padding for better spacing
 
         // Gender selection
         ToggleGroup group = new ToggleGroup();

@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+
 import java.util.List;
 
 public class ProductDetailsPage extends ScenePage {
@@ -47,7 +48,7 @@ public class ProductDetailsPage extends ScenePage {
         descriptionArea.setPrefRowCount(3);
         descriptionArea.setEditable(false); // Make the field non-editable
         Button b1 = new Button("Add to cart");
-        b1.setOnAction(e->{
+        b1.setOnAction(e -> {
             db.getLoggedCustomer().addToCart(product, 1, db);
         });
         // Add fields to form pane
@@ -67,16 +68,23 @@ public class ProductDetailsPage extends ScenePage {
         buttonBox.setPadding(new Insets(10));
         buttonBox.setSpacing(10);
         buttonBox.setStyle("-fx-alignment: center-right;");
-        if(db.isAdmin()){
+        if (db.isAdmin()) {
             System.out.println("is admin");
             Button b2 = new Button("Edit");
-                    b2.setOnAction(e -> {
+            b2.setOnAction(e -> {
                         AddProductPage productPage = new AddProductPage(db, product, sc);
                         sc.addScene("addProduct", productPage, product.getName());
                         sc.switchToScene("addProduct");
                     }
             );
             buttonBox.getChildren().add(b2);
+            Button b3 = new Button("Remove");
+            b3.setOnAction(e -> {
+                        db.delete(Product.class, product);
+                        sc.goBack();
+                    }
+            );
+            buttonBox.getChildren().add(b3);
         }
         mainLayout.setBottom(buttonBox);
         // Create and set the scene

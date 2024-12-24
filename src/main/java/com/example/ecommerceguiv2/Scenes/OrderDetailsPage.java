@@ -57,16 +57,16 @@ public class OrderDetailsPage extends ScenePage {
         detailsGrid.add(new Label("$" + String.format("%.2f", o.getTotal())), 1, 2);
 
         // Add items to the order details
-        detailsGrid.add(new Label("Items:"), 0, 3);
-        VBox itemsList = new VBox(5);
-        for (Item item : o.getProducts()) { // Assuming o.getItems() returns a list of items in the order
-            itemsList.getChildren().add(new Label(
-                    item.getProduct().getName() + " - $" +
-                            String.format("%.2f", item.getProduct().getPrice()) + "*" +
-                            item.getQuantity() + " = " + item.getProduct().getPrice() * item.getQuantity()
-            ));
-        }
-        detailsGrid.add(itemsList, 1, 3);
+//        detailsGrid.add(new Label("Items:"), 0, 3);
+//        VBox itemsList = new VBox(5);
+//        for (Item item : o.getProducts()) { // Assuming o.getItems() returns a list of items in the order
+//            itemsList.getChildren().add(new Label(
+//                    item.getProduct().getName() + " - $" +
+//                            String.format("%.2f", item.getProduct().getPrice()) + "*" +
+//                            item.getQuantity() + " = " + item.getProduct().getPrice() * item.getQuantity()
+//            ));
+//        }
+//        detailsGrid.add(itemsList, 4, 5);
 
         // Cancel Order Button
         Button cancelOrderButton = new Button(db.isAdmin() ? "Process Order": "Cancel Order");

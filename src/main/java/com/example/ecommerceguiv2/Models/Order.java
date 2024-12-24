@@ -84,8 +84,7 @@ public class Order {
     // methods
     public void processOrder(Database db) {
         for (Item orderItem : orderItems) {
-            orderItem.getProduct().setStockQuantity(orderItem.getProduct().getStockQuantity() - orderItem.getQuantity()
-            );
+            orderItem.getProduct().setStockQuantity(orderItem.getProduct().getStockQuantity() - orderItem.getQuantity());
             db.update(Product.class, orderItem.getProduct());
         }
         status = "processed";

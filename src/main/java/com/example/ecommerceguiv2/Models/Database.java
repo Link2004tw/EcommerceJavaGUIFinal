@@ -400,6 +400,7 @@ public class Database {
 
     public<T> void delete(Class<T> c, T object) throws NotFoundException {
         int index = getIndex(c, object);
+        System.out.println(index);
         if(c == Cart.class){
             carts.remove(index);
         }

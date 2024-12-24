@@ -72,6 +72,7 @@ public class Cart {
 
     public void clearCart() {
         items.clear();
+        totalAmount = 0;
     }
 
     @Override
