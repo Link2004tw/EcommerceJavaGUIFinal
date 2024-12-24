@@ -74,7 +74,7 @@ public class Product implements Validatable<Integer> {
         return ((Product)o).id == id;
     }
     @Override
-    public String toString() {
+public String toString() {
         return "Id: " + id +
                 "\nName: " + name +
                 "\nDescription: " + this.description +

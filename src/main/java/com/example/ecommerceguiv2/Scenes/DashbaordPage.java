@@ -101,7 +101,7 @@ public class DashbaordPage extends ScenePage {
         HBox.setHgrow(usernameButton, Priority.ALWAYS);
 
         // Placeholder content for the center
-        Label placeholder = new Label("Welcome to the Customer Dashboard");
+        Label placeholder = new Label("Welcome to Dashboard");
         placeholder.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         VBox centerContent = new VBox(placeholder);
         centerContent.setAlignment(Pos.CENTER);
