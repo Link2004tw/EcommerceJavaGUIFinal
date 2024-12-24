@@ -49,13 +49,17 @@ public class OrdersPage extends ScenePage {
             Label noOrdersLabel = new Label("No orders yet");
 
             // Create a button for "Continue Shopping"
+
             Button continueShoppingButton = new Button("Continue Shopping");
             continueShoppingButton.setOnAction(e -> {
                 sc.switchToScene("products");
             });
 
             // Add the label and button to the VBox
-            vbox.getChildren().addAll(noOrdersLabel, continueShoppingButton);
+            vbox.getChildren().add(noOrdersLabel);
+            if(!db.isAdmin()){
+                vbox.getChildren().add(continueShoppingButton);
+            }
             container.getChildren().add(vbox);
         } else {
             GridPane gridPane = new GridPane();

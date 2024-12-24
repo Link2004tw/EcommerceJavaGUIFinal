@@ -50,7 +50,10 @@ public class ProductDetailsPage extends ScenePage {
         Button b1 = new Button("Add to cart");
         b1.setOnAction(e -> {
             db.getLoggedCustomer().addToCart(product, 1, db);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, product.getName() + " Added To Cart", ButtonType.OK);
+            alert.showAndWait();
         });
+
         // Add fields to form pane
         formPane.add(nameLabel, 0, 0);
         formPane.add(nameField, 1, 0);
@@ -85,7 +88,10 @@ public class ProductDetailsPage extends ScenePage {
                     }
             );
             buttonBox.getChildren().add(b3);
+        }else {
+            buttonBox.getChildren().add(b1);
         }
+
         mainLayout.setBottom(buttonBox);
         // Create and set the scene
         Scene s = new Scene(mainLayout, 600, 500);
