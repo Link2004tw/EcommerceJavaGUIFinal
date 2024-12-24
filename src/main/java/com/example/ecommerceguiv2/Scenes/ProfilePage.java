@@ -69,28 +69,28 @@ public class ProfilePage extends ScenePage {
             grid.add(new Label(String.valueOf(p.getGender()).toLowerCase()) {{
                 setStyle(smallerLabelStyle);
             }}, 1, 2);
-
-            grid.add(new Label("Balance:") {{
-                setStyle("-fx-font-size: 14px;");
-            }}, 0, 3);
-            grid.add(new Label("$" + String.format("%.2f", p.getBalance())) {{
-                setStyle(smallerLabelStyle);
-            }}, 1, 3);
-
+            if(!db.isAdmin()) {
+                grid.add(new Label("Balance:") {{
+                    setStyle("-fx-font-size: 14px;");
+                }}, 0, 3);
+                grid.add(new Label("$" + String.format("%.2f", p.getBalance())) {{
+                    setStyle(smallerLabelStyle);
+                }}, 1, 3);
+            }
             if (db.isAdmin()) {
                 grid.add(new Label("Role:") {{
                     setStyle("-fx-font-size: 14px;");
-                }}, 0, 4);
+                }}, 0,  db.isAdmin() ? 3 : 4);
                 grid.add(new Label(((Admin) p).getRole()) {{
                     setStyle(smallerLabelStyle);
-                }}, 1, 4);
+                }}, 1, db.isAdmin() ? 3 : 4);
 
                 grid.add(new Label("Working hours:") {{
                     setStyle("-fx-font-size: 14px;");
-                }}, 0, 5);
+                }}, 0, db.isAdmin() ? 4 : 5);
                 grid.add(new Label(String.valueOf(((Admin) p).getWorkingHours()) + " hours") {{
                     setStyle(smallerLabelStyle);
-                }}, 1, 5);
+                }}, 1,  db.isAdmin() ? 4 : 5);
             }
 
             // Footer Buttons
